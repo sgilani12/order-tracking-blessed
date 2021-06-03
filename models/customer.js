@@ -3,29 +3,33 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     dialect: 'mysql'});
 
 const Customer = sequelize.define('customer', {
-    customerId: {
+    customer_id: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        primaryKey: true,
+        autoIncrement: true
     },
-    firstName: {
+    first_name: {
         type: DataTypes.STRING,
         allowNull:false
     },
-    middleName: {
+    middle_name: {
         type: DataTypes.STRING
       },
-    lastName: {
+    last_name: {
         type: DataTypes.STRING,
         allowNull: false
     },
     phone: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
     },
-    customerNotes: {
+    customer_notes: {
         type: DataTypes.STRING
     },
     address: {

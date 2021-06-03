@@ -4,7 +4,8 @@ const productsRouter = express.Router();
 
 productsRouter.route('/')
     .get((req, res) => {
-        res.send("Request: GET /products");
+        //res.send("Request: GET /products");
+        res.render('products');
     })
 
 productsRouter.route('/:id')

@@ -3,7 +3,8 @@ const customersRouter = express.Router();
 
 customersRouter.route('/')
     .get((req, res) => {
-        res.send('Request: GET /customers');
+        //res.send('Request: GET /customers');
+        res.render('customers');
     })
     .post((req, res) => {
         res.send(`Request: POST /customers/${req.params['id']}`);

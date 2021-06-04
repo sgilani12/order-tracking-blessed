@@ -9,11 +9,13 @@ const ordersRouter = require('./routes/orders');
 const customersRouter = require('./routes/customers');
 const newCustomerRouter = require('./routes/newCustomer');
 const newOrderRouter = require('./routes/newOrder');
+const LoginRouter = require('./routes/login');
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.use('/', indexRouter);
+app.use('/', LoginRouter);
+app.use('/dashboard', indexRouter);
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
 app.use('/customers', customersRouter);

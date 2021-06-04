@@ -31,15 +31,19 @@ var customersController={
                 last_name:req.body.lname,
                 phone:req.body.phone,
                 email:req.body.email,
-                customer_notes:req.body.customernotes,
+                customer_notes:req.body.notes,
+                address:req.body.address,
+                /*
                 shipping_address:req.body.shipaddress,
                 billing_address:req.body.billaddress
+                */
             }
             // add/save user to db
             // re-direct to customerHome
     
             // this method calls the function in customerModel.js to save to db
             customerModel.addCustomer(customer, (err, created) => {
+                console.log(customer);
                 if (err) {
                     console.log("Error occurred", err);
                 } else {

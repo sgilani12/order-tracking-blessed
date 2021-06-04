@@ -7,6 +7,7 @@ const Customer = sequelize.define(
     customer_id: {
       type: DataTypes.INTEGER,
       unique: true,
+      primaryKey: true,
     },
     first_name: {
       type: DataTypes.STRING,
@@ -38,17 +39,24 @@ const Customer = sequelize.define(
     customer_notes: {
       type: DataTypes.STRING,
     },
+    /*
     shipping_address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    
     billing_address: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    */
+   address: {
+     type: DataTypes.STRING,
+     allowNull: false,
+   }
   },
   {
-    // options
+    timestamps: false
   }
 );
 
@@ -62,8 +70,11 @@ module.exports.addCustomer=(newCustomer, cb)=>{
             phone: newCustomer.phone,
             email: newCustomer.email,
             customer_notes: newCustomer.customer_notes,
+            address: newCustomer.address,
+            /*
             shipping_address: newCustomer.shipping_address,
             billing_address: newCustomer.billing_address
+            */
         }})
         .then((created) => {
             cb(null,created);

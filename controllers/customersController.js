@@ -25,24 +25,30 @@ var customersController={
         try {
             // unpack req.body and create customer object
             const customer = {
-                first_name:req.body.firstname,
-                middle_name:req.body.middlename,
-                last_name:req.body.lastname,
+                first_name:req.body.fname,
+                middle_name:req.body.mname,
+                last_name:req.body.lname,
                 phone:req.body.phone,
                 email:req.body.email,
                 customer_notes:req.body.customernotes,
-                address:req.body.address
+                shipping_address:req.body.shipaddress,
+                billing_address:req.body.billaddress
             }
             // add/save user to db
             // re-direct to customerHome
     
             // this method calls the function in customerModel.js to save to db
-            customerModel.addCustomer(customer, (err,data) => {
+            customerModel.addCustomer(customer, (err, created) => {
                 if (err) {
                     console.log("Error occurred", err);
                 } else {
-                    console.log(data);
-                    res.redirect('/customers'); //re-direct to list or /customers/:id?
+                    if (created) {
+                        // new customer created
+                        res.redirect('customers');
+                    } else {
+                        // customer already exists
+                        res.redirect('customers/add');
+                    }
                 }
             });
         }

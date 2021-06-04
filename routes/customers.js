@@ -1,5 +1,6 @@
 const express = require('express');
 const customersRouter = express.Router();
+const customerController = require('../controllers/customersController')
 
 customersRouter.route('/')
     .get((req, res) => {
@@ -10,7 +11,7 @@ customersRouter.route('/')
         res.send(`Request: POST /customers/${req.params['id']}`);
     });
 
-    customersRouter.route('/:id')
+customersRouter.route('/:id')
     .get((req, res) => {
         res.send(`Request: GET /customers/${req.params['id']}`);
     })  
@@ -20,5 +21,10 @@ customersRouter.route('/')
     .put((req, res) => {
         res.send(`Request: PUT /customers/${req.params['id']}`);
     });
+
+customersRouter.route('/newCustomer')
+    .get((req, res) => {
+        
+    })
 
 module.exports = customersRouter;

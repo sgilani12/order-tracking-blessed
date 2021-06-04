@@ -51,3 +51,21 @@ const Customer = sequelize.define(
     // options
   }
 );
+
+
+module.exports.addCustomer=(newCustomer, cb)=>{
+    Customer.findOrCreate({where: {email: newCustomer.email}, 
+        defaults: {
+            first_name: newCustomer.first_name,
+            middle_name: newCustomer.middle_name,
+            last_name: newCustomer.last_name,
+            phone: newCustomer.phone,
+            email: newCustomer.email,
+            customer_notes: newCustomer.customer_notes,
+            shipping_address: newCustomer.shipping_address,
+            billing_address: newCustomer.billing_address
+        }})
+        .then((created) => {
+            cb(null,created);
+        });
+}

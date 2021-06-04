@@ -8,3 +8,5 @@ var ordersController={
       res.render('ordersHome', orders)
       }
 }
+
+module.exports = ordersController;

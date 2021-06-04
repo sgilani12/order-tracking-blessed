@@ -1,4 +1,5 @@
 const express = require('express');
+
 const customersRouter = express.Router();
 const customerController = require('../controllers/customersController')
 
@@ -24,7 +25,8 @@ customersRouter.route('/:id')
 
 customersRouter.route('/newCustomer')
     .get((req, res) => {
-        
-    })
+        res.render('newCustomer');
+    });
+
 
 module.exports = customersRouter;

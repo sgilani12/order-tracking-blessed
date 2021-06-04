@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    </head>
+    <body>
+        <h1>New Order</h1>
+        <form name="newOrder" method="POST" action="/orders">
+            <table>
+                <tr>
+                    <td>Customer</td>
+                    <td><input type="text" name="customer" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button id="newCustomer" type="button">Add New Customer</button></td>
+                </tr>
+                <tr>
+                    <td>Product</td>
+                    <td><input type="text" id="productname" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="button" id="addProductButton" class="btn btn-primary" >Add to Order</button></td>
+                </tr>
+                <table id="orderTable" border="1">
+                    <caption>Order Details</caption>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <tr>
+                    <td colspan="2"><input type="button" value="Add to Drafts" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="button" id="submitButton" class="btn btn-primary">Submit</button></td>
+                </tr>
+            </table>
+        </form>   
+        <!--we need a form here like newCustomer and a POST to the right endpoint-->
+        <script>
+        document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+        document.getElementById("submitButton").addEventListener("click", submitForm, false);
+        document.getElementById("newCustomer").onclick = function () {
+            location.assign("/newCustomer");
+        };
+        function orderUpdate(){
+            if ($('#productname').val() != null && $('#productname').val() != '') {
+                productAddToTable();
+                formClear();
+                $('#productname').focus();
+            }
+        }
+        
+        function productAddToTable(){
+            // First check if a <tbody> tag exists, add one if not
+            if ($('#orderTable tbody').length == 0) {
+                $('#orderTable').append("<tbody></tbody>");
+            }
+        
+            // Append product to the table
+            $('#orderTable tbody').append("<tr>" +
+                "<td>"+ $('#productname').val() + "</td>" +
+                "</tr>");
+        }
+        function formClear(){
+            $('productname').val("");
+        }
+        function submitForm(){
+            document.newOrder.submit();
+            console.log("Form submitted successfully!")
+        }
+        </script>
+    </body>
+
+</html>

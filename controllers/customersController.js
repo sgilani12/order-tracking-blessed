@@ -16,6 +16,10 @@ var customersController={
             }
         });
     },
+  
+    customerNew(req,res){
+      res.render('newCustomer')
+    },
     addCustomer(req, res) {
         // how to handle optional fields?
         try {

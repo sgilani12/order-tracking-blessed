@@ -1,8 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("database", "username", "password", {
-  dialect: "mysql",
-  freezeTableName: true,
-});
+const { sequelize } = require("./_key.js");
 
 const User = sequelize.define(
   "user",

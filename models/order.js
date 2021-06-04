@@ -1,16 +1,12 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const Customer = require('customer')
-const sequelize = new Sequelize("database", "username", "password", {
-  dialect: "mysql",
-});
+const { sequelize } = require("./_key.js");
 
 const Order = sequelize.define(
   "order",
   {
     order_id: {
       type: DataTypes.INTEGER,
-      primaryKey = true,
-      autoIncrement = true,
+      unique: true,
     },
     datetime_order_placed: {
       type: DataTypes.DATE,
@@ -18,11 +14,9 @@ const Order = sequelize.define(
     },
     customer_id: {
       type: DataTypes.INTEGER,
-      references: 'customers',
-      referencesKey: 'customer_id',
     },
     order_status_code: {
-      type: DataTypes.ENUM,
+      type: DataTypes.ENUM("one"),
       allowNull: false,
     },
     total_order_price: {
@@ -33,8 +27,6 @@ const Order = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
   },
   {}
 );
-

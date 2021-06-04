@@ -1,0 +1,5 @@
+{"dev": {  
+    "driver": "mysql",   
+    "database": "capstone_db"
+    }
+}

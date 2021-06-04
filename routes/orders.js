@@ -4,7 +4,8 @@ var ordersRouter = express.Router();
 
 ordersRouter.route('/')
     .get((req,res) => {
-        res.send('Request: GET /orders')
+        //res.send('Request: GET /orders')
+        res.render('orders');
     })
     .post((req,res) => {
         res.send('Request: PUT /orders')

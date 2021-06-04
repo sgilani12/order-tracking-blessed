@@ -33,7 +33,7 @@ a {
   -webkit-backface-visibility: hidden;
 }
 .sidebar header {
-  background-color: #09f;
+  background-color: rgb(155, 12, 35);
   width: 100%;
   display: block;
   padding: 0.75em 1em;

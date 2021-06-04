@@ -4,15 +4,17 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 const Product = sequelize.define('product', {
 
-  productId: {
+  product_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      primaryKey: true,
+      autoIncrement: true
   },
-  productSKU: {
+  sku: {
       type: DataTypes.STRING(12),
-      allowNull: false
+      allowNull: false,
+      unique: true
   },
-  product_price: {
+  price: {
       type: DataTypes.FLOAT,
       allowNull: false
   },
@@ -20,15 +22,15 @@ const Product = sequelize.define('product', {
       type: DataTypes.STRING,
       allowNull: false
   },
-  product_quantity: {
+  quantity: {
       type: DataTypes.INTEGER,
       allowNull: false
   },
-  product_description: {
+  description: {
       type: DataTypes.STRING,
   }
 
 }, {
-  // options go here
+  // toDo: add methods for use in products controller 
 });
 

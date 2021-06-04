@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
 
-    </head>
-    <body>
-        <h1>Indexx</h1>
-        <!--this doesn't work because we need something more on backend to route this-->
-        <ul>
-            <li><a href="customers/newCustomer">Add new customer</a></li>
-            <li><a href="/newOrder">Add new order</a></li>
-            <li><a href="/customers">Go to customers page</a></li>
-            <li><a href="/orders">Go to orders page</a></li>
-            <li><a href="/products">Go to products page</a></li>
-        </ul>
-    </body>
+<head>
+
+</head>
+
+<body>
+    <h1>Index</h1>
+    <!--this doesn't work because we need something more on backend to route this
+    <ul>
+        <li><a href="customers/newCustomer">Add new customer</a></li>
+        <li><a href="/newOrder">Add new order</a></li>
+        <li><a href="/customers">Go to customers page</a></li>
+        <li><a href="/orders">Go to orders page</a></li>
+        <li><a href="/products">Go to products page</a></li>
+    </ul>
+-->
+
+
+
+    <section class="app">
+        <aside class="sidebar">
+            <header>
+                <a href="/">Dashboard</a>
+            </header>
+            <nav class="sidebar-nav">
+
+                <ul>
+                    <li>
+                        <a href="#"><i class="ion-bag"></i> <span>Customers</span></a>
+                        <ul class="nav-flyout">
+                            <li>
+                                <a href="/customers"><i class="ion-ios-color-filter-outline"></i>View All</a>
+                            </li>
+                            <li>
+                                <a href="/customers/newCustomer"><i class="ion-ios-clock-outline"></i>Add new
+                                    customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="ion-ios-settings"></i> <span class="">Orders</span></a>
+                        <ul class="nav-flyout">
+                            <li>
+                                <a href="/orders"><i class="ion-ios-alarm-outline"></i>View All</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-ios-camera-outline"></i>Create Order</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/products"><i class="ion-ios-briefcase-outline"></i> <span class="">Products</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+    </section>
+
+
+
+</body>
+
 </html>

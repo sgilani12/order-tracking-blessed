@@ -5,9 +5,7 @@ const customerController = require('../controllers/customersController')
 
 customersRouter.route('/')
     .get(customerController.customerHome)
-    .post((req, res) => {
-        res.send(`Request: POST /customers/${req.params['id']}`);
-    });
+    .post(customerController.addCustomer)
 
 customersRouter.route('/newCustomer')
     .get(customerController.customerNew)

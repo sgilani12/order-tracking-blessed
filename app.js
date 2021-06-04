@@ -1,4 +1,6 @@
 const express = require('express');
+var bodyParser = require('body-parser')
+
 
 const app = express();
 const port = 3000;
@@ -17,6 +19,9 @@ app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
 app.use('/customers', customersRouter);
 app.use('/newOrder', newOrderRouter);
+
+var urlParser = bodyParser.urlencoded({extended: false})
+app.post('/customers', bodyParser);
 
 app.listen(port, () => {
     console.log(`Server listening on Port: ${port}`);

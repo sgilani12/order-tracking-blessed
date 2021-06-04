@@ -22,6 +22,7 @@ var customersController={
     },
     addCustomer(req, res) {
         // how to handle optional fields?
+        console.log(req.body)
         try {
             // unpack req.body and create customer object
             const customer = {

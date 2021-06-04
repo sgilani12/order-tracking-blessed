@@ -23,11 +23,11 @@ const User = sequelize.define(
         isEmail: true,
       },
     },
-    password: {
+    user_password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
+    user_role: {
       type: DataTypes.ENUM("csr"),
       allowNull: false,
     },

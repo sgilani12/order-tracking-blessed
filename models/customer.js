@@ -14,6 +14,9 @@ const Customer = sequelize.define(
       get() {
         return this.getDataValue(first_name);
       },
+      set(value) {
+        this.setDataValue('first_name', value);
+      },
     },
     middle_name: {
       type: DataTypes.STRING,

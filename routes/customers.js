@@ -24,9 +24,7 @@ customersRouter.route('/:id')
     });
 
 customersRouter.route('/newCustomer')
-    .get((req, res) => {
-        res.render('newCustomer');
-    });
+ .get(customerController.customerNew)
 
 
 module.exports = customersRouter;

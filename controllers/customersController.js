@@ -58,11 +58,10 @@ var customersController = {
     res.render("deleteCustomer");
   },
   deleteCustomer(req, res) {
+    console.log("---------TEST-----------")
     try {
-      const customer = {
-        customer_id: req.body.customerid,
-      };
-      customerModel.deleteCustomer(customer, (err, deleted) => {
+      const id = req.params['id']
+      customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           console.log("Error occurred", err);
         } else {
@@ -71,7 +70,7 @@ var customersController = {
             res.redirect("customers");
           } else {
             // customer doesn't exist
-            res.redirect("customers/delete");
+            res.redirect("/customers/delete");
           }
         }
       });

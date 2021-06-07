@@ -1,7 +1,13 @@
 const express = require('express');
+const bodyparser = require('body-parser');
+
 
 const app = express();
 const port = 3000;
+
+const urlparser = bodyparser.urlencoded({extended:true});
+
+
 
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');
@@ -11,6 +17,8 @@ const newOrderRouter = require('./routes/newOrder');
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
+
+app.use(urlparser);
 
 app.use('/', indexRouter);
 app.use('/products', productsRouter);

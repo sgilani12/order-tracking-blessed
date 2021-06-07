@@ -7,6 +7,7 @@ const Customer = sequelize.define(
     customer_id: {
       type: DataTypes.INTEGER,
       unique: true,
+      primaryKey: true,
     },
     first_name: {
       type: DataTypes.STRING,
@@ -70,8 +71,8 @@ module.exports.addCustomer = (newCustomer, cb) => {
   });
 };
 
-module.exports.deleteCustomer = (deleteCustomer, cb) => {
-  Customer.destroy({ where: { customer_id: deleteCustomer.customer_id } })
+module.exports.deleteCustomer = (id, cb) => {
+  Customer.destroy({ where: { customer_id: id } })
   .then((created) => {
     cb(null, created);
   });

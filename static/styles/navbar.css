@@ -34,6 +34,9 @@ a {
 .nav .main-item, .nav .sub-item{
   padding: 15px 0px;
   background:rgb(155, 12, 35);
+  border: 0.5px solid black;
+  border-top: 0.5px black;
+  border-left: 0.5px black;
 }
 .nav .nav-item .sub-items {
   position: absolute;
@@ -44,7 +47,7 @@ a {
   transition: all 80ms ease-in-out;
 }
 .nav .main-item:hover, .nav .sub-item:hover{
-  background:#00acee;
+  background:rgb(211, 7, 43);
   cursor: pointer;
 }
 

@@ -55,11 +55,10 @@ var customersController={
                 }
             });
         }
-      } catch (error) {
+       catch (error) {
         console.log(error);
       }
-    });
-  },
+    },
 
   customerNew(req, res) {
     res.render("newCustomer");

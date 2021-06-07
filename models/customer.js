@@ -35,6 +35,9 @@ const Customer = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      }
     },
     customer_notes: {
       type: DataTypes.STRING,
@@ -56,7 +59,7 @@ const Customer = sequelize.define(
 
 
 
-module.exports.addCustomer=(newCustomer, cb)=>{
+module.exports.addCustomer = (newCustomer, cb)=>{
     Customer.findOrCreate({where: {email: newCustomer.email}, 
         defaults: {
             first_name: newCustomer.first_name,
@@ -68,20 +71,25 @@ module.exports.addCustomer=(newCustomer, cb)=>{
             shipping_address: newCustomer.shipping_address,
             billing_address: newCustomer.billing_address
         }})
-        .then((created) => {
-            cb(null,created);
-        });
+        .then( function(result, created) {
+            console.log("TEST______ customer.findorcreate.then");
+            cb(result, created);
+        })
+        .catch(function(err){
+          cb(0,1)
+        })
+
+        
 }
 
 module.exports.deleteCustomer = (id, cb) => {
   Customer.destroy({ where: { customer_id: id } })
   .then((created) => {
     cb(null, created);
-  });
+  })
 };
 
 module.exports.getCustomerList= (cb)=>{
-  console.log("Before");
   const allCustomers =  Customer.findAll()
   .then((data)=> {
     var newData = [];

@@ -4,9 +4,6 @@ const customersRouter = express.Router();
 const customersController = require('../controllers/customersController')
 
 
-customersRouter.post('/', (req, res) => {
-    res.send(200, customersController.addCustomer(req,res));
-});
 
 customersRouter.route('/delete')
     .post(customersController.deleteCustomer)

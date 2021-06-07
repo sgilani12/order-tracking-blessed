@@ -16,10 +16,9 @@ customersRouter.route('/')
     .get(customersController.customerHome)
     .post(customersController.addCustomer)
 
-customersRouter.route('/newCustomer')
-    .get(customersController.customerNew)
 
-
+customersRouter.route('/add')
+    .get(customersController.customerNew)   
 
 customersRouter.route('/:id')
     .get((req, res) => {

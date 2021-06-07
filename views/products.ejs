@@ -3,10 +3,14 @@
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
 
 </head>
 
 <body>
+    <div class="page-content">
     <h1>This is the products page</h1>
     <ul>
         <li><a href="customers/newCustomer">Add new customer</a></li>
@@ -30,7 +34,7 @@
         <tbody>
             <% var products=[ { "product_id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
                 , "quantity" : 40, "description" : "this is great" }, { "product_id" : 2, "SKU" : "kuhw54afds5"
-                , "price" : 22.99, "product_name" : "West" , "quantity" : 20, "description" : "this is cool" } ] %>-->
+                , "price" : 22.99, "product_name" : "West" , "quantity" : 20, "description" : "this is cool" } ] %>
                 <!--object called customers loaded on page render -->
                 <% if(products.length> 0){ %>
 
@@ -61,6 +65,7 @@
         </tbody>
         <tfoot></tfoot>
     </table>
+</div>
 </body>
 
 </html>

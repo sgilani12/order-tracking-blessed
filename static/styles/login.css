@@ -1,0 +1,18 @@
+.container{
+    padding:60px;
+}
+.form-signin-heading{
+    margin-bottom:30px;
+}
+.input{
+    margin-bottom:30px;
+}
+.login-button{
+    background-color:rgb(155, 12, 35);
+    color:white;
+
+}
+.login-button:hover{
+    background-color:#E5006D;
+    color:white;
+}

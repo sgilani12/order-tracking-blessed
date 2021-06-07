@@ -9,7 +9,8 @@ customersRouter.post('/', (req, res) => {
 });
 
 customersRouter.route('/delete')
-    .post(customersController.deleteCustomer);
+    .post(customersController.deleteCustomer)
+    .get(customersController.customerDelete)
 
 customersRouter.route('/')
     .get(customersController.customerHome)

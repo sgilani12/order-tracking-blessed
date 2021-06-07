@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 
-const urlparser = bodyparser.urlencoded({extended:true});
+const urlParser = bodyparser.urlencoded({extended:true});
 
 app.use(urlParser);
 
@@ -19,7 +19,6 @@ const newOrderRouter = require('./routes/newOrder');
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-app.use(urlparser);
 
 app.use('/', indexRouter);
 app.use('/products', productsRouter);

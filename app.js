@@ -1,12 +1,12 @@
 const express = require('express');
-var bodyParser = require('body-parser')
-
-
+const bodyparser = require('body-parser');
 
 const app = express();
 const port = 3000;
 
-var urlParser = bodyParser.urlencoded({extended: false})
+
+const urlParser = bodyparser.urlencoded({extended:true});
+
 app.use(urlParser);
 
 
@@ -19,6 +19,7 @@ const LoginRouter = require('./routes/login');
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
+
 
 app.use('/', LoginRouter);
 app.use('/dashboard', indexRouter);

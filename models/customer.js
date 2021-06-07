@@ -16,7 +16,7 @@ const Customer = sequelize.define(
         return this.getDataValue(first_name);
       },
       set(value) {
-        this.setDataValue('first_name', value);
+        this.setDataValue("first_name", value);
       },
     },
     middle_name: {
@@ -54,6 +54,8 @@ const Customer = sequelize.define(
   }
 );
 
+
+
 module.exports.addCustomer=(newCustomer, cb)=>{
     Customer.findOrCreate({where: {email: newCustomer.email}, 
         defaults: {
@@ -70,6 +72,13 @@ module.exports.addCustomer=(newCustomer, cb)=>{
             cb(null,created);
         });
 }
+
+module.exports.deleteCustomer = (id, cb) => {
+  Customer.destroy({ where: { customer_id: id } })
+  .then((created) => {
+    cb(null, created);
+  });
+};
 
 module.exports.getCustomerList= (cb)=>{
   console.log("Before");

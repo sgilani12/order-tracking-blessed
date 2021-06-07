@@ -67,7 +67,7 @@ var customersController = {
         } else {
           if (deleted) {
             // customer deleted
-            res.redirect("customers");
+            res.redirect("/customers");
           } else {
             // customer doesn't exist
             res.redirect("/customers/delete");

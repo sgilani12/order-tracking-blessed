@@ -43,33 +43,35 @@ const Customer = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    
     billing_address: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   },
   {
-    // options
+    timestamps: false
   }
 );
 
-module.exports.addCustomer = (newCustomer, cb) => {
-  Customer.findOrCreate({
-    where: { email: newCustomer.email },
-    defaults: {
-      first_name: newCustomer.first_name,
-      middle_name: newCustomer.middle_name,
-      last_name: newCustomer.last_name,
-      phone: newCustomer.phone,
-      email: newCustomer.email,
-      customer_notes: newCustomer.customer_notes,
-      shipping_address: newCustomer.address,
-      billing_address: newCustomer.address,
-    },
-  }).then((created) => {
-    cb(null, created);
-  });
-};
+
+
+module.exports.addCustomer=(newCustomer, cb)=>{
+    Customer.findOrCreate({where: {email: newCustomer.email}, 
+        defaults: {
+            first_name: newCustomer.first_name,
+            middle_name: newCustomer.middle_name,
+            last_name: newCustomer.last_name,
+            phone: newCustomer.phone,
+            email: newCustomer.email,
+            customer_notes: newCustomer.customer_notes,
+            shipping_address: newCustomer.shipping_address,
+            billing_address: newCustomer.billing_address
+        }})
+        .then((created) => {
+            cb(null,created);
+        });
+}
 
 module.exports.deleteCustomer = (id, cb) => {
   Customer.destroy({ where: { customer_id: id } })
@@ -77,3 +79,14 @@ module.exports.deleteCustomer = (id, cb) => {
     cb(null, created);
   });
 };
+
+module.exports.getCustomerList= (cb)=>{
+  console.log("Before");
+  const allCustomers =  Customer.findAll()
+  .then((data)=> {
+    var newData = [];
+    data.forEach( (element)=> newData.push(element.dataValues) );
+    cb(null, newData);
+  });
+  
+}

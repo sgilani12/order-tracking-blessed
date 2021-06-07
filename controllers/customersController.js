@@ -32,11 +32,8 @@ var customersController={
                 phone:req.body.phone,
                 email:req.body.email,
                 customer_notes:req.body.notes,
-                address:req.body.address,
-                /*
                 shipping_address:req.body.shipaddress,
                 billing_address:req.body.billaddress
-                */
             }
             // add/save user to db
             // re-direct to customerHome

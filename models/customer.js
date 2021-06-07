@@ -39,7 +39,6 @@ const Customer = sequelize.define(
     customer_notes: {
       type: DataTypes.STRING,
     },
-    /*
     shipping_address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -48,18 +47,12 @@ const Customer = sequelize.define(
     billing_address: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    */
-   address: {
-     type: DataTypes.STRING,
-     allowNull: false,
-   }
+    }
   },
   {
     timestamps: false
   }
 );
-
 
 module.exports.addCustomer=(newCustomer, cb)=>{
     Customer.findOrCreate({where: {email: newCustomer.email}, 
@@ -70,11 +63,8 @@ module.exports.addCustomer=(newCustomer, cb)=>{
             phone: newCustomer.phone,
             email: newCustomer.email,
             customer_notes: newCustomer.customer_notes,
-            address: newCustomer.address,
-            /*
             shipping_address: newCustomer.shipping_address,
             billing_address: newCustomer.billing_address
-            */
         }})
         .then((created) => {
             cb(null,created);

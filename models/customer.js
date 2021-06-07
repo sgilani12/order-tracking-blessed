@@ -86,9 +86,7 @@ module.exports.getCustomerList= (cb)=>{
   const allCustomers =  Customer.findAll()
   .then((data)=> {
     var newData = [];
-
     data.forEach( (element)=> newData.push(element.dataValues) );
-    console.log(newData);
     cb(null, newData);
   });
   

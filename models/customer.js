@@ -70,3 +70,14 @@ module.exports.addCustomer=(newCustomer, cb)=>{
             cb(null,created);
         });
 }
+
+module.exports.getCustomerList= (cb)=>{
+  console.log("Before");
+  const allCustomers =  Customer.findAll()
+  .then((data)=> {
+    var newData = [];
+    data.forEach( (element)=> newData.push(element.dataValues) );
+    cb(null, newData);
+  });
+  
+}

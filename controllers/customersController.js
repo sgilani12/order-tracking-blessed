@@ -8,7 +8,7 @@ var customersController={
                 if(err) {
                     console.log(err)
                 } else {
-                    res.render('customers', {data:data});
+                   res.render('customers', {customers:data});
                 }
             }
             catch (error) {

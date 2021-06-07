@@ -29,6 +29,32 @@
                 </tr>
             </thead>
             <tbody>
+                <% var customers =
+                    [
+                    {
+                        "customer_id": 1,
+                        "first_name": "Imran",
+                        "middle_name": "Kanye",
+                        "last_name": "Subhan",
+                        "phone": "1234567890",
+                        "email": "imran@email.com",
+                        "notes": "is from england",
+                        "shipping_address": "x",
+                        "billing_address": "y"
+                    },
+                    {
+                        "customer_id": 2,
+                        "first_name": "Imran",
+                        "middle_name": "Kanye",
+                        "last_name": "Subhan",
+                        "phone": "1234567890",
+                        "email": "imran@email.com",
+                        "notes": "is from england",
+                        "shipping_address": "x",
+                        "billing_address": "y"
+                    }
+                    ]
+                %>
                 <!--object called customers loaded on page render -->
                 <% if(customers.length > 0){ %>
 

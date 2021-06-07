@@ -1,107 +1,53 @@
-@import "bourbon";
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600);
 body {
-  font-family: "Lato";
-  font-size: 100%;
-  overflow-y: scroll;
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  background-color: #fefefe;
+  margin:0px;
+  font-family: "Open Sans",sans-serif;
 }
 a {
   text-decoration: none;
 }
-.app {
+
+.nav {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width: 150px;
   height: 100vh;
+  background:rgb(155, 12, 35);
+  z-index: 2;
 }
-/* ------------- Sidebar ----------------*/
-.sidebar {
-  position: absolute;
-  width: 17em;
-  height: 100%;
-  top: 0;
-  overflow: hidden;
-  background-color: #19222a;
-  -webkit-transform: translateZ(0);
-  visibility: visible;
-  -webkit-backface-visibility: hidden;
-}
-.sidebar header {
-  background-color: rgb(155, 12, 35);
-  width: 100%;
-  display: block;
-  padding: 0.75em 1em;
-}
-/* ------------- Sidebar Nav ----------------*/
-.sidebar-nav {
-  position: fixed;
-  background-color: #19222a;
-  height: 100%;
-  font-weight: 400;
-  font-size: 1.2em;
-  overflow: auto;
-  padding-bottom: 6em;
-  z-index: 9;
-  overflow: hidden;
-  -webkit-overflow-scrolling: touch;
-  /* ------------- Chev elements ----------------*/
-  /* ------------- Nav-Flyout ----------------*/
-  /* ------------- Hover ----------------*/
-}
-.sidebar-nav ul {
-  list-style: none;
-  display: block;
-  padding: 0;
-  margin: 0;
-}
-.sidebar-nav ul li {
-  margin-left: 0;
-  padding-left: 0;
-  display: inline-block;
-  width: 100%;
-  /* ------------- Sidebar: icons ----------------*/
-}
-.sidebar-nav ul li a {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.75em;
-  padding: 1.05em 1em;
-  position: relative;
-  display: block;
-}
-.sidebar-nav ul li a:hover {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-.sidebar-nav ul li i {
-  font-size: 1.8em;
-  padding-right: 0.5em;
-  width: 9em;
-  display: inline;
-  vertical-align: middle;
-}
-.sidebar-nav > ul > li > a:after {
-  content: "\f125";
-  font-family: ionicons;
-  font-size: 0.5em;
-  width: 10px;
+.nav span {
+  display:block;
+  font-size:14px;
   color: #fff;
-  position: absolute;
-  right: 0.75em;
-  top: 45%;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top:10px;
 }
-.sidebar-nav .nav-flyout {
-  position: absolute;
-  background-color: #080d11;
-  z-index: 9;
-  left: 2.5em;
-  top: 0;
-  height: 100vh;
+.nav .nav-item{
+  position:relative;
+  width:100%;
+  text-align:center;
 }
-.sidebar-nav .nav-flyout a:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+.nav .main-item-header{
+  background-color: white;
+}
+.nav .main-item, .nav .sub-item{
+  padding: 15px 0px;
+  background:rgb(155, 12, 35);
+}
+.nav .nav-item .sub-items {
+  position: absolute;
+  top: 0px;
+  left:0px;
+  width: inherit;
+  z-index: -1;
+  transition: all 80ms ease-in-out;
+}
+.nav .main-item:hover, .nav .sub-item:hover{
+  background:#00acee;
+  cursor: pointer;
+}
+
+.nav .nav-item:hover .sub-items {
+  left: 150px;
 }

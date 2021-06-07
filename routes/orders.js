@@ -1,12 +1,10 @@
 const express = require('express');
 
 var ordersRouter = express.Router();
+var ordersController = require('../controllers/ordersController')
 
 ordersRouter.route('/')
-    .get((req,res) => {
-        //res.send('Request: GET /orders')
-        res.render('orders');
-    })
+    .get(ordersController.orderHome)
     .post((req,res) => {
         res.send('Request: PUT /orders')
     })

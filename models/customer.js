@@ -63,8 +63,8 @@ module.exports.addCustomer = (newCustomer, cb) => {
       phone: newCustomer.phone,
       email: newCustomer.email,
       customer_notes: newCustomer.customer_notes,
-      shipping_address: newCustomer.shipping_address,
-      billing_address: newCustomer.billing_address,
+      shipping_address: newCustomer.address,
+      billing_address: newCustomer.address,
     },
   }).then((created) => {
     cb(null, created);

@@ -3,7 +3,7 @@ const express = require('express');
 const customersRouter = express.Router();
 const customersController = require('../controllers/customersController')
 
-customersRouter.route('/delete/:id')
+customersRouter.route('/delete')
     .post(customersController.deleteCustomer);
 
 customersRouter.route('/')

@@ -60,7 +60,7 @@ var customersController = {
   deleteCustomer(req, res) {
     console.log("---------TEST-----------")
     try {
-      const id = req.params['id']
+      const id = req.body.customerid;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           console.log("Error occurred", err);

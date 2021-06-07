@@ -35,6 +35,9 @@ const Customer = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      }
     },
     customer_notes: {
       type: DataTypes.STRING,
@@ -70,7 +73,7 @@ module.exports.addCustomer = (newCustomer, cb)=>{
         }})
         .then( function(result, created) {
             console.log("TEST______ customer.findorcreate.then");
-            cb(null,result, created);
+            cb(result, created);
         })
         .catch(function(err){
           cb(0,1)

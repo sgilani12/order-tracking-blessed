@@ -40,17 +40,12 @@ var customersController={
             // re-direct to customerHome
     
             // this method calls the function in customerModel.js to save to db
-            customerModel.addCustomer(customer, (err, created) => {
-                if (err) {
-                    console.log("Error occurred", err);
+            customerModel.addCustomer(customer, (foundCustomer, created) => {
+                if (created) {
+                    res.redirect("/customers");
                 } else {
-                    if (created) {
-                        // new customer created
-                        res.redirect("/customers");
-                    } else {
-                        // customer already exists
-                        res.redirect("/customers/add");
-                    }
+                    console.log("CUSTOMER EXISTS ", foundCustomer);
+                    res.redirect("/customers/add");
                 }
             });
         }

@@ -1,7 +1,14 @@
 const express = require('express');
+var bodyParser = require('body-parser')
+
+
 
 const app = express();
 const port = 3000;
+
+var urlParser = bodyParser.urlencoded({extended: false})
+app.use(urlParser);
+
 
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');

@@ -1,4 +1,5 @@
-var customerModel = require('../models/customer');
+var customerModel = require("../models/customer");
+
 
 var customersController={
     customerHome(req, res) {
@@ -54,10 +55,74 @@ var customersController={
                 }
             });
         }
-        catch (err) {
-            console.log('Error occurred', err)
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  },
+
+  customerNew(req, res) {
+    res.render("newCustomer");
+  },
+  addCustomer(req, res) {
+    // how to handle optional fields?
+    try {
+      // unpack req.body and create customer object
+      const customer = {
+        first_name: req.body.fname,
+        middle_name: req.body.mname,
+        last_name: req.body.lname,
+        phone: req.body.phone,
+        email: req.body.email,
+        customer_notes: req.body.customernotes,
+        shipping_address: req.body.shipaddress,
+        billing_address: req.body.billaddress,
+      };
+      // add/save user to db
+      // re-direct to customerHome
+
+      // this method calls the function in customerModel.js to save to db
+      customerModel.addCustomer(customer, (err, created) => {
+        if (err) {
+          console.log("Error occurred", err);
+        } else {
+          if (created) {
+            // new customer created
+            res.redirect("customers");
+          } else {
+            // customer already exists
+            res.redirect("customers/add");
+          }
         }
+      });
+    } catch (err) {
+      console.log("Error occurred", err);
     }
-}
+  },
+  customerDelete(req, res) {
+    res.render("deleteCustomer");
+  },
+  deleteCustomer(req, res) {
+    console.log("---------TEST-----------")
+    try {
+      const id = req.body.customerid;
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+          console.log("Error occurred", err);
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
+        }
+      });
+    } catch (err) {
+      console.log("Error occurred", err);
+    }
+  },
+};
 
 module.exports = customersController;

@@ -29,7 +29,9 @@ const Order = sequelize.define(
     },
   },
   {}
-);
+  {
+    timestamps: false //could probably use later to populate time_of_order column
+  }
 
 module.exports.getOrderList= (cb)=>{
   const allOrders =  Order.findAll()

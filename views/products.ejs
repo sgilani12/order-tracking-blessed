@@ -62,15 +62,14 @@
                                 <!--delete button, DELTE api call to /customers/:id-->
                                 <!--let id = '<%- products[i].product_id%>';-->
                                 <script>
-                                    function deleteProduct(id) {
-                                      requirejs(["javascripts/axios"], async function (axios) {
+                                    async function deleteProduct(id){
                                         let url = `/products/:${id}`;
                                         confirm(`Deleting Product ${id}`);
                                         console.log(`endpoint to hit: ${url}`);
                                         const res = await axios.delete(url);
-                                        console.log(`request status: ${res.status}`);   
-                                      });
-                                    };
+                                        console.log(`request status: ${res.status}`);                                  
+                                    }
+
                                 </script>
                                 
                                 <a onClick="deleteProduct('<%- products[i].product_id%>')" href="">Delete</a>
@@ -83,7 +82,7 @@
         <tfoot></tfoot>
     </table>
 </div>
-<script src="javascripts/require.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

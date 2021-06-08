@@ -91,6 +91,19 @@
                      <td>
                         <%= customers[i].billing_address%>
                      </td>
+                     <td>
+                         <!--delete button, DELTE api call to /customers/:id-->
+                         <% function deleteCustomer(){
+                             <!--send axios delete request-->
+                             let url = `/customers/:${customers[i].customer_id}`;
+                             confirm("you clicked delete");
+                             console.log(url);
+                         }>
+                         <a onClick="deleteCustomer()" href="/customers">Delete</a>
+                         <!--on click:
+                                TODO: call api with DELTE method
+                                      if successful, show some type of confirmation on screen-->
+                     </td>
                     </tr>
                     <% } %>
           

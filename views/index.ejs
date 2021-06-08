@@ -4,69 +4,20 @@
 
 
 <head>
-    <link rel="stylesheet" href="/styles/navbar.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/global.css">
+
 </head>
 
 <body>
-    <h1>Index</h1>
-
-<div class="nav">
-    <div class="nav-item">
-        <div href="#" class="main-item-header" style="color: white;">
-            <span><img src="/static/styles/assets/TJX.png"></span>
-        </div>
-    </div>
-    <div class="nav-item">
-        <a href="/customers">
-            <div class="main-item">
-                <span><i class="fas fa-user-tag" style="color:white; padding-right:5px;"></i>Customers</span>
-                
-            </div>
-        </a>
-        <div class="sub-items">
-            <a href="/customers/newCustomer">
-                <div class="sub-item">
-                    <span>New Customer</span>
-                </div>
-            </a>
-            <a href="/customers">   
-                <div class="sub-item">
-                    <span>Customers</span>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="nav-item">
-        <a href="/orders">
-            <div class="main-item">
-                <span><i class="fas fa-credit-card" style="color:white;padding-right:5px;"></i>Orders</span>
-            </div>
-        </a>
-        <div class="sub-items">
-            <a href="/newOrder">
-                <div class="sub-item">
-                    <span>New Order</span>
-                </div>
-            </a>
-            <a href="/orders">
-                <div class="sub-item">
-                    <span>Orders</span>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="nav-item">
-        <a href="/products">
-            <div class="main-item">
-                <span><i class="fas fa-tag" style="color:white; padding-right: 5px;"></i>Products</span>
-            </div>
-        </a>
-    </div>
-</div>
+    <!--<%- include('partials/nav') %>-->
+    <%- include('partials/side-nav') %>
 
 
-
+    <%- include('partials/footer') %>
 </body>
 
 </html>

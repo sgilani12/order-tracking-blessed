@@ -3,8 +3,13 @@
 <html lang="en">
     <head>
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="/css/global.css">
+
     </head>
     <body>
+        <div class="page-content">
         <h1>New Order</h1>
         <form name="newOrder" method="POST" action="/orders">
             <table>
@@ -74,6 +79,7 @@
             console.log("Form submitted successfully!")
         }
         </script>
+        </div>
     </body>
 
 </html>

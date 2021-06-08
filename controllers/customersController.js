@@ -10,10 +10,11 @@ var customersController={
                 } else {
                    res.render('customers', {customers:data, messages: req.session['message']});
                    req.session.destroy();
+                  } else {
+                   res.render('customers', {customers:data});
                 }
             }
             catch (error) {
-                console.log(error)
             }
         });
     },
@@ -73,10 +74,8 @@ var customersController={
                     })
                   }
               }
-            });
         }
        catch (error) {
-        console.log(error);
       }
     },
     
@@ -88,7 +87,6 @@ var customersController={
       const id = req.body.customerid;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
-          console.log("Error occurred", err);
         } else {
           if (deleted) {
             // customer deleted
@@ -100,9 +98,26 @@ var customersController={
         }
       });
     } catch (err) {
-      console.log("Error occurred", err);
     }
   },
+  deleteID(req, res) {
+    try {
+      const id = req.params['id'];
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
+        }
+      });
+    } catch (err) {
+    }
+  }
 };
 
 

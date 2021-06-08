@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/styles/global.css">
+
 </head>
 
 <body>
@@ -16,7 +19,8 @@
         <title>Login Page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="/css/login.css">
     </head>
 
     <body>
@@ -25,10 +29,10 @@
                 <form action="/dashboard" method="GET" name="Login_Form" class="form-signin">
                     <h3 class="form-signin-heading">Welcome! Please Sign In</h3>
 
-                    <input type="text" name="email" placeholder="Email Address" required="" autofocus="" />
-                    <input type="password" name="password" placeholder="Password" required="" />
+                    <input class="input" type="text" name="email" placeholder="Email Address" required="" autofocus="" />
+                    <input class="input" type="password" name="password" placeholder="Password" required="" />
 
-                    <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login"
+                    <button class="button login-button" name="Submit" value="Login"
                         type="Submit">Login</button>
                 </form>
             </div>

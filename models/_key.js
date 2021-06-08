@@ -1,6 +1,7 @@
 const { Sequelize } = require("sequelize");
-exports.sequelize = new Sequelize("capstone_db", "root", "Welcome01", {
-  host: "localhost",
+require('dotenv').config()
+exports.sequelize = new Sequelize("capstone_db", "CapstoneAdmins@capstone-db-server", process.env.DB_PASS, {
+  host: "capstone-db-server.mysql.database.azure.com",
   dialect: "mysql",
   freezeTableName: true,
 });

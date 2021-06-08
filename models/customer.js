@@ -29,7 +29,7 @@ const Customer = sequelize.define(
       type: DataTypes.STRING,
       validate: {
         is: {
-          args: /^[ a-zA-Z\-\’]+$/,
+          args: /^$|^[ a-zA-Z\-\’]+$/,
           msg: "Name contains invalid characters"
         }
       }

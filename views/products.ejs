@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-
-    </head>
-    <body>
-        <h1>This is the products page</h1>
-        <ul>
-            <li><a href="customers/newCustomer">Add new customer</a></li>
-            <li><a href="/newOrder">Add new order</a></li>
-            <li><a href="/customers">Go to customers page</a></li>
-            <li><a href="/orders">Go to orders page</a></li>
-            <li><a href="/products">Go to products page</a></li>
-        </ul>
-    </body>
+  <head>
+    <!--GET request to the api to retreive customer data
+        Create HTML table from resultant JSON object-->
+  </head>
+  <body>
+    <h1>This is the products page</h1>
+    <ul>
+      <li><a href="customers/add">Add new customer</a></li>
+      <li><a href="newOrder">Add new order</a></li>
+      <li><a href="customers">Go to customers page</a></li>
+      <li><a href="orders">Go to orders page</a></li>
+      <li><a href="products">Go to products page</a></li>
+    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>SKU</th>
+          <th>Price</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(products.length > 0){ %> <% for ( var i = 0 ; i < products.length
+        ; i++){ %>
+        <tr>
+          <td><%= products[i].product_id%></td>
+          <td><%= products[i].sku%></td>
+          <td><%= products[i].price%></td>
+          <td><%= products[i].product_name%></td>
+          <td><%= products[i].quantity%></td>
+          <td><%= products[i].description%></td>
+        </tr>
+        <% } %> <% } %>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+  </body>
 </html>

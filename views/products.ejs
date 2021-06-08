@@ -63,7 +63,7 @@
                                 <!--let id = '<%- products[i].product_id%>';-->
                                 <script>
                                     async function deleteProduct(id){
-                                        let url = `/products/:${id}`;
+                                        let url = `/products/${id}`;
                                         confirm(`Deleting Product ${id}`);
                                         console.log(`endpoint to hit: ${url}`);
                                         const res = await axios.delete(url);

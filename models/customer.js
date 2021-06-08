@@ -18,25 +18,50 @@ const Customer = sequelize.define(
       set(value) {
         this.setDataValue("first_name", value);
       },
+      validate: {
+        is: {
+          args: /^[ a-zA-Z\-\’]+$/,
+          msg: "Name contains invalid characters"
+        }
+      }
     },
     middle_name: {
       type: DataTypes.STRING,
+      validate: {
+        is: {
+          args: /^[ a-zA-Z\-\’]+$/,
+          msg: "Name contains invalid characters"
+        }
+      }
     },
     last_name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        is: {
+          args: /^[ a-zA-Z\-\’]+$/,
+          msg: "Name contains invalid characters"
+        }
+      }
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isNumeric: {
+          msg: "Phone number must only contain numbers"
+        },
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
+        isEmail: {
+          msg: "Invalid email format"
+        },
       }
     },
     customer_notes: {
@@ -61,6 +86,9 @@ module.exports.findCustomer = (customer, cb)=>{
   Customer.findOne({ where: {email: customer.email}})
     .then(found => {
       cb(null, found);
+    })
+    .catch(error => {
+      cb(error, null);
     })
 };
 

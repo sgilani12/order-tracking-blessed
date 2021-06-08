@@ -96,7 +96,7 @@
                       
                         <script>
                             async function deleteCustomer(id){
-                                let url = `/customers/:${id}`;
+                                let url = `/customers/${id}`;
                                 confirm(`Deleting Customer ${id}`);
                                 console.log(`endpoint to hit: ${url}`);
                                 const res = await axios.delete(url);

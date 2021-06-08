@@ -30,3 +30,13 @@ const Order = sequelize.define(
   },
   {}
 );
+
+module.exports.getOrderList= (cb)=>{
+  const allOrders =  Order.findAll()
+  .then((data)=> {
+    var newData = [];
+    data.forEach( (element)=> newData.push(element.dataValues) );
+    cb(null, newData);
+  });
+  
+}

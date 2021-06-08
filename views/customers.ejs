@@ -12,11 +12,11 @@
         <div class="page-content">
         <h1>This is the customers page</h1>
         <ul>
-            <li><a href="customers/newCustomer">Add new customer</a></li>
-            <li><a href="/newOrder">Add new order</a></li>
-            <li><a href="/customers">Go to customers page</a></li>
-            <li><a href="/orders">Go to orders page</a></li>
-            <li><a href="/products">Go to products page</a></li>
+            <li><a href="customers/add">Add new customer</a></li>
+            <li><a href="newOrder">Add new order</a></li>
+            <li><a href="customers">Go to customers page</a></li>
+            <li><a href="orders">Go to orders page</a></li>
+            <li><a href="products">Go to products page</a></li>
         </ul>
         <table class="table">
             <thead>
@@ -33,33 +33,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<% var customers =
-                    [
-                    {
-                        "customer_id": 1,
-                        "first_name": "Imran",
-                        "middle_name": "Kanye",
-                        "last_name": "Subhan",
-                        "phone": "1234567890",
-                        "email": "imran@email.com",
-                        "customer_notes": "is from england",
-                        "shipping_address": "x",
-                        "billing_address": "y"
-                    },
-                    {
-                        "customer_id": 2,
-                        "first_name": "Imran",
-                        "middle_name": "Kanye",
-                        "last_name": "Subhan",
-                        "phone": "1234567890",
-                        "email": "imran@email.com",
-                        "customer_notes": "is from england",
-                        "shipping_address": "x",
-                        "billing_address": "y"
-                    }
-                    ]
-                %>-->
-                <!--object called customers loaded on page render -->
                 <% if(customers.length > 0){ %>
 
                     <% for ( var i = 0 ; i < customers.length ; i++){ %>

@@ -36,17 +36,27 @@ var customersController={
                 shipping_address:req.body.shipaddress,
                 billing_address:req.body.billaddress
             }
-            // add/save user to db
-            // re-direct to customerHome
-    
-            // this method calls the function in customerModel.js to save to db
-            customerModel.addCustomer(customer, (foundCustomer, created) => {
-                if (created) {
-                    res.redirect("/customers");
+
+            customerModel.findCustomer(customer, (err, found) => {
+              if (err) {
+                console.log("Find customer error: ", err);
+              } else {
+                if (found) {
+                  console.log("Customer already found! ", found);
                 } else {
-                    console.log("CUSTOMER EXISTS ", foundCustomer);
-                    res.redirect("/customers/add");
+                  customerModel.addCustomer(customer, (err, created) => {
+                    if (err) {
+                      console.log("promise caught an error: ", err);
+                    } else {
+                      if (created) {
+                        console.log("Customer created! ", created);
+                      } else {
+                        console.log("PROMISE CAUGHT AN ERROR: ", err);
+                      }
+                    }
+                  })
                 }
+              }
             });
         }
        catch (error) {

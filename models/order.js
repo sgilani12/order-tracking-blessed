@@ -7,8 +7,9 @@ const Order = sequelize.define(
     order_id: {
       type: DataTypes.INTEGER,
       unique: true,
+      primaryKey: true,
     },
-    datetime_order_placed: {
+    time_of_order: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -28,5 +29,17 @@ const Order = sequelize.define(
       allowNull: false,
     },
   },
-  {}
+  {
+    timestamps: false //could probably use later to populate time_of_order column
+  }
 );
+
+module.exports.getOrderList= (cb)=>{
+  const allOrders =  Order.findAll()
+  .then((data)=> {
+    var newData = [];
+    data.forEach( (element)=> newData.push(element.dataValues) );
+    cb(null, newData);
+  });
+  
+}

@@ -10,98 +10,109 @@
     </head>
     <body>
         <div class="page-content">
-        <h1 style="margin-bottom:30px">New Order</h1>
-        <form name="newOrder" method="POST" action="/orders">
+
+        <h1>New Order</h1>
+        <form name="newOrder" enctype="application/x-www-form-urlencoded">
             <table>
                 <tr>
                     <td>Customer ID</td>
-                    <td><input class="input"type="text" name="customer_id" ></td>
+                    <td><input type="text" name="customer_id" id="customer_id"></td>
                 </tr>
                 <tr>
-                    <td><button id="newCustomer" type="button">Add New Customer</button></td>
+                   
+                    <td>Product</td>
+                    <td><input type="text" name="productname" id="productname" ></td>
+                    <td>Quantity</td>
+                    <td><input type="text" name="quantity" id="quantity" ></td>
+                    <tr>
+                        <td colspan="2"><button type="button" id="addProductButton" class="btn btn-primary" >Add to Order</button></td>
+                    </tr> 
+                    <table id="orderTable" border="1">
+                        <caption>Order Details</caption>
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </tr>
                 <tr>
-                    <td>
-                        Products
-                        <p>Add each product and its quantity on a separate line, separate product id and quantity by a space</p>
-                    </td>
-                    <td><textarea class="textarea" type="text" name="product_list" id="product_list" ></textarea></td>
+                    <td>Order Notes</td>
+                    <td><textarea type="text" name="order_notes" id="order_notes"></textarea></td>
                 </tr>
+                
                 <tr>
-                    <td>Notes</td>
-                    <td><textarea class="textarea" type="text" name="order_notes" id="order_notes" ></textarea></td>
+                    <td colspan="2"><button id="submitButton" value="Submit" ></td>
                 </tr>
-                <!--<tr>
-                    <td><button type="button" id="addProductButton" class="btn btn-primary" >Add to Order</button></td>-->
-
-                    <!--OPTION 1-->
-                    <!--on click, take data from textbox (product id) pass as parameter to createProductList()
-                            in that function:  if product id exists in the object, increase the count, else, add with count of 1
-                        Example object: 
-                            order = {
-                                123: 2,
-                                34: 5
-                            }-->
-                    
-                    <!--OPTION 2-->
-                    <!--make CSR enter product ID and quantity in textbox, either separated by spaces or colons?
-                        pass that string to the api, backend handles interpreting it-->
-                <!--</tr>-->
-                <!--<table id="orderTable" border="1">
-                    <caption>Order Details</caption>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>-->
-                <tr>
-                    <td colspan="2"><input type="button" value="Add to Drafts" ></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Submit" ></td>
-                </tr>
-                <!--<tr>
-                    <td colspan="2"><button type="button" id="submitButton" class="btn btn-primary">Submit</button></td>
-                </tr>-->
             </table>
-        </form>   
-        <script>
-        document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
-        document.getElementById("submitButton").addEventListener("click", submitForm, false);
-        document.getElementById("newCustomer").onclick = function () {
-            location.assign("/newCustomer");
-        };
-        function orderUpdate(){
-            if ($('#productname').val() != null && $('#productname').val() != '') {
-                productAddToTable();
-                formClear();
-                $('#productname').focus();
-            }
-        }
-        
-        function productAddToTable(){
-            // First check if a <tbody> tag exists, add one if not
-            if ($('#orderTable tbody').length == 0) {
-                $('#orderTable').append("<tbody></tbody>");
-            }
-        
-            // Append product to the table
-            $('#orderTable tbody').append("<tr>" +
-                "<td>"+ $('#productname').val() + "</td>" +
-                "</tr>");
-        }
-        function formClear(){
-            $('productname').val("");
-        }
-        function submitForm(){
-            document.newOrder.submit();
-            console.log("Form submitted successfully!")
-        }
-        </script>
+            </form>   
         </div>
-    </body>
+        <script>
+            document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+            document.getElementById("submitButton").addEventListener("click", submitForm, false);
+            /*document.getElementById("newCustomer").onclick = function () {
+                location.assign("/newCustomer");
+            };*/
+            function orderUpdate(){
+                if ($('#productname').val() != null && $('#productname').val() != '') {
+                    productAddToTable();
+                    formClear();
+                    $('#productname').focus();
+                }
+            }
+            
+            function productAddToTable(){
+                // First check if a <tbody> tag exists, add one if not
+                if ($('#orderTable tbody').length == 0) {
+                    $('#orderTable').append("<tbody></tbody>");
+                }
+            
+                // Append product to the table
+                $('#orderTable tbody').append("<tr>" +
+                    "<td>"+ $('#productname').val() + "</td>" +
+                    "<td>"+ $('#quantity').val() + "</td>" +
+                    "</tr>");
+            }
+            function formClear(){
+                $('productname').val("");
+                $('quantity').val("");
+            }
+            async function submitForm(){
+                //document.newOrder.submit();
+                //create object from html table
+                console.log($('#customer_id').val());
+                console.log($('#order_notes').val());
 
+                let productsArray = [];
+                $("table#orderTable tr").each(function() {
+                    let rowDataArray = [];
+                    let actualData = $(this).find('td');
+                    if (actualData.length > 0) {
+                        actualData.each(function() {
+                            rowDataArray.push($(this).text());
+                        });
+                        productsArray.push(rowDataArray);
+                    }
+                });
+                console.log(productsArray);
+                console.log(productsArray[0]);
+                //create data object to pass in POST
+                let data = {
+                    customer_id: $('#customer_id').val(),
+                    order_notes: $('#order_notes').val(),
+                    products: productsArray
+                }
+                console.log(data);
+                //api call using axios 
+                const res = await axios.post('/orders', data);
+                console.log(`response status: ${res.status}`)
+                console.log(`data sent in request: ${res.data.json}`);
+                console.log("Form submitted successfully!")
+            }
+            </script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </body>
 </html>

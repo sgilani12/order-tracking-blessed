@@ -7,7 +7,7 @@ var ordersController={
             if(err) {
                 console.log(err)
             } else {
-               console.log(data);
+               console.log(data);  //just a check that correct data is returned
                res.render('orders', {orders:data});
             }
         }

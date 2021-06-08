@@ -81,6 +81,27 @@ var customersController={
       console.log("Error occurred", err);
     }
   },
+  deleteID(req, res) {
+    console.log("---------TEST-----------")
+    try {
+      const id = req.params['id'];
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+          console.log("Error occurred", err);
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
+        }
+      });
+    } catch (err) {
+      console.log("Error occurred", err);
+    }
+  }
 };
 
 

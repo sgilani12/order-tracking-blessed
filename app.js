@@ -28,7 +28,7 @@ app.use('/orders', ordersRouter);
 app.use('/customers', customersRouter);
 app.use('/newOrder', newOrderRouter);
 
-app.use(express.static("static"));
+app.use(express.static("public"));
 
 app.listen(port, () => {
     console.log(`Server listening on Port: ${port}`);

@@ -10,24 +10,44 @@
     </head>
     <body>
         <div class="page-content">
-        <h1>New Order</h1>
+        <h1 style="margin-bottom:30px">New Order</h1>
         <form name="newOrder" method="POST" action="/orders">
             <table>
                 <tr>
-                    <td>Customer</td>
-                    <td><input type="text" name="customer" ></td>
+                    <td>Customer ID</td>
+                    <td><input class="input"type="text" name="customer_id" ></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button id="newCustomer" type="button">Add New Customer</button></td>
+                    <td><button id="newCustomer" type="button">Add New Customer</button></td>
                 </tr>
                 <tr>
-                    <td>Product</td>
-                    <td><input type="text" id="productname" ></td>
+                    <td>
+                        Products
+                        <p>Add each product and its quantity on a separate line, separate product id and quantity by a space</p>
+                    </td>
+                    <td><textarea class="textarea" type="text" name="product_list" id="product_list" ></textarea></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="button" id="addProductButton" class="btn btn-primary" >Add to Order</button></td>
+                    <td>Notes</td>
+                    <td><textarea class="textarea" type="text" name="order_notes" id="order_notes" ></textarea></td>
                 </tr>
-                <table id="orderTable" border="1">
+                <!--<tr>
+                    <td><button type="button" id="addProductButton" class="btn btn-primary" >Add to Order</button></td>-->
+
+                    <!--OPTION 1-->
+                    <!--on click, take data from textbox (product id) pass as parameter to createProductList()
+                            in that function:  if product id exists in the object, increase the count, else, add with count of 1
+                        Example object: 
+                            order = {
+                                123: 2,
+                                34: 5
+                            }-->
+                    
+                    <!--OPTION 2-->
+                    <!--make CSR enter product ID and quantity in textbox, either separated by spaces or colons?
+                        pass that string to the api, backend handles interpreting it-->
+                <!--</tr>-->
+                <!--<table id="orderTable" border="1">
                     <caption>Order Details</caption>
                     <thead>
                         <tr>
@@ -36,16 +56,18 @@
                     </thead>
                     <tbody>
                     </tbody>
-                </table>
+                </table>-->
                 <tr>
                     <td colspan="2"><input type="button" value="Add to Drafts" ></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="button" id="submitButton" class="btn btn-primary">Submit</button></td>
+                    <td colspan="2"><input type="submit" value="Submit" ></td>
                 </tr>
+                <!--<tr>
+                    <td colspan="2"><button type="button" id="submitButton" class="btn btn-primary">Submit</button></td>
+                </tr>-->
             </table>
         </form>   
-        <!--we need a form here like newCustomer and a POST to the right endpoint-->
         <script>
         document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
         document.getElementById("submitButton").addEventListener("click", submitForm, false);

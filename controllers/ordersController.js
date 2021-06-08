@@ -1,12 +1,21 @@
 var orderModel = require('../models/order');
 
 var ordersController={
-    orderHome(req,res){
-      
-      /*mock order for now*/
-      orders = [{id:1,cost:500,items:4}]
-      res.render('ordersHome', orders)
-      }
+  orderHome(req, res) {
+    orderModel.getOrderList((err,data)=>{
+        try {
+            if(err) {
+                console.log(err)
+            } else {
+               console.log(data);  //just a check that correct data is returned
+               res.render('orders', {orders:data});
+            }
+        }
+        catch (error) {
+            console.log(error)
+        }
+    });
+},
 }
 
 module.exports = ordersController;

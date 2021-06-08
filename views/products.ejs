@@ -1,17 +1,88 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
 
-    </head>
-    <body>
-        <h1>This is the products page</h1>
-        <ul>
-            <li><a href="customers/newCustomer">Add new customer</a></li>
-            <li><a href="/newOrder">Add new order</a></li>
-            <li><a href="/customers">Go to customers page</a></li>
-            <li><a href="/orders">Go to orders page</a></li>
-            <li><a href="/products">Go to products page</a></li>
-        </ul>
-    </body>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+    
+</head>
+
+<body>
+    <div class="page-content">
+    <h1>This is the products page</h1>
+    <ul>
+        <li><a href="customers/newCustomer">Add new customer</a></li>
+        <li><a href="/newOrder">Add new order</a></li>
+        <li><a href="/customers">Go to customers page</a></li>
+        <li><a href="/orders">Go to orders page</a></li>
+        <li><a href="/products">Go to products page</a></li>
+    </ul>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>SKU</th>
+                <th>Price</th>
+                <th>Product_Name</th>
+                <th>Quantity</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% var products=[ { "product_id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
+                , "quantity" : 40, "description" : "this is great" }, { "product_id" : 2, "SKU" : "kuhw54afds5"
+                , "price" : 22.99, "product_name" : "West" , "quantity" : 20, "description" : "this is cool" } ] %>
+                <!--object called customers loaded on page render -->
+                <% if(products.length> 0){ %>
+
+                    <% for ( var i=0 ; i < products.length ; i++){ %>
+                        <tr>
+                            <td>
+                                <%= products[i].product_id%>
+                            </td>
+                            <td>
+                                <%= products[i].SKU%>
+                            </td>
+                            <td>
+                                <%= products[i].price%>
+                            </td>
+                            <td>
+                                <%= products[i].product_name%>
+                            </td>
+                            <td>
+                                <%= products[i].quantity%>
+                            </td>
+                            <td>
+                                <%= products[i].description%>
+                            </td>
+                            <td>
+                                <!--delete button, DELTE api call to /customers/:id-->
+                                <!--let id = '<%- products[i].product_id%>';-->
+                                <script>
+                                    async function deleteProduct(id){
+                                        let url = `/products/${id}`;
+                                        confirm(`Deleting Product ${id}`);
+                                        console.log(`endpoint to hit: ${url}`);
+                                        const res = await axios.delete(url);
+                                        console.log(`request status: ${res.status}`);                                  
+                                    }
+
+                                </script>
+                                
+                                <a onClick="deleteProduct('<%- products[i].product_id%>')" href="">Delete</a>
+                            </td>
+                        </tr>
+                        <% } %>
+
+                            <% } %>
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+
 </html>

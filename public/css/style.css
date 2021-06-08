@@ -1,0 +1,85 @@
+body {
+  margin:0px;
+  font-family: "Open Sans",sans-serif;
+}
+a {
+  text-decoration: none;
+}
+
+.nav {
+  position:fixed;
+  top:0px;
+  left:0px;
+  width: 150px;
+  height: 100vh;
+  background:rgb(155, 12, 35);
+  z-index: 2;
+}
+.nav span {
+  display:block;
+  font-size:14px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top:10px;
+}
+.nav .nav-item{
+  position:relative;
+  width:100%;
+  text-align:center;
+}
+.nav .main-item-header{
+  background-color: white;
+  padding: 0 !important;
+}
+.nav .main-item-header:hover{
+  background-color: rgb(155, 12, 35) !important;
+  cursor: pointer;
+}
+
+.nav .main-item, .nav .sub-item{
+  padding: 15px 0px;
+  background:rgb(155, 12, 35);
+  border: 0.5px solid black;
+  border-top: 0.5px black;
+  border-left: 0.5px black;
+}
+.nav .nav-item .sub-items {
+  position: absolute;
+  top: 0px;
+  left:0px;
+  width: inherit;
+  z-index: -1;
+  transition: all 80ms ease-in-out;
+}
+.nav .main-item:hover, .nav .sub-item:hover{
+  background:rgb(211, 7, 43);
+  cursor: pointer;
+}
+
+.nav .nav-item:hover .sub-items {
+  left: 150px;
+}
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  background-color: rgb(211, 204, 189);
+}
+.navbar .navbar-item{
+  padding-bottom: 0px !important;
+}
+
+.navbar-nav li{
+  float: right;
+  display: block;
+  padding-right: 10px;
+  border-left: 1px black;
+}
+button {
+  height: 30px;
+  width: 100%;
+  font-size: 15px;
+}
+

@@ -2,9 +2,13 @@
 
 <html lang="en">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+        <link rel="stylesheet" href="/css/global.css">
 
     </head>
     <body>
+        <div class="page-content">
         <h1>This is the orders page</h1>
         <ul>
             <li><a href="customers/newCustomer">Add new customer</a></li>
@@ -13,6 +17,68 @@
             <li><a href="/orders">Go to orders page</a></li>
             <li><a href="/products">Go to products page</a></li>
         </ul>
-        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer ID</th>
+                    <th>Order Status Code</th>
+                    <th>Date/Time Orders Placed</th>
+                    <th>Total Order Price</th>
+                    <th>Order Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% var orders =
+                    [
+                    {
+                        "order_id": 1,
+                        "customer_id": 2,
+                        "order_status_code": "shipped",
+                        "datetime_order_placed": "June 5, 6pm",
+                        "total_order_price": 20000000,
+                        "order_notes": "stuff shipped"
+                    },
+                    {
+                        "order_id": 2,
+                        "customer_id": 3,
+                        "order_status_code": "shipped",
+                        "datetime_order_placed": "June 5, 6pm",
+                        "total_order_price": 20000000,
+                        "order_notes": "stuff shipped"
+                    }
+                    ]
+                %>
+                <!--object called orders loaded on page render -->
+                <% if(orders.length > 0){ %>
+
+                    <% for ( var i = 0 ; i < orders.length ; i++){ %>
+                    <tr>
+                       <td>
+                          <%= orders[i].order_id%>
+                       </td>
+                       <td>
+                          <%= orders[i].customer_id%>
+                       </td>
+                       <td>
+                        <%= orders[i].order_status_code%>
+                     </td>
+                     <td>
+                        <%= orders[i].datetime_order_placed%>
+                     </td>
+                     <td>
+                        <%= orders[i].total_order_price%>
+                     </td>
+                     <td>
+                        <%= orders[i].order_notes%>
+                     </td>
+                    </tr>
+                    <% } %>
+          
+                 <% } %>
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+        </div>
     </body>
 </html>

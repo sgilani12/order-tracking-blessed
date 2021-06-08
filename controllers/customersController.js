@@ -1,4 +1,5 @@
-var customerModel = require('../models/customer');
+var customerModel = require("../models/customer");
+
 
 var customersController={
     customerHome(req, res) {
@@ -8,7 +9,7 @@ var customersController={
                 if(err) {
                     console.log(err)
                 } else {
-                    res.render('customers', {data:data});
+                   res.render('customers', {customers:data});
                 }
             }
             catch (error) {
@@ -39,25 +40,69 @@ var customersController={
             // re-direct to customerHome
     
             // this method calls the function in customerModel.js to save to db
-            customerModel.addCustomer(customer, (err, created) => {
-                console.log(customer);
-                if (err) {
-                    console.log("Error occurred", err);
+            customerModel.addCustomer(customer, (foundCustomer, created) => {
+                if (created) {
+                    res.redirect("/customers");
                 } else {
-                    if (created) {
-                        // new customer created
-                        res.redirect('customers');
-                    } else {
-                        // customer already exists
-                        res.redirect('customers/add');
-                    }
+                    console.log("CUSTOMER EXISTS ", foundCustomer);
+                    res.redirect("/customers/add");
                 }
             });
         }
-        catch (err) {
-            console.log('Error occurred', err)
+       catch (error) {
+        console.log(error);
+      }
+    },
+
+  customerNew(req, res) {
+    res.render("newCustomer");
+  },
+  customerDelete(req, res) {
+    res.render("deleteCustomer");
+  },
+  deleteCustomer(req, res) {
+    console.log("---------TEST-----------")
+    try {
+      const id = req.body.customerid;
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+          console.log("Error occurred", err);
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
         }
+      });
+    } catch (err) {
+      console.log("Error occurred", err);
     }
-}
+  },
+  deleteID(req, res) {
+    console.log("---------TEST-----------")
+    try {
+      const id = req.params['id'];
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+          console.log("Error occurred", err);
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
+        }
+      });
+    } catch (err) {
+      console.log("Error occurred", err);
+    }
+  }
+};
+
 
 module.exports = customersController;

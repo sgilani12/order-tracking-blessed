@@ -91,6 +91,22 @@
                      <td>
                         <%= customers[i].billing_address%>
                      </td>
+                     <td>
+                        <!--delete button, DELTE api call to /customers/:id-->
+                      
+                        <script>
+                            async function deleteCustomer(id){
+                                let url = `/customers/:${id}`;
+                                confirm(`Deleting Customer ${id}`);
+                                console.log(`endpoint to hit: ${url}`);
+                                const res = await axios.delete(url);
+                                console.log(`request status: ${res.status}`);                                  
+                            }
+
+                        </script>
+                        
+                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href="">Delete</a>
+                    </td>
                     </tr>
                     <% } %>
           
@@ -99,5 +115,6 @@
             <tfoot></tfoot>
         </table>
         </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </body>
 </html>

@@ -1,15 +1,12 @@
 var customerModel = require("../models/customer");
 
+
 var customersController={
     customerHome(req, res) {
         // get customers from db as list of objects
         customerModel.getCustomerList((err,data)=>{
             try {
                 if(err) {
-                    console.log(err)
-                } else {
-                   res.render('customers', {customers:data, messages: req.session['message']});
-                   req.session.destroy();
                   } else {
                    res.render('customers', {customers:data});
                 }
@@ -20,8 +17,7 @@ var customersController={
     },
   
     customerNew(req,res){
-      res.render('newCustomer', {messages: req.session['message']})
-      req.session.destroy();
+      res.render('newCustomer')
     },
     addCustomer(req, res) {
         // how to handle optional fields?
@@ -37,48 +33,25 @@ var customersController={
                 shipping_address:req.body.shipaddress,
                 billing_address:req.body.billaddress
             }
-
-            customerModel.findCustomer(customer, (err, found) => {
-              if (err) {
-                var errorArray = err.errors;
-                var messageArray = new Array();
-                errorArray.forEach(e => {
-                  messageArray.push(e.message);
-                });
-                req.session['message'] = messageArray;
-                res.redirect('/customers/add');
-              } else {
-                  if (found) {
-                    req.session['message'] = ["Customer already exists"];
-                    console.log(req.session['message']);
-                    res.redirect('/customers/add');
-                  } else {
-                    customerModel.addCustomer(customer, (err, created) => {
-                      if (err) { // get error messages from promise
-                        var errorArray = err.errors;
-                        var messageArray = new Array();
-                        errorArray.forEach(e => {
-                          messageArray.push(e.message);
-                        });
-                        req.session['message'] = messageArray;
-                        console.log(req.session['message']);
-                        res.redirect('/customers/add');
-                      } else {
-                        if (created) {
-                          res.redirect('/customers');
-                        } else {
-                          // attach some general session error
-                          res.redirect('/customers/add');
-                        }
-                      }
-                    })
-                  }
-              }
+            // add/save user to db
+            // re-direct to customerHome
+    
+            // this method calls the function in customerModel.js to save to db
+            customerModel.addCustomer(customer, (foundCustomer, created) => {
+                if (created) {
+                    res.redirect("/customers");
+                } else {
+                    res.redirect("/customers/add");
+                }
+            });
         }
        catch (error) {
       }
     },
-    
+
+  customerNew(req, res) {
+    res.render("newCustomer");
+  },
   customerDelete(req, res) {
     res.render("deleteCustomer");
   },

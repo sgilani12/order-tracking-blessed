@@ -81,6 +81,14 @@ var customersController={
       console.log("Error occurred", err);
     }
   },
+  /*
+  editCustomer(req, res){
+    const id = req.body.customerid;
+    for([key,value] in Object.entries){
+      if 
+    }
+  }
+  */
 };
 
 

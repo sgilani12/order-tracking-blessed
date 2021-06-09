@@ -28,6 +28,7 @@ jobs:
         npm install
         npm run build --if-present
         npm run test --if-present
+        npm start
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2

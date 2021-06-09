@@ -79,7 +79,6 @@
         }
 
         function productAddToTable() {
-            console.log('youre in the function');
             // First check if a <tbody> tag exists, add one if not
             /*if ($('#orderTable tbody').length == 0) {
                 $('#orderTable').append("<tbody></tbody>");
@@ -98,8 +97,6 @@
                 tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
                 tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
                 tableHTML += '</tr>';
-                console.log(tableHTML);
-                console.log('end of for loop');
             }
             //tableHTML += '</tbody>';
             document.getElementById("tableBody").innerHTML = tableHTML;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+    <%- include('partials/head') %>
   <head>
     <!--GET request to the api to retreive customer data
         Create HTML table from resultant JSON object-->
@@ -9,15 +10,10 @@
         <link rel="stylesheet" href="/css/global.css">
     </head>
     <body>
+        <%- include('partials/topbar') %>
+        <%- include('partials/side-nav') %>
         <div class="page-content">
         <h1>This is the customers page</h1>
-        <ul>
-            <li><a href="customers/add">Add new customer</a></li>
-            <li><a href="newOrder">Add new order</a></li>
-            <li><a href="customers">Go to customers page</a></li>
-            <li><a href="orders">Go to orders page</a></li>
-            <li><a href="products">Go to products page</a></li>
-        </ul>
         <table class="table">
             <thead>
                 <tr>
@@ -69,11 +65,13 @@
                       
                         <script>
                             async function deleteCustomer(id){
-                                let url = `/customers/${id}`;
-                                confirm(`Deleting Customer ${id}`);
-                                console.log(`endpoint to hit: ${url}`);
-                                const res = await axios.delete(url);
-                                console.log(`request status: ${res.status}`);                                  
+                               let confirmation = confirm(`Deleting Customer ${id}`);
+                               if(confirmation){
+                                 let url = `/customers/${id}`;
+                                 console.log(`endpoint to hit: ${url}`);
+                                 const res = await axios.delete(url);
+                                 console.log(`request status: ${res.status}`);   
+                               }
                             }
 
                         </script>

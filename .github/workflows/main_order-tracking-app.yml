@@ -4,7 +4,7 @@
 name: Build and deploy Node.js app to Azure Web App - order-tracking-app
 
 on:
-  push:
+  pull_request:
     branches:
       - main
   workflow_dispatch:

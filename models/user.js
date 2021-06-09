@@ -19,6 +19,7 @@ const User = sequelize.define(
       validate: {
         isEmail: true,
       },
+      primaryKey : true,
     },
     user_password: {
       type: DataTypes.STRING(1000),
@@ -30,13 +31,13 @@ const User = sequelize.define(
     },
   },
 
-  {}
-  
+  {
+    timestamps:false
+  }
 );
 
-module.exports.authenticateUser = (email, password) =>{
-    user = User.findByPk(email);
-    return user.password === password;
+/*TODO-- Use actual encryption instead of plaintext comparison*/
+module.exports.authenticate = async (email, password) => {
+  user = await User.findByPk(email);
+  return user.dataValues.user_password === password;
 }
-    
-  

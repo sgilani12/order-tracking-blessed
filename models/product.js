@@ -7,6 +7,7 @@ const Product = sequelize.define(
     product_id: {
       type: DataTypes.INTEGER,
       unique: true,
+      primaryKey: true,
     },
     sku: {
       type: DataTypes.STRING(12),
@@ -30,6 +31,14 @@ const Product = sequelize.define(
     },
   },
   {
-    // toDo: add methods for use in products controller
+    timestamps: false,
   }
 );
+
+module.exports.getProductList = (cb) => {
+  const allProducts = Product.findAll().then((data) => {
+    var newData = [];
+    data.forEach((element) => newData.push(element.dataValues));
+    cb(null, newData);
+  });
+};

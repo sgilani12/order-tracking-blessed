@@ -1,6 +1,6 @@
 var userModel = require('../models/user');
 var genToken = require('../passport');
-
+//test
 var loginController = {
   loginHome(req, res){
     res.render('login')

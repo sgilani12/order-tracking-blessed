@@ -13,8 +13,41 @@
 </head>
 
 <body>
-    <!--<%- include('partials/nav') %>-->
+    <%- include('partials/topbar') %>
     <%- include('partials/side-nav') %>
+    <div class="page-content">
+        <!-- 4 buttons: New order, Orders, Customers, Products -->
+        <div class="grid2x2">
+            <div class="box-border">
+                <a href="/orders/add">
+                    <div class="box">
+                        <div>New Order</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/orders">
+                    <div class="box">
+                        <div>Orders</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/customers">
+                    <div class="box">
+                        <div>Customers</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/products">
+                    <div class="box">
+                        <div>Products</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
     <%- include('partials/footer') %>

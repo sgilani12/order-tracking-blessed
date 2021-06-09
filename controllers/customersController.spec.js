@@ -9,16 +9,7 @@ describe('customer model', () => {
     describe('GET /customers', () => {
         it("should be a populated array", () => {
             customerModel.getCustomerList((err,data)=> {
-                try {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                       expect(data).to.be.an('array');
-                    }
-                }
-                catch (error) {
-                    console.log(error)
-                }
+                expect(data).to.be.an('string');
             });
         });
     });

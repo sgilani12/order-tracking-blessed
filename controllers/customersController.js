@@ -1,66 +1,111 @@
 var customerModel = require("../models/customer");
 
-var customersController = {
-  customerHome(req, res) {
-    // get customers from db as list of objects
-    customerModel.getCustomerList((err, data) => {
-      try {
-        if (err) {
-          console.log(err);
-        } else {
-          res.render("customers", { customers: data });
+var customersController={
+    customerHome(req, res) {
+        // get customers from db as list of objects
+        customerModel.getCustomerList((err,data)=>{
+            try {
+                if(err) {
+                  console.log(err);
+                  } else {
+                    console.log(req.session);
+                    res.render('customers', {customers:data, messages: req.session['message']});
+                    req.session.destroy();
+                }
+            }
+            catch (error) {
+            }
+        });
+    },
+  
+    customerNew(req,res){
+      console.log(req.session);
+      res.render('newCustomer', {messages: req.session['message']})
+      req.session.destroy();
+    },
+    addCustomer(req, res) {
+        // how to handle optional fields?
+        try {
+            // unpack req.body and create customer object
+            const customer = {
+                first_name:req.body.fname,
+                middle_name:req.body.mname,
+                last_name:req.body.lname,
+                phone:req.body.phone,
+                email:req.body.email,
+                customer_notes:req.body.notes,
+                shipping_address:req.body.shipaddress,
+                billing_address:req.body.billaddress
+            }
+            
+            customerModel.findCustomer(customer, (err, found) => {
+              if (err) {
+                var errorArray = err.errors;
+                var messageArray = new Array();
+                errorArray.forEach(e => {
+                  messageArray.push(e.message);
+                });
+                req.session['message'] = messageArray;
+                res.redirect('/customers/add');
+              } else {
+                if (found) {
+                  req.session['message'] = ["Customer already exists"];
+                  console.log(req.session['message']);
+                  res.redirect('/customers/add');
+                } else {
+                  customerModel.addCustomer(customer, (err, created) => {
+                    if (err) {
+                      var errorArray = err.errors;
+                      var messageArray = new Array();
+                      errorArray.forEach(e => {
+                        messageArray.push(e.message);
+                      });
+                      req.session['message'] = messageArray;
+                      console.log(req.session['message']);
+                      res.redirect('/customers/add');
+                    } else {
+                      if (created) {
+                        req.session['message'] = ["Customer successfully created"];
+                        res.redirect('/customers');
+                      } else {
+                        req.session['message'] = ["An Error Has Occured"];
+                        res.redirect('/customers/add');
+                      }
+                    }
+                  })
+                }
+              }
+            })
         }
-      } catch (error) {
-        console.log(error);
+       catch (error) {
       }
-    });
-  },
-
-  customerNew(req, res) {
-    res.render("newCustomer");
-  },
-  addCustomer(req, res) {
-    // how to handle optional fields?
-    console.log(req.body);
+    },
+    customerDelete(req, res) {
+      res.render("deleteCustomer");
+    },
+    deleteCustomer(req, res) {
+      try {
+        const id = req.body.customerid;
+        customerModel.deleteCustomer(id, (err, deleted) => {
+          if (err) {
+          } else {
+            if (deleted) {
+              // customer deleted
+              res.redirect("/customers");
+            } else {
+              // customer doesn't exist
+              res.redirect("/customers/delete");
+            }
+          }
+        });
+      } catch (err) {
+      }
+    },
+  deleteID(req, res) {
     try {
-      // unpack req.body and create customer object
-      const customer = {
-        first_name: req.body.fname,
-        middle_name: req.body.mname,
-        last_name: req.body.lname,
-        phone: req.body.phone,
-        email: req.body.email,
-        customer_notes: req.body.notes,
-        shipping_address: req.body.shipaddress,
-        billing_address: req.body.billaddress,
-      };
-      // add/save user to db
-      // re-direct to customerHome
-
-      // this method calls the function in customerModel.js to save to db
-      customerModel.addCustomer(customer, (foundCustomer, created) => {
-        if (created) {
-          res.redirect("/customers");
-        } else {
-          console.log("CUSTOMER EXISTS ", foundCustomer);
-          res.redirect("/customers/add");
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  customerDelete(req, res) {
-    res.render("deleteCustomer");
-  },
-  deleteCustomer(req, res) {
-    console.log("---------TEST-----------");
-    try {
-      const id = req.body.customerid;
+      const id = req.params['id'];
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
-          console.log("Error occurred", err);
         } else {
           if (deleted) {
             // customer deleted
@@ -72,9 +117,8 @@ var customersController = {
         }
       });
     } catch (err) {
-      console.log("Error occurred", err);
     }
-  },
+  }
 };
 
 module.exports = customersController;

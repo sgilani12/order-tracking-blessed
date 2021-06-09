@@ -30,10 +30,19 @@ a {
 }
 .nav .main-item-header{
   background-color: white;
+  padding: 0 !important;
 }
+.nav .main-item-header:hover{
+  background-color: rgb(155, 12, 35) !important;
+  cursor: pointer;
+}
+
 .nav .main-item, .nav .sub-item{
   padding: 15px 0px;
   background:rgb(155, 12, 35);
+  border: 0.5px solid black;
+  border-top: 0.5px black;
+  border-left: 0.5px black;
 }
 .nav .nav-item .sub-items {
   position: absolute;
@@ -44,10 +53,33 @@ a {
   transition: all 80ms ease-in-out;
 }
 .nav .main-item:hover, .nav .sub-item:hover{
-  background:#00acee;
+  background:rgb(211, 7, 43);
   cursor: pointer;
 }
 
 .nav .nav-item:hover .sub-items {
   left: 150px;
 }
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  background-color: rgb(211, 204, 189);
+}
+.navbar .navbar-item{
+  padding-bottom: 0px !important;
+}
+
+.navbar-nav li{
+  float: right;
+  display: block;
+  padding-right: 10px;
+  border-left: 1px black;
+}
+button {
+  height: 30px;
+  width: 100%;
+  font-size: 15px;
+}
+

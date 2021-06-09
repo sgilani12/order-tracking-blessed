@@ -19,6 +19,7 @@ const User = sequelize.define(
       validate: {
         isEmail: true,
       },
+      primaryKey : true,
     },
     user_password: {
       type: DataTypes.STRING(1000),
@@ -29,5 +30,15 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
-  {}
+  {
+    timestamps:false
+  }
 );
+
+module.exports.authenticate = async (email, password) => {
+  const user = await User.findByPk(email);
+  if(user.password === password){
+    return true;
+  }
+  return false;
+}

@@ -15,121 +15,146 @@
 <body>
     <div class="page-content">
 
-    <%- include('partials/head') %>
-    <body>
-        <%- include('partials/topbar') %>
-        <%- include('partials/side-nav') %>
-        <div class="page-content">
+        <%- include('partials/head') %>
+
+            <body>
+                <%- include('partials/topbar') %>
+                    <%- include('partials/side-nav') %>
+                        <div class="page-content">
 
 
-        <h1>New Order</h1>
-        <form name="newOrder" enctype="application/x-www-form-urlencoded">
-            <table>
-                <tr>
-                    <td>Customer ID</td>
-                    <td><input type="text" name="customer_id" id="customer_id" class="input"></td>
-                </tr>
-                <tr>
+                            <h1>New Order</h1>
+                            <form name="newOrder" enctype="application/x-www-form-urlencoded">
+                                <table>
+                                    <tr>
+                                        <td>Customer ID</td>
+                                        <td><input type="text" name="customer_id" id="customer_id" class="input"></td>
+                                    </tr>
+                                    <tr>
 
-                    <td>Product</td>
-                    <td><input type="text" name="productname" id="productname" class="input"></td>
-                    <td>Quantity</td>
-                    <td><input type="text" name="quantity" id="quantity" class="input"></td>
-                <tr>
-                    <td colspan="2"><button type="button" id="addProductButton" class="button">Add to
-                            Order</button></td>
-                </tr>
-                <table id="orderTable" class="table">
-                    <caption>Order Details</caption>
-                    <thead>
-                        <tr>
-                            <th>Product ID</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
-                </table>
-                </tr>
-                <tr>
-                    <td>Order Notes</td>
-                    <td><textarea type="text" name="order_notes" id="order_notes" class="textarea"></textarea></td>
-                </tr>
+                                        <td>Product</td>
+                                        <td><input type="text" name="productname" id="productname" class="input"></td>
+                                        <td>Quantity</td>
+                                        <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                                    <tr>
+                                        <td colspan="2"><button type="button" id="addProductButton" class="button">Add
+                                                to
+                                                Order</button></td>
+                                    </tr>
+                                    <table id="orderTable" class="table">
+                                        <caption>Order Details</caption>
+                                        <thead>
+                                            <tr>
+                                                <th>Product ID</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                        </tbody>
+                                    </table>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Notes</td>
+                                        <td><textarea type="text" name="order_notes" id="order_notes"
+                                                class="textarea"></textarea></td>
+                                    </tr>
 
-                <tr>
-                    <td colspan="2"><button id="submitButton" class="button">Submit</button></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <script>
-        //initialize object to hold products and corresponding quantities
-        const products_object = new Object();
-        document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
-        document.getElementById("submitButton").addEventListener("click", submitForm, false);
-        /*document.getElementById("newCustomer").onclick = function () {
-            location.assign("/newCustomer");
-        };*/
-        function orderUpdate() {
-            if ($('#productname').val() != null && $('#productname').val() != '') {
-                let product_name = $('#productname').val()
-                let product_quantity = parseInt($('#quantity').val());
-                //add product name as key, and quantity as value to products_object
-                if (products_object[product_name] == null) {
-                    products_object[product_name] = product_quantity;
-                } else {
-                    products_object[product_name] += product_quantity;
-                }
-                console.log(products_object);
-                productAddToTable();
-                formClear();
-                $('#productname').focus();
-            }
-        }
+                                    <tr>
+                                        <td colspan="2"><button id="submitButton" class="button">Submit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><button id="draftButton" class="button">Save as Draft</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <script>
+                            //initialize object to hold products and corresponding quantities
+                            const products_object = new Object();
+                            document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+                            document.getElementById("submitButton").addEventListener("click", submitForm, false);
+                            document.getElementById("draftButton").addEventListener("click", submitDraft, false);
+                            /*document.getElementById("newCustomer").onclick = function () {
+                                location.assign("/newCustomer");
+                            };*/
+                            function orderUpdate() {
+                                if ($('#productname').val() != null && $('#productname').val() != '') {
+                                    let product_name = $('#productname').val()
+                                    let product_quantity = parseInt($('#quantity').val());
+                                    //add product name as key, and quantity as value to products_object
+                                    if (products_object[product_name] == null) {
+                                        products_object[product_name] = product_quantity;
+                                    } else {
+                                        products_object[product_name] += product_quantity;
+                                    }
+                                    console.log(products_object);
+                                    productAddToTable();
+                                    formClear();
+                                    $('#productname').focus();
+                                }
+                            }
 
-        function productAddToTable() {
-            // First check if a <tbody> tag exists, add one if not
-            /*if ($('#orderTable tbody').length == 0) {
-                $('#orderTable').append("<tbody></tbody>");
-            }*/
+                            function productAddToTable() {
+                                // First check if a <tbody> tag exists, add one if not
+                                /*if ($('#orderTable tbody').length == 0) {
+                                    $('#orderTable').append("<tbody></tbody>");
+                                }*/
 
-            /*// Append product to the table
-            $('#orderTable tbody').append("<tr>" +
-                "<td>" + $('#productname').val() + "</td>" +
-                "<td>" + $('#quantity').val() + "</td>" +
-                "</tr>");*/
+                                /*// Append product to the table
+                                $('#orderTable tbody').append("<tr>" +
+                                    "<td>" + $('#productname').val() + "</td>" +
+                                    "<td>" + $('#quantity').val() + "</td>" +
+                                    "</tr>");*/
 
-            var tableHTML = "";
-            let products_length = Object.keys(products_object).length;
-            for (let i = 0; i < products_length; i++) {
-                tableHTML += '<tr>';
-                tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
-                tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
-                tableHTML += '</tr>';
-            }
-            //tableHTML += '</tbody>';
-            document.getElementById("tableBody").innerHTML = tableHTML;
-        }
-        function formClear() {
-            $('productname').val("");
-            $('quantity').val("");
-        }
-        async function submitForm() {
-            //create data object to pass in POST
-            let data = {
-                customer_id: $('#customer_id').val(),
-                order_notes: $('#order_notes').val(),
-                products: products_object
-            }
-            console.log(data);
-            //api call using axios 
-            const res = await axios.post('/orders', data);
-            console.log(`response status: ${res.status}`)
-            console.log(`data sent in request: ${res.data.json}`);
-            console.log("Form submitted successfully!")
-        }
-    </script>
-    
-</body>
+                                var tableHTML = "";
+                                let products_length = Object.keys(products_object).length;
+                                for (let i = 0; i < products_length; i++) {
+                                    tableHTML += '<tr>';
+                                    tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
+                                    tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
+                                    tableHTML += '</tr>';
+                                }
+                                //tableHTML += '</tbody>';
+                                document.getElementById("tableBody").innerHTML = tableHTML;
+                            }
+                            function formClear() {
+                                $('productname').val("");
+                                $('quantity').val("");
+                            }
+                            async function submitForm() {
+                                //create data object to pass in POST
+                                let data = {
+                                    customer_id: $('#customer_id').val(),
+                                    order_notes: $('#order_notes').val(),
+                                    products: products_object,
+                                    status: 'Open'
+                                }
+                                console.log(data);
+                                //api call using axios 
+                                const res = await axios.post('/orders', data);
+                                console.log(`response status: ${res.status}`)
+                                console.log(`data sent in request: ${res.data.json}`);
+                                console.log("Form submitted successfully!")
+                            }
+
+                            async function submitDraft() {
+                                //create data object to pass in POST
+                                let data = {
+                                    customer_id: $('#customer_id').val(),
+                                    order_notes: $('#order_notes').val(),
+                                    products: products_object,
+                                    status: 'Draft'
+                                }
+                                console.log(data);
+                                //api call using axios 
+                                const res = await axios.post('/orders', data);
+                                console.log(`response status: ${res.status}`)
+                                console.log(`data sent in request: ${res.data.json}`);
+                                console.log("Form submitted successfully!")
+                            }
+                        </script>
+
+            </body>
 
 </html>

@@ -108,12 +108,15 @@ module.exports.addCustomer = (customer, cb)=>{
     })
     .catch(error => {
       cb(error, null);
-    })
+    });
 };
 
 module.exports.deleteCustomer = (id, cb) => {
   Customer.destroy({ where: { customer_id: id } }).then((created) => {
     cb(null, created);
+  })
+  .catch(error => {
+    cb(error, null);
   });
 };
 

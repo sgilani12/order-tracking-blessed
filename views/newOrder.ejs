@@ -41,7 +41,7 @@
                 </tr>
                 
                 <tr>
-                    <td colspan="2"><button id="submitButton" value="Submit" ></td>
+                    <td colspan="2"><button id="submitButton">Submit</button></td>
                 </tr>
             </table>
             </form>   
@@ -77,11 +77,10 @@
                 $('quantity').val("");
             }
             async function submitForm(){
-                //document.newOrder.submit();
-                //create object from html table
                 console.log($('#customer_id').val());
                 console.log($('#order_notes').val());
-
+               
+                //create object from html table
                 let productsArray = [];
                 $("table#orderTable tr").each(function() {
                     let rowDataArray = [];
@@ -93,6 +92,7 @@
                         productsArray.push(rowDataArray);
                     }
                 });
+                
                 console.log(productsArray);
                 console.log(productsArray[0]);
                 //create data object to pass in POST
@@ -105,7 +105,7 @@
                 //api call using axios 
                 const res = await axios.post('/orders', data);
                 console.log(`response status: ${res.status}`)
-                console.log(`data sent in request: ${res.data.json}`);
+                console.log(`response data: ${res.data.json}`);
                 console.log("Form submitted successfully!")
             }
             </script>

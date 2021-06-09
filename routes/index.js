@@ -1,10 +1,10 @@
 const express = require('express');
+const passport = require ('passport')
 
 var indexRouter = express.Router();
 
-indexRouter.get('/', function (req, res, next) {
-    res.render('index');
-});
+indexRouter.route('/')
+    .get((req,res) => {res.render('index')})
 
 
 module.exports = indexRouter;

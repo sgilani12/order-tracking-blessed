@@ -29,5 +29,14 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
+
   {}
+  
 );
+
+module.exports.authenticateUser = (email, password) =>{
+    user = User.findByPk(email);
+    return user.password === password;
+}
+    
+  

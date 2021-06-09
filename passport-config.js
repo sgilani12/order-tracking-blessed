@@ -7,5 +7,6 @@ passport.use(new JwtStrategy({
   secretOrPublicKey: process.env.AUTH_SECRET
 }, (payload, done) => {
   console.log(payload);
+  console.log('passport-config');
   return done(null, payload.email);
 }));

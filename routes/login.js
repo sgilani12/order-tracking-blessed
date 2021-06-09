@@ -5,21 +5,21 @@ require('dotenv').config();
 
 var LoginRouter = express.Router();
 
-LoginRouter.get('/', function (req, res, next) {
-    res.render('logIn');
-});
+LoginRouter.route('/')
+    .get(loginController.loginHome)
+
 
 LoginRouter.route('/authenticate')
     .post(('/login', passport.authenticate('local'), (req, res) => {
-        loginController(req,res);
-        
-    }))
+        loginController.authenticate(req,res);
+}))
 
+/*  A route for testing login configuration
 LoginRouter.get('/test', (req,res) => {
-        console.log(req.user);
-        console.log(req.cookies);
-        console.log(req.signedCookies);
-        res.redirect('/')
-    })
-
+    console.log(req.user);
+    console.log(req.cookies);
+    console.log(req.signedCookies);
+    res.redirect('/')
+})
+*/
 module.exports = LoginRouter;

@@ -2,14 +2,13 @@ const express = require('express');
 require('../passport-config')
 
 var indexRouter = express.Router();
+var indexController = require('../controllers/indexController')
 
-indexRouter.get('/', passport.authenticate('jwt-cookiecombo', {
+
+indexRouter.route('/')
+    .get(passport.authenticate('jwt-cookiecombo', {
     session: false
-}), (req, res, next) => {
-    console.log("test")
-    console.log(req.user)
-    res.render('index')
-});
+}), indexController.dashboard);
 
 
 

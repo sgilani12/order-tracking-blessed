@@ -1,4 +1,5 @@
-var userModel = require('../models/user')
+
+var userModel = require('../models/user');
 var jwt = require('jsonwebtoken');
 require('dotenv').config();
 

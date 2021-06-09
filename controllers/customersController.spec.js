@@ -22,4 +22,22 @@ describe('customer model', () => {
             });
         });
     });
+
+    describe('GET add', () => {
+        it("should add a new customer", () => {
+            const mockCustomer = {
+                first_name:"james",
+                middle_name:"tjx",
+                last_name:"smith",
+                phone:9876543210,
+                email:"james@tjx.com",
+                customer_notes:"test",
+                shipping_address:"100 tjx rd",
+                billing_address:"100 tjx rd"
+            }
+            customerModel.addCustomer(mockCustomer, (err, created) => {
+                expect(created).to.be.true; 
+            });
+        });
+    });
 });

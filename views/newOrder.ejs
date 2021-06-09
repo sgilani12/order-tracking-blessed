@@ -13,148 +13,208 @@
 </head>
 
 <body>
-    <div class="page-content">
+    <!--make mock product catalog to link to drop down-->
+    <% var product_catalog=[ { "product id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
+        , "quantity" : 40, "description" : "this is great" }, { "product id" : 2, "SKU" : "hfgs" , "price" :
+        22.00, "product_name" : "bikes" , "quantity" : 3, "description" : "they work" }, { "product id" : 3, "SKU"
+        : "gfhghhe" , "price" : 7.99, "product_name" : "new item" , "quantity" : 140, "description" : "this is great" },
+        { "product id" : 4, "SKU" : "hafejkdf" , "price" : 109.99, "product_name" : "hello" , "quantity" :
+        30, "description" : "world" }, { "product id" : 5, "SKU" : "jrehjuyvdkl" , "price" : 203.99, "product_name"
+        : "foo" , "quantity" : 20, "description" : "bar" } ]; %>
+        <div class="page-content">
 
-        <%- include('partials/head') %>
+            <%- include('partials/head') %>
 
-            <body>
-                <%- include('partials/topbar') %>
-                    <%- include('partials/side-nav') %>
-                        <div class="page-content">
+                <body>
+                    <%- include('partials/topbar') %>
+                        <%- include('partials/side-nav') %>
+                            <div class="page-content">
 
 
-                            <h1>New Order</h1>
-                            <form name="newOrder" enctype="application/x-www-form-urlencoded">
-                                <table>
-                                    <tr>
-                                        <td>Customer ID</td>
-                                        <td><input type="text" name="customer_id" id="customer_id" class="input"></td>
-                                    </tr>
-                                    <tr>
+                                <h1>New Order</h1>
+                                <form name="newOrder" enctype="application/x-www-form-urlencoded">
+                                    <table>
+                                        <tr>
+                                            <td>Customer ID</td>
+                                            <td><input type="text" name="customer_id" id="customer_id" class="input">
+                                            </td>
+                                        </tr>
+                                        <tr>
 
-                                        <td>Product</td>
-                                        <td><input type="text" name="productname" id="productname" class="input"></td>
-                                        <td>Quantity</td>
-                                        <td><input type="text" name="quantity" id="quantity" class="input"></td>
-                                    <tr>
-                                        <td colspan="2"><button type="button" id="addProductButton" class="button">Add
-                                                to
-                                                Order</button></td>
-                                    </tr>
-                                    <table id="orderTable" class="table">
-                                        <caption>Order Details</caption>
-                                        <thead>
-                                            <tr>
-                                                <th>Product ID</th>
-                                                <th>Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tableBody">
-                                        </tbody>
+                                            <td>Product</td>
+                                            <td><input type="text" name="productname" id="productname" class="input">
+                                            </td>
+
+                                            <td><button class="button dropdown-trigger" id="dropdown-btn"
+                                                    type="button">Products
+                                                    Catalog</button></td>
+
+                                            <td>Quantity</td>
+                                            <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                                        <tr>
+                                            <td colspan="2"><button type="button" id="addProductButton"
+                                                    class="button">Add
+                                                    to
+                                                    Order</button></td>
+                                        </tr>
+
+                                        <tr>
+                                            <div id="dropDown" class="dropdown_content">
+                                                <input type="text" placeholder="Search" id="productSearch">
+                                                <!--<a href="" class="dropdown-item">About</a>
+                                                <a href="" class="dropdown-item">Base</a>
+                                                <a href="" class="dropdown-item">Blog</a>
+                                                <a href="" class="dropdown-item">Contact</a>
+                                                <a href="" class="dropdown-item">Custom</a>
+                                                <a href="" class="dropdown-item">Support</a>
+                                                <a href="" class="dropdown-item">Tools</a>-->
+                                                <% for (var i=0 ; i < product_catalog.length ; i++){ %>
+
+
+                                                    <a class="dropdown-item" onclick="selectProduct('<%- i%>')">
+                                                        <%= product_catalog[i].product_name%>
+                                                    </a>
+                                                    <% } %>
+                                            </div>
+                                        </tr>
+
+                                        <table id="orderTable" class="table">
+                                            <caption>Order Details</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>Product ID</th>
+                                                    <th>Quantity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableBody">
+                                            </tbody>
+                                        </table>
+                                        </tr>
+                                        <tr>
+                                            <td>Order Notes</td>
+                                            <td><textarea type="text" name="order_notes" id="order_notes"
+                                                    class="textarea"></textarea>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2"><button id="submitButton" class="button">Submit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><button id="draftButton" class="button">Save as
+                                                    Draft</button>
+                                            </td>
+                                        </tr>
                                     </table>
-                                    </tr>
-                                    <tr>
-                                        <td>Order Notes</td>
-                                        <td><textarea type="text" name="order_notes" id="order_notes"
-                                                class="textarea"></textarea></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan="2"><button id="submitButton" class="button">Submit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><button id="draftButton" class="button">Save as Draft</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
-                        <script>
-                            //initialize object to hold products and corresponding quantities
-                            const products_object = new Object();
-                            document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
-                            document.getElementById("submitButton").addEventListener("click", submitForm, false);
-                            document.getElementById("draftButton").addEventListener("click", submitDraft, false);
-                            /*document.getElementById("newCustomer").onclick = function () {
-                                location.assign("/newCustomer");
-                            };*/
-                            function orderUpdate() {
-                                if ($('#productname').val() != null && $('#productname').val() != '') {
-                                    let product_name = $('#productname').val()
-                                    let product_quantity = parseInt($('#quantity').val());
-                                    //add product name as key, and quantity as value to products_object
-                                    if (products_object[product_name] == null) {
-                                        products_object[product_name] = product_quantity;
-                                    } else {
-                                        products_object[product_name] += product_quantity;
+                                </form>
+                            </div>
+                            <script>
+                                //initialize object to hold products and corresponding quantities
+                                const products_object = new Object();
+                                document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+                                document.getElementById("submitButton").addEventListener("click", submitForm, false);
+                                document.getElementById("draftButton").addEventListener("click", submitDraft, false);
+                                document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
+                                document.getElementById("productSearch").addEventListener("keyup", filterProducts, false);
+                                /*document.getElementById("newCustomer").onclick = function () {
+                                    location.assign("/newCustomer");
+                                };*/
+                                function orderUpdate() {
+                                    if ($('#productname').val() != null && $('#productname').val() != '') {
+                                        let product_name = $('#productname').val()
+                                        let product_quantity = parseInt($('#quantity').val());
+                                        //add product name as key, and quantity as value to products_object
+                                        if (products_object[product_name] == null) {
+                                            products_object[product_name] = product_quantity;
+                                        } else {
+                                            products_object[product_name] += product_quantity;
+                                        }
+                                        console.log(products_object);
+                                        productAddToTable();
+                                        formClear();
+                                        $('#productname').focus();
                                     }
-                                    console.log(products_object);
-                                    productAddToTable();
-                                    formClear();
-                                    $('#productname').focus();
                                 }
-                            }
 
-                            function productAddToTable() {
-                                // First check if a <tbody> tag exists, add one if not
-                                /*if ($('#orderTable tbody').length == 0) {
-                                    $('#orderTable').append("<tbody></tbody>");
-                                }*/
-
-                                /*// Append product to the table
-                                $('#orderTable tbody').append("<tr>" +
-                                    "<td>" + $('#productname').val() + "</td>" +
-                                    "<td>" + $('#quantity').val() + "</td>" +
-                                    "</tr>");*/
-
-                                var tableHTML = "";
-                                let products_length = Object.keys(products_object).length;
-                                for (let i = 0; i < products_length; i++) {
-                                    tableHTML += '<tr>';
-                                    tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
-                                    tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
-                                    tableHTML += '</tr>';
+                                function productAddToTable() {
+                                    var tableHTML = "";
+                                    let products_length = Object.keys(products_object).length;
+                                    for (let i = 0; i < products_length; i++) {
+                                        tableHTML += '<tr>';
+                                        tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
+                                        tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
+                                        tableHTML += '</tr>';
+                                    }
+                                    //tableHTML += '</tbody>';
+                                    document.getElementById("tableBody").innerHTML = tableHTML;
                                 }
-                                //tableHTML += '</tbody>';
-                                document.getElementById("tableBody").innerHTML = tableHTML;
-                            }
-                            function formClear() {
-                                $('productname').val("");
-                                $('quantity').val("");
-                            }
-                            async function submitForm() {
-                                //create data object to pass in POST
-                                let data = {
-                                    customer_id: $('#customer_id').val(),
-                                    order_notes: $('#order_notes').val(),
-                                    products: products_object,
-                                    status: 'Open'
+                                function formClear() {
+                                    $('productname').val("");
+                                    $('quantity').val("");
                                 }
-                                console.log(data);
-                                //api call using axios 
-                                const res = await axios.post('/orders', data);
-                                console.log(`response status: ${res.status}`)
-                                console.log(`data sent in request: ${res.data.json}`);
-                                console.log("Form submitted successfully!")
-                            }
-
-                            async function submitDraft() {
-                                //create data object to pass in POST
-                                let data = {
-                                    customer_id: $('#customer_id').val(),
-                                    order_notes: $('#order_notes').val(),
-                                    products: products_object,
-                                    status: 'Draft'
+                                async function submitForm() {
+                                    //create data object to pass in POST
+                                    let data = {
+                                        customer_id: $('#customer_id').val(),
+                                        order_notes: $('#order_notes').val(),
+                                        products: products_object,
+                                        status: 'Open'
+                                    }
+                                    console.log(data);
+                                    //api call using axios 
+                                    const res = await axios.post('/orders', data);
+                                    console.log(`response status: ${res.status}`)
+                                    console.log(`data sent in request: ${res.data.json}`);
+                                    console.log("Form submitted successfully!")
                                 }
-                                console.log(data);
-                                //api call using axios 
-                                const res = await axios.post('/orders', data);
-                                console.log(`response status: ${res.status}`)
-                                console.log(`data sent in request: ${res.data.json}`);
-                                console.log("Form submitted successfully!")
-                            }
-                        </script>
 
-            </body>
+                                async function submitDraft() {
+                                    //create data object to pass in POST
+                                    let data = {
+                                        customer_id: $('#customer_id').val(),
+                                        order_notes: $('#order_notes').val(),
+                                        products: products_object,
+                                        status: 'Draft'
+                                    }
+                                    console.log(data);
+                                    //api call using axios 
+                                    const res = await axios.post('/orders', data);
+                                    console.log(`response status: ${res.status}`)
+                                    console.log(`data sent in request: ${res.data.json}`);
+                                    console.log("Form submitted successfully!")
+                                }
+
+
+                                //dropdown product catalog functions
+                                function productsDropdown() {
+                                    document.getElementById("dropDown").classList.toggle("show");
+                                }
+
+                                function filterProducts() {
+                                    console.log('filtering products');
+                                    var input, filter, ul, li, a, i;
+                                    input = document.getElementById("productSearch");
+                                    filter = input.value.toUpperCase();
+                                    div = document.getElementById("dropDown");
+                                    a = div.getElementsByTagName("a");
+                                    for (let i = 0; i < a.length; i++) {
+                                        txtValue = a[i].textContent || a[i].innerText;
+                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                            a[i].style.display = "";
+                                        } else {
+                                            a[i].style.display = "none";
+                                        }
+                                    }
+                                }
+
+                                function selectProduct(index) {
+                                    // document.getElementById("productname").value = 
+                                }
+
+
+                            </script>
+
+                </body>
 
 </html>

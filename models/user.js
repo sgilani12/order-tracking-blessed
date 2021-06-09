@@ -36,9 +36,12 @@ const User = sequelize.define(
 );
 
 module.exports.authenticate = async (email, password) => {
-  const user = await User.findByPk(email);
-  if(user.password === password){
-    return true;
+  user = await User.findByPk(email);
+  return user.dataValues.user_password === password;
+}
+
+module.exports.verify = async (email) => {
+  user = await User.findByPk(email);
+  return user;
   }
-  return false;
 }

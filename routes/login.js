@@ -1,5 +1,6 @@
 const express = require('express');
 const loginController = require('../controllers/loginController')
+const indexController = require('../controllers/indexController')
 var jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -11,7 +12,7 @@ LoginRouter.route('/')
 
 LoginRouter.route('/authenticate')
     .post(('/login', passport.authenticate('local'), (req, res) => {
-        loginController.authenticate(req,res);
+        loginController.authenticate(req,res,indexController.dashboard);
 }))
 
 /*  A route for testing login configuration

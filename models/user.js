@@ -44,4 +44,3 @@ module.exports.verify = async (email) => {
   user = await User.findByPk(email);
   return user;
   }
-}

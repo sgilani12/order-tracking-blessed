@@ -7,7 +7,7 @@ var loginController = {
     res.render('login')
   },
 
-  authenticate(req, res, next){
+  authenticate(req, res){
     userModel.authenticate(req.body.email,req.body.password).then(result => {
       if(result){
         jwt.sign({email: req.body.email}, process.env.AUTH_SECRET, (err, token) => {
@@ -19,11 +19,11 @@ var loginController = {
             httpOnly: true,
             sameSite: true,
             signed: true,
-            secure: true
+            secure: true,
+            expires: new Date(Date.now() + process.env.LOGIN_DURATION)
         });
         // Return json web token
-        res.json({jwt: token})
-        next();
+        res.redirect('/dashboard')
     })}
       else{
         res.redirect('/')

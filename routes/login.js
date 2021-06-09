@@ -12,7 +12,7 @@ LoginRouter.route('/')
 
 LoginRouter.route('/authenticate')
     .post(('/login', passport.authenticate('local'), (req, res) => {
-        loginController.authenticate(req,res,indexController.dashboard);
+        loginController.authenticate(req,res);
 }))
 
 /*  A route for testing login configuration

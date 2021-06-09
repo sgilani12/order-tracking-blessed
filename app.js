@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyparser = require('body-parser');
+const user = require('./models/user')
+const jwt = require('jsonwebtoken');
+const genToken = require('./passport')
 
 const app = express();
 const port = 3000;
@@ -28,7 +31,7 @@ app.use('/orders', ordersRouter);
 app.use('/customers', customersRouter);
 app.use('/newOrder', newOrderRouter);
 
-app.use(express.static("static"));
+app.use(express.static("public"));
 
 app.listen(port, () => {
     console.log(`Server listening on Port: ${port}`);

@@ -7,13 +7,11 @@ var customersController={
         customerModel.getCustomerList((err,data)=>{
             try {
                 if(err) {
-                    console.log(err)
-                } else {
+                  } else {
                    res.render('customers', {customers:data});
                 }
             }
             catch (error) {
-                console.log(error)
             }
         });
     },
@@ -23,7 +21,6 @@ var customersController={
     },
     addCustomer(req, res) {
         // how to handle optional fields?
-        console.log(req.body)
         try {
             // unpack req.body and create customer object
             const customer = {
@@ -44,13 +41,11 @@ var customersController={
                 if (created) {
                     res.redirect("/customers");
                 } else {
-                    console.log("CUSTOMER EXISTS ", foundCustomer);
                     res.redirect("/customers/add");
                 }
             });
         }
        catch (error) {
-        console.log(error);
       }
     },
 
@@ -61,12 +56,10 @@ var customersController={
     res.render("deleteCustomer");
   },
   deleteCustomer(req, res) {
-    console.log("---------TEST-----------")
     try {
       const id = req.body.customerid;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
-          console.log("Error occurred", err);
         } else {
           if (deleted) {
             // customer deleted
@@ -78,9 +71,26 @@ var customersController={
         }
       });
     } catch (err) {
-      console.log("Error occurred", err);
     }
   },
+  deleteID(req, res) {
+    try {
+      const id = req.params['id'];
+      customerModel.deleteCustomer(id, (err, deleted) => {
+        if (err) {
+        } else {
+          if (deleted) {
+            // customer deleted
+            res.redirect("/customers");
+          } else {
+            // customer doesn't exist
+            res.redirect("/customers/delete");
+          }
+        }
+      });
+    } catch (err) {
+    }
+  }
 };
 
 

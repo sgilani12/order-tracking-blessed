@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const { sequelize } = require("./_key.js");
+const genToken = require('../passport');
 
 const User = sequelize.define(
   "user",
@@ -29,5 +30,14 @@ const User = sequelize.define(
       allowNull: false,
     },
   },
+
   {}
+  
 );
+
+module.exports.authenticateUser = (email, password) =>{
+    user = User.findByPk(email);
+    return user.password === password;
+}
+    
+  

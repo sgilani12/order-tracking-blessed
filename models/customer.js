@@ -108,7 +108,7 @@ module.exports.addCustomer = (customer, cb)=>{
     })
     .catch(error => {
       cb(error, null);
-    })
+    });
 };
 
 module.exports.deleteCustomer = (id, cb) => {
@@ -116,6 +116,9 @@ module.exports.deleteCustomer = (id, cb) => {
   .then((created) => {
     cb(null, created);
   })
+  .catch(error => {
+    cb(error, null);
+  });
 };
 
 module.exports.getCustomerList= (cb)=>{

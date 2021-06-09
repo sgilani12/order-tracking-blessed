@@ -3,7 +3,6 @@ const bodyparser = require('body-parser');
 const session = require('express-session');
 const user = require('./models/user')
 const jwt = require('jsonwebtoken');
-const genToken = require('./passport')
 
 const app = express();
 const port = 3000;

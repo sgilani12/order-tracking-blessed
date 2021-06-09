@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 
-const urlParser = bodyparser.urlencoded({extended:true});
+const urlParser = bodyparser.urlencoded({ extended: true });
 
 app.use(urlParser);
 

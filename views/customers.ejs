@@ -58,12 +58,13 @@
                       
                         <script>
                             async function deleteCustomer(id){
-                                let url = `/customers/${id}`;
-                                confirm(`Deleting Customer ${id}`);
-                                //update this to cancel whn you click cancel
-                                console.log(`endpoint to hit: ${url}`);
-                                const res = await axios.delete(url);
-                                console.log(`request status: ${res.status}`);                                  
+                               let confirmation = confirm(`Deleting Customer ${id}`);
+                               if(confirmation){
+                                 let url = `/customers/${id}`;
+                                 console.log(`endpoint to hit: ${url}`);
+                                 const res = await axios.delete(url);
+                                 console.log(`request status: ${res.status}`);   
+                               }
                             }
 
                         </script>

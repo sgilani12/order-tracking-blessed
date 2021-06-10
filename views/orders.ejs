@@ -21,7 +21,9 @@
               </header>
               <section class="modal-card-body">
                 <!-- Content ... -->
-                    <form name="editOrder" enctype="application/x-www-form-urlencoded">
+                    <form id="editOrder" name="editOrder" enctype="application/x-www-form-urlencoded" method="POST">
+                        <!--This below is probably not needed, but leaving for backend just in case-->
+                        <!--<input type="hidden" name="_method" value="put" />-->
                         <table>
                             <tr>
                                 <td>Order ID</td>
@@ -60,13 +62,18 @@
                                 <td>Order Notes</td>
                                 <td><textarea type="text" name="order_notes" id="order_notes" class="textarea"></textarea></td>
                             </tr>
+                            <tr>
+                                <td>
+                                  <button onclick="hidePopup()" class="button">Cancel</button>
+                                </td>
+                                <td>
+                                  <input class="button is-primary" id="submit" type="submit" value="Save Changes" >
+                                </td>
+                             </tr>
                         </table>
                     </form>
               </section>
-              <footer class="modal-card-foot">
-                <button onclick="hidePopup()" class="button">Cancel</button>
-                <button id="submitButton" class="button is-success">Save changes</button>
-              </footer>
+              <footer class="modal-card-foot"></footer>
             </div>
           </div>
 
@@ -131,9 +138,10 @@
         <script>
             
             const modal = document.getElementsByClassName("modal")[0];
-            const submitButton = document.getElementById("submitButton");
+            const form = document.getElementById("editOrder");
+
             function showPopup(order_id, customer_id, status, datetime, price, notes){
-                submitButton.setAttribute("onclick", `submitForm(${order_id})`)
+                form.setAttribute("action", `/orders/${order_id}`)
                 //add is-active to .modal to display it
                 modal.classList.add("is-active");
                 //DOM elements inside modal
@@ -155,28 +163,6 @@
             }
             function hidePopup(){
                 //remove is-active 
-                modal.classList.remove("is-active");
-            }
-            async function submitForm(order_id){
-                let confirmation = confirm(`Editing order ${order_id}`);
-                if (confirmation){
-                    console.log("send put request to api now");
-                    let url = `/orders/${order_id}`;
-                    console.log($("#status_field:selected"))
-                    let data = {
-                        order_id: document.getElementById("order_id").value,
-                        customer_id: document.getElementById("customer_id").value,
-                        status: document.getElementById("status_field").value,
-                        datetime: document.getElementById("datetime").value,
-                        price: document.getElementById("price").value,
-                        order_notes: document.getElementById("order_notes").value
-                    }
-                    console.log(data);
-                    const res = await axios.put(url, data);
-                    console.log(`request status" ${res.status}`)
-                }else{
-                    console.log("cancel edit")
-                }
                 modal.classList.remove("is-active");
             }
             function searchOrder() {

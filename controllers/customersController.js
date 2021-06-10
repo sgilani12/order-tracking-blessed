@@ -14,7 +14,7 @@ var customersController={
             messages = [];
         }
         catch (error) {
-          messages = getErrors(err);
+          messages = error;
           res.render('customers', {customers:data, messages: messages});
           messages = [];
         }
@@ -68,9 +68,8 @@ var customersController={
           })
       }
       catch (error) {
-        messages = getErrors(err);
+        messages = error;
         res.redirect('/customers/add');
-        messages = [];
     }
   },
 
@@ -92,9 +91,8 @@ var customersController={
         }
       });
     } catch (err) {
-      messages = getErrors(err);
+      messages = error;
       res.redirect('/customers');
-      messages = [];
     }
   }
 };

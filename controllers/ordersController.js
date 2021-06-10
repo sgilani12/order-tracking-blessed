@@ -17,7 +17,7 @@ var ordersController={
                 messages = [];
             }
             catch (error) {
-                messages = getErrors(error);
+                messages = error;
                 res.render('orders', {messages: messages});
                 messages = [];
             }
@@ -44,7 +44,7 @@ var ordersController={
                                 messages = [];
                               }
                             } catch (error) {
-                              messages = getErrors(error);
+                              messages = error;
                               res.render('newOrder', {messages: messages});
                               messages = [];
                             }
@@ -52,7 +52,7 @@ var ordersController={
                 }
             }
             catch (error) {
-                messages = getErrors(err);
+                messages = error;
                 res.render('newOrder', {messages, messages});
                 messages = [];
             }

@@ -15,7 +15,7 @@ var productsController = {
       } 
       
       catch (error) {
-        messages = getErrors(error);
+        messages = error;
         res.render('products', {messages: messages});
         messages = [];
       }

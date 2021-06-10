@@ -7,4 +7,9 @@
     margin-left:auto;
     margin-right:auto;
 }
-
+.fa-trash-alt{
+    color: rgb(155, 12, 35);
+}
+.button.is-success{
+    background-color: #00A676 !important;
+}

@@ -127,3 +127,23 @@ module.exports.getCustomerList = (cb) => {
     cb(null, newData);
   });
 };
+
+module.exports.updateCustomer = (customerId, customer, cb)=>{
+  console.log("CUSTOMER", customer);
+  Customer.update({ 
+    first_name: customer.first_name,
+    middle_name: customer.middle_name,
+    last_name: customer.last_name,
+    phone: customer.phone,
+    email: customer.email,
+    customer_notes: customer.customer_notes,
+    shipping_address: customer.shipping_address,
+    billing_address: customer.billing_address
+   }, { where: { customer_id: customerId }})
+    .then((rowsUpdated) => {
+      cb(null, rowsUpdated);
+    })
+    .catch(error => {
+      cb(error, null);
+    })
+}

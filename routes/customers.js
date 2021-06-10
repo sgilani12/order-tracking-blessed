@@ -16,8 +16,6 @@ customersRouter.route('/:id')
         res.send(`Request: GET /customers/${req.params['id']}`);
     })
     .delete(customersController.deleteCustomer) 
-    .put((req, res) => {
-        res.send(`Request: PUT /customers/${req.params['id']}`);
-    });
+    .patch(customersController.updateCustomer);
 
 module.exports = customersRouter;

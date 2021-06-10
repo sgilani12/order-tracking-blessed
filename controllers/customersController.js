@@ -92,6 +92,49 @@ var customersController={
       });
     } catch (err) {
     }
+  },
+  customerUpdate(req,res){
+    console.log(req.params['id']);
+    res.render('testUpdateCustomer', {messages: req.session['message']})
+    req.session.destroy();
+  },
+  updateCustomer(req, res){
+    console.log("INSIDE Customer", req.params['id']);
+    try{
+      console.log("Hit Update Request");
+      const customer = {
+        first_name:req.body.fname,
+        middle_name:req.body.mname,
+        last_name:req.body.lname,
+        phone:req.body.phone,
+        email:req.body.email,
+        customer_notes:req.body.notes,
+        shipping_address:req.body.shipaddress,
+        billing_address:req.body.billaddress
+      }
+      const id = req.params['id'];
+      customerModel.updateCustomer(id, customer, (err, success)=> {
+        if(err){
+          var errorArray = err.errors;
+          var messageArray = new Array();
+          errorArray.forEach(e => {
+            messageArray.push(e.message);
+          });
+          req.session['message'] = messageArray;
+          console.log(req.session['message']);
+          res.redirect('/customers/add'); // whichever page the update form is on
+        }
+        else if(success == 1){
+          req.session['message'] = ["Customer successfully updated"];
+          console.log(req.session['message']);
+          res.redirect('/customers');
+        }
+      })
+    }
+    catch(error){
+      console.log("We hit an error - try again");
+      res.redirect('/customers/:id');
+    }
   }
 };
 

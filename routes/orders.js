@@ -12,6 +12,9 @@ ordersRouter.route('/add')
     res.render('newOrder');
     });
 
+ordersRouter.route('/add')
+    .get(ordersController.newOrder)
+
 ordersRouter.route('/:id')
     .get((req,res) => {
         keyValues = "";

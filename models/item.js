@@ -46,6 +46,20 @@ module.exports.deleteItem = (o_id, p_id, cb) => {
     })
 };
 
+module.exports.findItem = (item, cb)=>{
+  Item.findOne({ 
+    where: { 
+        order_id: o_id,
+        p_id:  p_id,
+    } })
+    .then(found => {
+      cb(null, found);
+    })
+    .catch(error => {
+      cb(error, null);
+    })
+};
+
 /* Foreign Key shenanigans
 to be implemented later
 

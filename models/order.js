@@ -41,6 +41,9 @@ module.exports.getOrderList= (cb)=>{
     var newData = [];
     data.forEach( (element)=> newData.push(element.dataValues) );
     cb(null, newData);
+  })
+  .catch(err => {
+    cb(err, null);
   });
   
 }

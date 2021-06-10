@@ -12,8 +12,8 @@ describe('customer model', () => {
             first_name:"barry",
             middle_name:"tjx",
             last_name:"smith",
-            phone:"7774441131",
-            email:"22@tjx.com",
+            phone:"17774441131",
+            email:"122@tjx.com",
             customer_notes:"please work",
             shipping_address:"100 tjx rd",
             billing_address:"100 tjx rd"

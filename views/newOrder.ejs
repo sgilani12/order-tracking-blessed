@@ -59,7 +59,8 @@
 
                                         <td>
                                             <div id="dropDown" class="dropdown_content">
-                                                <input type="text" placeholder="Search" id="productSearch">
+                                                <input class="input" type="text" placeholder="Search"
+                                                    id="newOrder_productSearch">
                                                 <% for (var i=0 ; i < products.length ; i++){ %>
 
 
@@ -112,7 +113,7 @@
                             document.getElementById("submitButton").addEventListener("click", submitForm, false);
                             document.getElementById("draftButton").addEventListener("click", submitDraft, false);
                             document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
-                            document.getElementById("productSearch").addEventListener("keyup", filterProducts, false);
+                            document.getElementById("newOrder_productSearch").addEventListener("keyup", filterProducts, false);
                             document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
                             /*document.getElementById("newCustomer").onclick = function () {
                                 location.assign("/newCustomer");
@@ -199,7 +200,7 @@
                             function filterProducts() {
                                 console.log('filtering products');
                                 var input, filter, ul, li, a, i;
-                                input = document.getElementById("productSearch");
+                                input = document.getElementById("newOrder_productSearch");
                                 filter = input.value.toUpperCase();
                                 div = document.getElementById("dropDown");
                                 a = div.getElementsByTagName("a");
@@ -215,6 +216,7 @@
 
                             function selectProduct(name, id) {
                                 document.getElementById('productname').value = name;
+                                productsDropdown();
                             }
 
 

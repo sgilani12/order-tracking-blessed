@@ -5,27 +5,25 @@ var messages = new Array();
 var customersController={
   customerHome(req, res) {
       // get customers from db as list of objects
-      customerModel.getCustomerList((err,data)=>{
-          try {
-              if(err) {
-                console.log(err);
-                } else {
-                  req.session['message'] = messages;
-                  console.log(req.session['message']);
-                  res.render('customers', {customers:data, messages: req.session['message']});
-                  req.session.destroy();
+    customerModel.getCustomerList((err,data)=>{
+        try {
+            if(err) {
+              messages = getErrors(err);
               }
-          }
-          catch (error) {
-          }
-      });
+            res.render('customers', {customers:data, messages: messages});
+            messages = [];
+        }
+        catch (error) {
+          messages = getErrors(err);
+          res.render('customers', {customers:data, messages: messages});
+          messages = [];
+        }
+    });
   },
 
   customerNew(req,res){
-    req.session['message'] = messages;
-    console.log(req.session['message']);
-    res.render('newCustomer', {messages: req.session['message']})
-    req.session.destroy();
+    res.render('newCustomer', {messages: messages})
+    messages = [];
   },
   addCustomer(req, res) {
       // how to handle optional fields?
@@ -70,6 +68,9 @@ var customersController={
           })
       }
       catch (error) {
+        messages = getErrors(err);
+        res.redirect('/customers/add');
+        messages = [];
     }
   },
 
@@ -91,6 +92,9 @@ var customersController={
         }
       });
     } catch (err) {
+      messages = getErrors(err);
+      res.redirect('/customers');
+      messages = [];
     }
   }
 };

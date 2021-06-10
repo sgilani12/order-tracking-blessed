@@ -7,9 +7,7 @@ var indexController = require('../controllers/indexController')
 
 
 indexRouter.route('/')
-    .get(passport.authenticate('jwt-cookiecombo', {
-    session: false
-}), indexController.dashboard);
+    .get((req, res) => res.render('index'))
 
 
 module.exports = indexRouter;

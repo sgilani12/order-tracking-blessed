@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-        <link rel="stylesheet" href="/css/global.css">
-
-    </head>
+    <%- include('partials/head') %>
     <body>
+        <%- include('partials/topbar') %>
+        <%- include('partials/side-nav') %>
         <div class="page-content">
         <h1>This is the orders page</h1>
-        <ul>
-            <li><a href="customers/newCustomer">Add new customer</a></li>
-            <li><a href="/newOrder">Add new order</a></li>
-            <li><a href="/customers">Go to customers page</a></li>
-            <li><a href="/orders">Go to orders page</a></li>
-            <li><a href="/products">Go to products page</a></li>
-        </ul>
+        
+
+        <!--bulma modal as popup form to edit order-->
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">Edit order</p>
+                <button onClick="hidePopup()" id="delete" class="delete" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+                <!-- Content ... -->
+                <form>
+                    <form name="editOrder" enctype="application/x-www-form-urlencoded">
+                        <table>
+                            <tr>
+                                <td>Customer ID</td>
+                                <td><input type="text" name="customer_id" id="customer_id" class="input"></td>
+                            </tr>
+                            <tr>
+            
+                                <td>Product</td>
+                                <td><input type="text" name="productname" id="productname" class="input"></td>
+                                <td>Quantity</td>
+                                <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                            <tr>
+                                <td colspan="2"><button type="button" id="addProductButton" class="button">Add to
+                                        Order</button></td>
+                            </tr>
+                            <table id="orderTable" class="table">
+                                <caption>Order Details</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Product ID</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                            </tr>
+                            <tr>
+                                <td>Order Notes</td>
+                                <td><textarea type="text" name="order_notes" id="order_notes" class="textarea"></textarea></td>
+                            </tr>
+                        </table>
+                    </form>
+                </form>
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+              </footer>
+            </div>
+          </div>
+
+
         <table class="table">
             <thead>
                 <tr>
@@ -29,33 +76,36 @@
                 </tr>
             </thead>
             <tbody>
-                <% var orders =
-                    [
-                    {
-                        "order_id": 1,
-                        "customer_id": 2,
-                        "order_status_code": "shipped",
-                        "datetime_order_placed": "June 5, 6pm",
-                        "total_order_price": 20000000,
-                        "order_notes": "stuff shipped"
-                    },
-                    {
-                        "order_id": 2,
-                        "customer_id": 3,
-                        "order_status_code": "shipped",
-                        "datetime_order_placed": "June 5, 6pm",
-                        "total_order_price": 20000000,
-                        "order_notes": "stuff shipped"
+                
+                <script>
+                    const modal = document.getElementsByClassName("modal")[0];
+                    const deleteButton = document.getElementById("delete");
+                    function showPopup(i){
+                    //add is-active to .modal
+                        //console.log(modal.classList);
+                        console.log(`you are at element ${i}`);
+                        modal.classList.add("is-active");
+                        const customer_id_field  = document.getElementById('customer_id');
+                        //console.log(customer_id_field);
+                        customer_id_field.value = orders[i].customer_id;
                     }
-                    ]
-                %>
+                    function hidePopup(){
+                        //remove is-active 
+                        //clear form 
+                        modal.classList.remove("is-active");
+                    }
+                   
+                    //populate the form areas with 
+                </script>
                 <!--object called orders loaded on page render -->
                 <% if(orders.length > 0){ %>
 
                     <% for ( var i = 0 ; i < orders.length ; i++){ %>
+                        
                     <tr>
                        <td>
-                          <%= orders[i].order_id%>
+                           <a onClick="showPopup('<%- i%>')"><%= orders[i].order_id%></a>
+                          
                        </td>
                        <td>
                           <%= orders[i].customer_id%>

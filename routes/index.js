@@ -1,8 +1,9 @@
 const express = require('express');
+const passport = require ('passport')
 
 var indexRouter = express.Router();
 
-indexRouter.get('/', function (req, res, next) {
+indexRouter.get('/', passport.authenticate('jwt',{session: false}),function(req, res) {
     res.render('index');
 });
 

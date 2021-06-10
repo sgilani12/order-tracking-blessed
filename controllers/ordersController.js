@@ -5,14 +5,11 @@ var ordersController={
     orderModel.getOrderList((err,data)=>{
         try {
             if(err) {
-                console.log(err)
             } else {
-               console.log(data);  //just a check that correct data is returned
                res.render('orders', {orders:data});
             }
         }
         catch (error) {
-            console.log(error)
         }
     });
 },

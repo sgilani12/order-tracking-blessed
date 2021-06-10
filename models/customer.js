@@ -72,7 +72,6 @@ module.exports.addCustomer = (newCustomer, cb)=>{
             billing_address: newCustomer.billing_address
         }})
         .then( function(result, created) {
-            console.log("TEST______ customer.findorcreate.then");
             cb(result, created);
         })
         .catch(function(err){

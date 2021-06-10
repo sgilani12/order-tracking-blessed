@@ -64,7 +64,11 @@
         <div class="page-content">
         <h1>Customers</h1>
         <a href="/customers/add"><button class="button logout-button">Add Customer</button></a>
-        <table class="table">
+        <div class='table-container'>
+         <input class="input" type="text" id="customerSearch" onkeyup="searchCustomer()"
+            placeholder="Search by email" title="">
+
+         <table class="table" id="customer_table">
             <thead>
                 <tr>
                     <th>Customer ID</th>
@@ -123,6 +127,7 @@
             </tbody>
             <tfoot></tfoot>
         </table>
+        </div>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
@@ -199,6 +204,24 @@
         }
         modal.classList.remove("is-active");
      }
+     function searchCustomer() {
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("customerSearch");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("customer_table");
+                  tr = table.getElementsByTagName("tr");
+                  for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[5];
+                     if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                           tr[i].style.display = "";
+                        } else {
+                           tr[i].style.display = "none";
+                        }
+                     }
+                  }
+               }
 
   </script>
       </body>

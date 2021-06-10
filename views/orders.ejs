@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
+
     <body>
         <%- include('partials/topbar') %>
         <%- include('partials/side-nav') %>
@@ -70,7 +71,10 @@
           </div>
 
 
-        <table class="table">
+          <div class="table-container">
+            <input class="input" type="text" id="orderSearch" onkeyup="searchOrder()"
+                placeholder="Search by order id" title="">
+            <table class="table" id="order_table">
             <thead>
                 <tr>
                     <th>Order ID</th>
@@ -120,6 +124,7 @@
             </tbody>
             <tfoot></tfoot>
         </table>
+        </div>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -174,7 +179,26 @@
                 }
                 modal.classList.remove("is-active");
             }
+            function searchOrder() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("orderSearch");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("order_table");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[0];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
         </script>
 
     </body>
+
 </html>

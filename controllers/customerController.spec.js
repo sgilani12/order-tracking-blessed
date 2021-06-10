@@ -2,9 +2,9 @@ const chai = require('chai');
 // const chaiHttp = require('chai-http');
 const should = chai.should();
 const expect = require('chai').expect;
-const customerModel = require("../models/order");
+const customerModel = require("../models/customer");
 
-describe('customer order', () => {
+describe('customer model', () => {
 
     let fname;
     before((done) => {

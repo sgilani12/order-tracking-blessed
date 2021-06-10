@@ -2,13 +2,21 @@ html{
     background-color: rgb(250,249,241);
 }
 .page-content{
-    padding:10px 0px 80px 80px;
     margin-left: 150px;
-    background-color: rgb(250,249,241);
 }
-.table{
-    margin-left:auto;
-    margin-right:auto;
+/*product catalog dropdown*/
+.dropdown_content {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+#dropDown {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
 }
 .fa-trash-alt{
     color: rgb(155, 12, 35);
@@ -27,4 +35,24 @@ h1{
 }
 input{
     margin-bottom:10px;
+}
+/* table styling */
+.table-container {
+  width: 80vw;
+  height: 80vh;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+#customerSearch {
+  width: 40%;
+}
+#productSearch {
+  width: 40%;
+}
+#orderSearch {
+  width: 40%;
 }

@@ -36,9 +36,13 @@ const Product = sequelize.define(
 );
 
 module.exports.getProductList = (cb) => {
-  const allProducts = Product.findAll().then((data) => {
+  const allProducts = Product.findAll()
+  .then((data) => {
     var newData = [];
     data.forEach((element) => newData.push(element.dataValues));
     cb(null, newData);
+  })
+  .catch(err => {
+    cb(err, null);
   });
 };

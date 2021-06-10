@@ -17,7 +17,8 @@ describe('/customers', () => {
                 email:"james@tjx.com",
                 customer_notes:"test",
                 shipping_address:"100 tjx rd",
-                billing_address:"100 tjx rd"
+                billing_address:"100 tjx rd",
+                notes:"test 999"
             }
             chai.request(app)
             .get('/customers/add')
@@ -28,7 +29,7 @@ describe('/customers', () => {
                 //   res.body.should.have.property('errors');
                 //   res.body.errors.should.have.property('pages');
                 //   res.body.errors.pages.should.have.property('kind').eql('required');
-                console.log(res);
+                // console.log(res);
               done();
             });
         });

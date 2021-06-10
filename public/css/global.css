@@ -74,3 +74,17 @@ input {
   margin-left: auto;
   margin-right: auto;
 }
+
+#newCustomer_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+}
+
+#addOrder_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+}

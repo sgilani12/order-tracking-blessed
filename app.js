@@ -3,6 +3,8 @@ const bodyparser = require('body-parser');
 const session = require('express-session');
 const user = require('./models/user')
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+require('dotenv').config()
 
 const app = express();
 const port = 8080;
@@ -19,6 +21,7 @@ app.use(session({
         maxAge: 30 * 24 * 60 * 60 * 1000
       }
 }));
+app.use(cookieParser(process.env.AUTH_SECRET))
 
 const indexRouter = require('./routes/index');
 const productsRouter = require('./routes/products');

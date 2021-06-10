@@ -44,3 +44,19 @@ module.exports.getOrderList= (cb)=>{
   });
   
 }
+
+module.exports.createOrder = (order, cb) => {
+  Order.create({
+    time_of_order: sequelize.fn('NOW'),
+    customer_id: order.customer_id,
+    order_status_code: order.order_status_code,
+    total_order_price: 0,
+    order_notes: order.order_notes
+  })
+  .then(created => {
+    cb(null, created);
+  })
+  .catch(error => {
+    cb(error, null);
+  })
+};

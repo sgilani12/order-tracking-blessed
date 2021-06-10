@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const { sequelize } = require("./_key.js");
-const genToken = require('../passport');
 
 const User = sequelize.define(
   "user",

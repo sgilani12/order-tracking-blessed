@@ -43,4 +43,12 @@ module.exports.getProductList = (cb) => {
   });
 };
 
-module.exports = Product;
+module.exports.findProduct = (id, cb)=>{
+  Product.findOne({ where: {product_id: id}})
+    .then(found => {
+      cb(null, found);
+    })
+    .catch(error => {
+      cb(error, null);
+    })
+};

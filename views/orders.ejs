@@ -34,14 +34,14 @@
                                 <td>
                                 <div  class="select">
                                     <select id="status_field">
-                                        <option id="Draft">Draft</option>
-                                        <option id="Open">Open</option>
-                                        <option id="Finalized">Finalized</option>
-                                        <option id="Preparing to ship">Preparing to ship</option>
-                                        <option id="Ready for shipping">Ready for shipping</option>
-                                        <option id="Shipped">Shipped</option>
-                                        <option id="Delivered">Delivered</option>
-                                        <option id="Closed">Closed</option>
+                                        <option id="Draft" value="Draft">Draft</option>
+                                        <option id="Open"value="Open">Open</option>
+                                        <option id="Finalized" value="Finalized">Finalized</option>
+                                        <option id="Preparing to ship" value="Preparing to ship">Preparing to ship</option>
+                                        <option id="Ready for shipping" value="Ready for shipping">Ready for shipping</option>
+                                        <option id="Shipped"value="Shipped">Shipped</option>
+                                        <option id="Delivered"value="Delivered">Delivered</option>
+                                        <option id="Closed" value="Closed">Closed</option>
                                     </select>
                                 </div>
                             </td>
@@ -160,7 +160,7 @@
                     let data = {
                         order_id: document.getElementById("order_id").value,
                         customer_id: document.getElementById("customer_id").value,
-                        status: $("#status_field:selected").contents,
+                        status: document.getElementById("status_field").value,
                         datetime: document.getElementById("datetime").value,
                         price: document.getElementById("price").value,
                         order_notes: document.getElementById("order_notes").value

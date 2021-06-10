@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const { sequelize } = require("./_key.js");
+const bcrypt = require('bcryptjs');
 
 const User = sequelize.define(
   "user",
@@ -39,5 +40,8 @@ const User = sequelize.define(
 /*TODO-- Use actual encryption instead of plaintext comparison*/
 module.exports.authenticate = async (email, password) => {
   user = await User.findByPk(email);
-  return user.dataValues.user_password === password;
+  if(user === null){
+    return false;
+  }
+  return bcrypt.compare(password, user.dataValues.user_password);
 }

@@ -23,13 +23,17 @@ var loginController = {
             secure: true,
             expires: new Date(Date.now() + process.env.LOGIN_DURATION)
         });
-        // Return json web token
         res.redirect('/dashboard')
     })}
       else{
         res.redirect('/')
       }
     })
+  },
+
+  logout(req, res){
+    res.cookie('jwt', 0);
+    res.redirect('/');
   }
 }
 

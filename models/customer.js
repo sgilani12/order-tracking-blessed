@@ -71,14 +71,14 @@ const Customer = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    
+
     billing_address: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   },
   {
-    timestamps: false
+    timestamps: false,
   }
 );
 
@@ -108,22 +108,26 @@ module.exports.addCustomer = (customer, cb)=>{
     })
     .catch(error => {
       cb(error, null);
-    })
+    });
 };
 
 module.exports.deleteCustomer = (id, cb) => {
-  Customer.destroy({ where: { customer_id: id } })
-  .then((created) => {
+  Customer.destroy({ where: { customer_id: id } }).then((created) => {
     cb(null, created);
   })
+  .catch(error => {
+    cb(error, null);
+  });
 };
 
-module.exports.getCustomerList= (cb)=>{
-  const allCustomers =  Customer.findAll()
-  .then((data)=> {
+module.exports.getCustomerList = (cb) => {
+  const allCustomers = Customer.findAll()
+  .then((data) => {
     var newData = [];
-    data.forEach( (element)=> newData.push(element.dataValues) );
+    data.forEach((element) => newData.push(element.dataValues));
     cb(null, newData);
+  })
+  .catch(err => {
+    cb(err, null);
   });
-  
-}
+};

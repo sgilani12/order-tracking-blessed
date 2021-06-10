@@ -8,7 +8,7 @@
     <%- include('partials/topbar') %>
     <%- include('partials/side-nav') %>
     <div class="page-content">
-    <h1>This is the products page</h1>
+    <h1>Products</h1>
     
 
     <table class="table">
@@ -23,9 +23,6 @@
             </tr>
         </thead>
         <tbody>
-            <% var products=[ { "product_id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
-                , "quantity" : 40, "description" : "this is great" }, { "product_id" : 2, "SKU" : "kuhw54afds5"
-                , "price" : 22.99, "product_name" : "West" , "quantity" : 20, "description" : "this is cool" } ] %>
                 <!--object called customers loaded on page render -->
                 <% if(products.length> 0){ %>
 
@@ -63,7 +60,7 @@
 
                                 </script>
                                 
-                                <a onClick="deleteProduct('<%- products[i].product_id%>')" href="">Delete</a>
+                                <!--<a onClick="deleteProduct('<%- products[i].product_id%>')" href="">Delete</a>-->
                             </td>
                         </tr>
                         <% } %>

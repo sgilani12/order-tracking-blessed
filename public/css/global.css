@@ -1,5 +1,8 @@
+html{
+    background-color: rgb(250,249,241);
+}
 .page-content{
-    padding:80px 0px 80px 80px;
+    padding:10px 0px 80px 80px;
     margin-left: 150px;
     background-color: rgb(250,249,241);
 }
@@ -7,4 +10,21 @@
     margin-left:auto;
     margin-right:auto;
 }
+.fa-trash-alt{
+    color: rgb(155, 12, 35);
+}
+.button.is-success{
+    background-color: #00A676 !important;
+}
 
+h1{
+    font-size:60px;
+    color:black;
+    font-weight:550;
+}
+.button{
+    margin-bottom: 20px;
+}
+input{
+    margin-bottom:10px;
+}

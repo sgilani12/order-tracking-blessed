@@ -9,7 +9,7 @@
          <div class="modal-background"></div>
          <div class="modal-card">
            <header class="modal-card-head">
-             <p class="modal-card-title">Edit Order</p>
+             <p class="modal-card-title">Edit Customer</p>
              <button onClick="hidePopup()" id="delete" class="delete" aria-label="close"></button>
            </header>
            <section class="modal-card-body">
@@ -42,7 +42,7 @@
                          </tr>
                          <tr>
                            <td>Notes</td>
-                           <td><input type="text" name="notes" id="notes" class="input"></td>
+                           <td><input type="text" name="notes" id="customer_notes" class="input"></td>
                          </tr>
                          <tr>
                            <td>Shipping Address</td>
@@ -62,7 +62,8 @@
          </div>
        </div>
         <div class="page-content">
-        <h1>This is the customers page</h1>
+        <h1>Customers</h1>
+        <a href="/customers/add"><button class="button logout-button">Add Customer</button></a>
         <table class="table">
             <thead>
                 <tr>
@@ -109,61 +110,9 @@
                      <td>
                         <%= customers[i].billing_address%>
                      </td>
-                     <td><a onClick="showPopup('<%- customers[i].customer_id%>', '<%- customers[i].first_name%>', '<%- customers[i].middle_name%>', '<%- customers[i].last_name%>', '<%- customers[i].phone%>', '<%- customers[i].email%>', '<%- customers[i].notes%>', '<%- customers[i].shipping_address%>', '<%- customers[i].billing_address%>')"><i class="fas fa-edit"></a></td>
+                     <td><a onClick="showPopup('<%- customers[i].customer_id%>', '<%- customers[i].first_name%>', '<%- customers[i].middle_name%>', '<%- customers[i].last_name%>', '<%- customers[i].phone%>', '<%- customers[i].email%>', '<%- customers[i].customer_notes%>', '<%- customers[i].shipping_address%>', '<%- customers[i].billing_address%>')"><i class="fas fa-edit"></a></td>
                      <td>
-                        <!--delete button, DELTE api call to /customers/:id-->
- 
-                        <script>
-                            async function deleteCustomer(id){
-                               let confirmation = confirm(`Deleting Customer ${id}`);
-                               if(confirmation){
-                                 let url = `/customers/${id}`;
-                                 console.log(`endpoint to hit: ${url}`);
-                                 const res = await axios.delete(url);
-                                 console.log(`request status: ${res.status}`);   
-                              }
-                           }
-                           const modal = document.getElementsByClassName("modal")[0];
-                           const submitButton = document.getElementById("submitButton");
-                           function showPopup(customer_id, first_name, middle_name, last_name, phone, email, customer_notes, shipping_address, billing_address){
-                              submitButton.setAttribute("onclick", `submitForm(${customer_id})`)
-                              //add is-active to .modal to display it
-                              modal.classList.add("is-active");
-                              //DOM elements inside modal
-                              const customer_id_field  = document.getElementById('customer_id');
-                              const first_name_field  = document.getElementById('first_name');
-                              const middle_name_field  = document.getElementById('middle_name');
-                              const last_name_field  = document.getElementById('last_name');
-                              const phone_field  = document.getElementById('phone');
-                              const email_field  = document.getElementById('email');
-                              const customer_notes_field = document.getElementById('customer_notes');
-                              const shipping_address_field = document.getElementById('shipping_address');
-                              const billing_address_field = document.getElementById('billing_address');
-                              //populate form fields based on parameters
-                              customer_id_field.value = customer_id;
-                              first_name_field.value = first_name;
-                              middle_name_field.value = middle_name;
-                              last_name_field.value = last_name;
-                              phone_field.value = phone;
-                              email_field.value = email;
-                              customer_notes_field.value = customer_notes;
-                              shipping_address_field.value = shipping_address;
-                              billing_address_field.value = billing_address;
-                           }
-                           function hidePopup(){
-                              //remove is-active 
-                              modal.classList.remove("is-active");
-                           }
-                           function submitForm(order_id){
-                              let confirmation = confirm(`Editing customer ${customer_id}`);
-                              if (confirmation){
-                                 console.log("send put request to api now");
-                              }else{
-                                 console.log("cancel edit")
-                              }
-                              modal.classList.remove("is-active");
-                           }
-                        </script>
+                        
  
                         <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href=""><i class="fas fa-trash-alt"></i></a>
                     </td>
@@ -176,5 +125,81 @@
         </table>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </body>
+    
+    <!--delete button, DELTE api call to /customers/:id-->
+ 
+    <script>
+      async function deleteCustomer(id){
+         let confirmation = confirm(`Deleting Customer ${id}`);
+         if(confirmation){
+           let url = `/customers/${id}`;
+           console.log(`endpoint to hit: ${url}`);
+           const res = await axios.delete(url);
+           console.log(`request status: ${res.status}`);   
+        }
+      }
+     const modal = document.getElementsByClassName("modal")[0];
+     const submitButton = document.getElementById("submitButton");
+     function showPopup(customer_id, first_name, middle_name, last_name, phone, email, customer_notes, shipping_address, billing_address){
+        submitButton.setAttribute("onclick", `submitForm(${customer_id})`)
+        console.log(`notes to add ${customer_notes}`);
+        //add is-active to .modal to display it
+        modal.classList.add("is-active");
+        //DOM elements inside modal
+        const customer_id_field  = document.getElementById('customer_id');
+        const first_name_field  = document.getElementById('first_name');
+        const middle_name_field  = document.getElementById('middle_name');
+        const last_name_field  = document.getElementById('last_name');
+        const phone_field  = document.getElementById('phone');
+        const email_field  = document.getElementById('email');
+        const customer_notes_field = document.getElementById('customer_notes');
+        const shipping_address_field = document.getElementById('shipping_address');
+        const billing_address_field = document.getElementById('billing_address');
+        //populate form fields based on parameters
+        customer_id_field.value = customer_id;
+        first_name_field.value = first_name;
+        middle_name_field.value = middle_name;
+        last_name_field.value = last_name;
+        phone_field.value = phone;
+        email_field.value = email;
+        customer_notes_field.value = customer_notes;
+        console.log(customer_notes_field.value);
+        shipping_address_field.value = shipping_address;
+        billing_address_field.value = billing_address;
+     }
+     function hidePopup(){
+        //remove is-active 
+        modal.classList.remove("is-active");
+     }
+     async function submitForm(customer_id){
+        let confirmation = confirm(`Editing customer ${customer_id}`);
+        if (confirmation){
+           console.log("send put request to api now");
+           //make url
+           let url = `/customers/${customer_id}`;
+           //make data object
+           let data = {
+            customer_id: document.getElementById("customer_id").value,
+            first_name: document.getElementById("first_name").value,
+            middle_name: document.getElementById("middle_name").value,
+            last_name: document.getElementById("last_name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
+            customer_notes: document.getElementById("customer_notes").value,
+            shipping_address: document.getElementById("shipping_address").value,
+            billing_address: document.getElementById("billing_address").value
+           }
+           //axios PUT with data to url
+           console.log(url);
+           console.log(data);
+           const res = await axios.put(url, data);
+           console.log(`request status: ${res.status}`);   
+        }else{
+           console.log("cancel edit")
+        }
+        modal.classList.remove("is-active");
+     }
+
+  </script>
+      </body>
 </html>

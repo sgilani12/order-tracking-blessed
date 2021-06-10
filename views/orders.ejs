@@ -6,7 +6,8 @@
         <%- include('partials/topbar') %>
         <%- include('partials/side-nav') %>
         <div class="page-content">
-        <h1>This is the orders page</h1>
+            <h1>Orders</h1>
+            <a href="/orders/add"><button class="button logout-button">Add Order</button></a>
         
 
         <!--bulma modal as popup form to edit order-->
@@ -34,14 +35,14 @@
                                 <td>
                                 <div  class="select">
                                     <select id="status_field">
-                                        <option id="Draft">Draft</option>
-                                        <option id="Open">Open</option>
-                                        <option id="Finalized">Finalized</option>
-                                        <option id="Preparing to ship">Preparing to ship</option>
-                                        <option id="Ready for shipping">Ready for shipping</option>
-                                        <option id="Shipped">Shipped</option>
-                                        <option id="Delivered">Delivered</option>
-                                        <option id="Closed">Closed</option>
+                                        <option id="Draft" value="Draft">Draft</option>
+                                        <option id="Open"value="Open">Open</option>
+                                        <option id="Finalized" value="Finalized">Finalized</option>
+                                        <option id="Preparing to ship" value="Preparing to ship">Preparing to ship</option>
+                                        <option id="Ready for shipping" value="Ready for shipping">Ready for shipping</option>
+                                        <option id="Shipped"value="Shipped">Shipped</option>
+                                        <option id="Delivered"value="Delivered">Delivered</option>
+                                        <option id="Closed" value="Closed">Closed</option>
                                     </select>
                                 </div>
                             </td>
@@ -63,7 +64,7 @@
               </section>
               <footer class="modal-card-foot">
                 <button onclick="hidePopup()" class="button">Cancel</button>
-                <button  id="submitButton" class="button is-success">Save changes</button>
+                <button id="submitButton" class="button is-success">Save changes</button>
               </footer>
             </div>
           </div>
@@ -88,7 +89,7 @@
                         
                     <tr>
                        <td>
-                           <a onClick="showPopup('<%- orders[i].order_id%>', '<%- orders[i].customer_id%>', '<%- orders[i].order_status_code%>', '<%- orders[i].datetime_order_placed%>', '<%- orders[i].total_order_price%>', '<%- orders[i].order_notes%>')"><%= orders[i].order_id%></a>
+                           <%= orders[i].order_id%>
                           
                        </td>
                        <td>
@@ -106,6 +107,12 @@
                      <td>
                         <%= orders[i].order_notes%>
                      </td>
+                     <td>
+                        <a onClick="showPopup('<%- orders[i].order_id%>', '<%- orders[i].customer_id%>', '<%- orders[i].order_status_code%>', '<%- orders[i].datetime_order_placed%>', '<%- orders[i].total_order_price%>', '<%- orders[i].order_notes%>')"><i class="fas fa-edit"></i></a>
+                     </td>
+                     <!--<td>
+                         <i class="fas fa-trash-alt"></i>
+                     </td>-->
                     </tr>
                     <% } %>
           
@@ -114,8 +121,10 @@
             <tfoot></tfoot>
         </table>
         </div>
-
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
+            
             const modal = document.getElementsByClassName("modal")[0];
             const submitButton = document.getElementById("submitButton");
             function showPopup(order_id, customer_id, status, datetime, price, notes){
@@ -143,10 +152,23 @@
                 //remove is-active 
                 modal.classList.remove("is-active");
             }
-            function submitForm(order_id){
+            async function submitForm(order_id){
                 let confirmation = confirm(`Editing order ${order_id}`);
                 if (confirmation){
                     console.log("send put request to api now");
+                    let url = `/orders/${order_id}`;
+                    console.log($("#status_field:selected"))
+                    let data = {
+                        order_id: document.getElementById("order_id").value,
+                        customer_id: document.getElementById("customer_id").value,
+                        status: document.getElementById("status_field").value,
+                        datetime: document.getElementById("datetime").value,
+                        price: document.getElementById("price").value,
+                        order_notes: document.getElementById("order_notes").value
+                    }
+                    console.log(data);
+                    const res = await axios.put(url, data);
+                    console.log(`request status" ${res.status}`)
                 }else{
                     console.log("cancel edit")
                 }

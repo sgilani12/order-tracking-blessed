@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
+const user = require('./models/user')
+const jwt = require('jsonwebtoken');
+const genToken = require('./passport')
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 
 const urlParser = bodyparser.urlencoded({ extended: true });

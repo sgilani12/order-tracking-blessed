@@ -65,7 +65,7 @@
 
 
                                                     <a class="dropdown-item"
-                                                        onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>')">
+                                                        onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>')">
                                                         <%= products[i].product_name%>
                                                     </a>
                                                     <% } %>
@@ -108,7 +108,8 @@
                         </div>
                         <script>
                             //initialize object to hold products and corresponding quantities
-                            const products_object = new Object();
+                            let products_object = new Array();
+                            let currentSelection_object = new Object();
                             document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
                             document.getElementById("submitButton").addEventListener("click", submitForm, false);
                             document.getElementById("draftButton").addEventListener("click", submitDraft, false);
@@ -120,15 +121,27 @@
                             };*/
                             function orderUpdate() {
                                 if ($('#productname').val() != null && $('#productname').val() != '') {
-                                    let product_name = $('#productname').val()
+                                    let id = currentSelection_object.id;
+                                    let product_name = currentSelection_object.name;
                                     let product_quantity = parseInt($('#quantity').val());
-                                    //add product name as key, and quantity as value to products_object
-                                    if (products_object[product_name] == null) {
-                                        products_object[product_name] = product_quantity;
-                                    } else {
-                                        products_object[product_name] += product_quantity;
+                                    let price = currentSelection_object.price;
+
+                                    let new_product_object = {
+                                        id: id,
+                                        name: product_name,
+                                        quantity: product_quantity,
+                                        unit_price: price
                                     }
-                                    console.log(products_object);
+                                    let productFound = false;
+                                    for (let i = 0; i < products_object.length; i++) {
+                                        if (new_product_object.id === products_object[i].id) {
+                                            products_object[i].quantity += new_product_object.quantity;
+                                            productFound = true;
+                                        }
+                                    }
+                                    if (!productFound) {
+                                        products_object.push(new_product_object);
+                                    }
                                     productAddToTable();
                                     formClear();
                                     $('#productname').focus();
@@ -137,11 +150,10 @@
 
                             function productAddToTable() {
                                 var tableHTML = "";
-                                let products_length = Object.keys(products_object).length;
-                                for (let i = 0; i < products_length; i++) {
+                                for (let i = 0; i < products_object.length; i++) {
                                     tableHTML += '<tr>';
-                                    tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
-                                    tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
+                                    tableHTML += '<td>' + products_object[i].name + '</td>';
+                                    tableHTML += '<td>' + products_object[i].quantity + '</td>';
                                     tableHTML += '</tr>';
                                 }
                                 //tableHTML += '</tbody>';
@@ -153,10 +165,17 @@
                             }
                             async function submitForm() {
                                 //create data object to pass in POST
+                                let total_price = 0.0;
+                                //calculate total order price
+                                for (let i = 0; i < products_object.length; i++) {
+                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
+                                }
+
                                 let data = {
                                     customer_id: $('#customer_id').val(),
                                     order_notes: $('#order_notes').val(),
                                     products: products_object,
+                                    total_price: total_price,
                                     status: 'Open'
                                 }
                                 console.log(data);
@@ -169,10 +188,17 @@
 
                             async function submitDraft() {
                                 //create data object to pass in POST
+                                let total_price = 0.0;
+                                //calculate total order price
+                                for (let i = 0; i < products_object.length; i++) {
+                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
+                                }
+
                                 let data = {
                                     customer_id: $('#customer_id').val(),
                                     order_notes: $('#order_notes').val(),
                                     products: products_object,
+                                    total_price: total_price,
                                     status: 'Draft'
                                 }
                                 console.log(data);
@@ -214,8 +240,15 @@
                                 }
                             }
 
-                            function selectProduct(name, id) {
+                            function selectProduct(name, id, price) {
                                 document.getElementById('productname').value = name;
+                                currentSelection_object = {
+                                    name: name,
+                                    id: id,
+                                    price: price
+                                };
+                                console.log(currentSelection_object);
+
                                 productsDropdown();
                             }
 

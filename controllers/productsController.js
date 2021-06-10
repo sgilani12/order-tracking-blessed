@@ -8,13 +8,13 @@ var productsController = {
     productModel.getProductList((err, data) => {
       try {
         if (err) {
-          messages = getErrors(err);
-          res.render('products', {messages: messages});
-          messages = [];
-        } else {
-          res.render("products", { products: data });
+          messages = getErrors(err); 
         }
-      } catch (error) {
+        res.render('products', {products: data, messages: messages});
+        messages = [];
+      } 
+      
+      catch (error) {
         messages = getErrors(error);
         res.render('products', {messages: messages});
         messages = [];

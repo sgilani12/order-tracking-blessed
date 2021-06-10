@@ -2,23 +2,14 @@
 
 <html lang="en">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/global.css">
-    
-</head>
+    <%- include('partials/head') %>
 
 <body>
+    <%- include('partials/topbar') %>
+    <%- include('partials/side-nav') %>
     <div class="page-content">
     <h1>This is the products page</h1>
-    <ul>
-        <li><a href="customers/newCustomer">Add new customer</a></li>
-        <li><a href="/newOrder">Add new order</a></li>
-        <li><a href="/customers">Go to customers page</a></li>
-        <li><a href="/orders">Go to orders page</a></li>
-        <li><a href="/products">Go to products page</a></li>
-    </ul>
+    
 
     <table class="table">
         <thead>
@@ -26,7 +17,7 @@
                 <th>Product ID</th>
                 <th>SKU</th>
                 <th>Price</th>
-                <th>Product_Name</th>
+                <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Description</th>
             </tr>

@@ -1,13 +1,13 @@
-let customers = require('./customers');
-let expect = require('chai').expect;
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const should = chai.should();
+const app = require('../app');
 
-//npm install 
-//npm i mocha
-//npm i -D chai
+chai.use(chaiHttp);
 
-describe('customers', () => {
-    it("should pass this test in customers", () => {
-        //nothing means pass        
-    })
+describe('/customers', () => {
 
-})
+    describe('retrieve list of all customers, i.e., /customers', (done) => {
+        // leave empty for now
+    });
+});

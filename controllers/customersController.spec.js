@@ -6,7 +6,7 @@ const customerModel = require("../models/customer");
 
 describe('customer model', () => {
 
-    let something;
+    let fname;
     before((done) => {
         const mockCustomer = {
             first_name:"barry",
@@ -19,14 +19,14 @@ describe('customer model', () => {
             billing_address:"100 tjx rd"
         }
         customerModel.addCustomer(mockCustomer, (err, created) => {
-            something = created.dataValues.first_name;
+            fname = created.dataValues.first_name;
             done();
         });
     });
 
     describe('GET add', () => {
         it("should add a new customer", () => {
-            expect(something).to.eq("henry");
+            expect(fname).to.eq("henry");
         });
     });
 });

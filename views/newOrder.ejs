@@ -47,7 +47,7 @@
 
                                             <td><button class="button dropdown-trigger" id="dropdown-btn"
                                                     type="button">Products
-                                                    Catalog</button></td>
+                                                    Catalog &darr;</button></td>
 
                                             <td>Quantity</td>
                                             <td><input type="text" name="quantity" id="quantity" class="input"></td>
@@ -56,27 +56,30 @@
                                                     class="button">Add
                                                     to
                                                     Order</button></td>
+
+                                            <td>
+                                                <div id="dropDown" class="dropdown_content">
+                                                    <input type="text" placeholder="Search" id="productSearch">
+                                                    <!--<a href="" class="dropdown-item">About</a>
+                                                            <a href="" class="dropdown-item">Base</a>
+                                                            <a href="" class="dropdown-item">Blog</a>
+                                                            <a href="" class="dropdown-item">Contact</a>
+                                                            <a href="" class="dropdown-item">Custom</a>
+                                                            <a href="" class="dropdown-item">Support</a>
+                                                            <a href="" class="dropdown-item">Tools</a>-->
+                                                    <% for (var i=0 ; i < product_catalog.length ; i++){ %>
+
+
+                                                        <a class="dropdown-item"
+                                                            onclick="selectProduct('<%- product_catalog[i].product_name%>', '<%- product_catalog[i].product_id%>')">
+                                                            <%= product_catalog[i].product_name%>
+                                                        </a>
+                                                        <% } %>
+                                                </div>
+                                            </td>
                                         </tr>
 
-                                        <tr>
-                                            <div id="dropDown" class="dropdown_content">
-                                                <input type="text" placeholder="Search" id="productSearch">
-                                                <!--<a href="" class="dropdown-item">About</a>
-                                                <a href="" class="dropdown-item">Base</a>
-                                                <a href="" class="dropdown-item">Blog</a>
-                                                <a href="" class="dropdown-item">Contact</a>
-                                                <a href="" class="dropdown-item">Custom</a>
-                                                <a href="" class="dropdown-item">Support</a>
-                                                <a href="" class="dropdown-item">Tools</a>-->
-                                                <% for (var i=0 ; i < product_catalog.length ; i++){ %>
 
-
-                                                    <a class="dropdown-item" onclick="selectProduct('<%- i%>')">
-                                                        <%= product_catalog[i].product_name%>
-                                                    </a>
-                                                    <% } %>
-                                            </div>
-                                        </tr>
 
                                         <table id="orderTable" class="table">
                                             <caption>Order Details</caption>
@@ -117,6 +120,7 @@
                                 document.getElementById("draftButton").addEventListener("click", submitDraft, false);
                                 document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
                                 document.getElementById("productSearch").addEventListener("keyup", filterProducts, false);
+                                document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
                                 /*document.getElementById("newCustomer").onclick = function () {
                                     location.assign("/newCustomer");
                                 };*/
@@ -189,6 +193,14 @@
                                 //dropdown product catalog functions
                                 function productsDropdown() {
                                     document.getElementById("dropDown").classList.toggle("show");
+                                    var upArrow = "\u2191";
+                                    var downArrow = "\u2193";
+                                    if (document.getElementById("dropdown-btn").innerText === ("Product Catalog " + downArrow)) {
+                                        document.getElementById("dropdown-btn").innerText = "Product Catalog " + upArrow;
+                                    } else {
+                                        document.getElementById("dropdown-btn").innerText = "Product Catalog " + downArrow;
+                                    }
+
                                 }
 
                                 function filterProducts() {
@@ -208,8 +220,8 @@
                                     }
                                 }
 
-                                function selectProduct(index) {
-                                    // document.getElementById("productname").value = 
+                                function selectProduct(name, id) {
+                                    document.getElementById('productname').value = name;
                                 }
 
 

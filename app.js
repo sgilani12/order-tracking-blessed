@@ -3,7 +3,6 @@ const bodyparser = require('body-parser');
 const session = require('express-session');
 const user = require('./models/user')
 const jwt = require('jsonwebtoken');
-const genToken = require('./passport')
 
 const app = express();
 const port = 8080;
@@ -14,7 +13,10 @@ app.use(urlParser);
 app.use(session({
     secret: 'backend is backbone',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000
+      }
 }));
 
 const indexRouter = require('./routes/index');

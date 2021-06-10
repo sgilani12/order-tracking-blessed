@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha './**/*.spec.js'",
+    "test": "mocha './**/*.spec.js' --exit",
     "start": "nodemon ./bin/www"
   },
   "author": "",

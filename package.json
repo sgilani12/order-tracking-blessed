@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha './**/*.spec.js'",
-    "start": "node app.js"
+    "test": "mocha './**/*.spec.js' --exit",
+    "start": "nodemon ./bin/www"
   },
   "author": "",
   "license": "ISC",

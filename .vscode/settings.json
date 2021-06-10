@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/b5b34985-438d-4cf7-ad1a-87693b9d634c/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/order-tracking",
+    "appService.deploySubpath": "."
+}

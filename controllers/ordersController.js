@@ -12,12 +12,9 @@ var ordersController={
             try {
                 if(err) {
                     messages = getErrors(err);
-                    res.render('orders', {messages: messages});
-                    messages = [];
-                } else {
+                }
                 res.render('orders', {orders:data, messages: messages});
                 messages = [];
-                }
             }
             catch (error) {
                 messages = getErrors(error);

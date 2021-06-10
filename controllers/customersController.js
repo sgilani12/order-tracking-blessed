@@ -72,7 +72,6 @@ var customersController={
       catch (error) {
     }
   },
-
   deleteCustomer(req, res) {
     try {
       const id = req.params['id'];
@@ -93,47 +92,44 @@ var customersController={
     } catch (err) {
     }
   },
-  customerUpdate(req,res){
-    console.log(req.params['id']);
-    res.render('testUpdateCustomer', {messages: req.session['message']})
-    req.session.destroy();
-  },
-  updateCustomer(req, res){
-    console.log("INSIDE Customer", req.params['id']);
+  updateCustomer(req, res) {
+    console.log("INSIDE updateCustomerCont", req.params['id']);
+    console.log("Request shape: ", req.body);
+    console.log("Content Head: ",  req.header('Content-Type'));
+    //console.log("Req Body??: ", typeof Object.keys(req.body)[0]);
     try{
-      console.log("Hit Update Request");
       const customer = {
-        first_name:req.body.fname,
-        middle_name:req.body.mname,
-        last_name:req.body.lname,
+        first_name: req.body.first_name,
+        middle_name:req.body.middle_name,
+        last_name:req.body.last_name,
         phone:req.body.phone,
         email:req.body.email,
-        customer_notes:req.body.notes,
-        shipping_address:req.body.shipaddress,
-        billing_address:req.body.billaddress
+        customer_notes:req.body.customer_notes,
+        shipping_address:req.body.shipping_address,
+        billing_address:req.body.billing_address
       }
       const id = req.params['id'];
+      console.log("WHats cust: ", customer);
       customerModel.updateCustomer(id, customer, (err, success)=> {
         if(err){
-          var errorArray = err.errors;
-          var messageArray = new Array();
-          errorArray.forEach(e => {
-            messageArray.push(e.message);
-          });
-          req.session['message'] = messageArray;
-          console.log(req.session['message']);
-          res.redirect('/customers/add'); // whichever page the update form is on
+          //messages = getErrors(err);
+
+          console.log("Error: occurred");
+          res.redirect(302, '/orders'); // whichever page the update form is on
         }
         else if(success == 1){
-          req.session['message'] = ["Customer successfully updated"];
-          console.log(req.session['message']);
+          console.log("Success?? ", messages);
+          res.redirect('/customers');
+        }
+        else{
+          console.log("Wut");
           res.redirect('/customers');
         }
       })
     }
     catch(error){
       console.log("We hit an error - try again");
-      res.redirect('/customers/:id');
+      res.redirect('/customers');
     }
   }
 };

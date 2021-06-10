@@ -7,8 +7,7 @@ customersRouter.route('/')
     .get(customersController.customerHome)
     .post(customersController.addCustomer)
 
-customersRouter
-  .route("/add")
+customersRouter.route("/add")
   .get(customersController.customerNew);
 
 customersRouter.route('/:id')
@@ -16,6 +15,6 @@ customersRouter.route('/:id')
         res.send(`Request: GET /customers/${req.params['id']}`);
     })
     .delete(customersController.deleteCustomer) 
-    .patch(customersController.updateCustomer);
+    .put(customersController.updateCustomer);
 
 module.exports = customersRouter;

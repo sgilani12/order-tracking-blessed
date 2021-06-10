@@ -120,14 +120,6 @@ module.exports.deleteCustomer = (id, cb) => {
   });
 };
 
-module.exports.getCustomerList = (cb) => {
-  const allCustomers = Customer.findAll().then((data) => {
-    var newData = [];
-    data.forEach((element) => newData.push(element.dataValues));
-    cb(null, newData);
-  });
-};
-
 module.exports.updateCustomer = (customerId, customer, cb)=>{
   console.log("CUSTOMER", customer);
   Customer.update({ 
@@ -147,3 +139,15 @@ module.exports.updateCustomer = (customerId, customer, cb)=>{
       cb(error, null);
     })
 }
+
+module.exports.getCustomerList = (cb) => {
+  const allCustomers = Customer.findAll()
+  .then((data) => {
+    var newData = [];
+    data.forEach((element) => newData.push(element.dataValues));
+    cb(null, newData);
+  })
+  .catch(err => {
+    cb(err, null);
+  });
+};

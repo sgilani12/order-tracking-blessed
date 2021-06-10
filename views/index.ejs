@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<%- include('partials/head') %>
+
+<body>
+    <%- include('partials/topbar') %>
+    <%- include('partials/side-nav') %>
+    <div class="page-content">
+    <section class="hero">
+            <section class="hero">
+                <div class="hero-body">
+                <p class="title">
+                    <img class="hero-image" src="assets/TJX.png"
+                </p>
+                <p class="subtitle">
+                    Welcome, Customer Service Representative.<br>
+                    Click a button below to get started. 
+                </p>
+                </div>
+            </section>
+          </section>
+        <!-- 4 buttons: New order, Orders, Customers, Products -->
+        <div class="grid2x2">
+            <div class="box-border">
+                <a href="/orders/add">
+                    <div class="box">
+                        <div>New Order</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/orders">
+                    <div class="box">
+                        <div>Orders</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/customers">
+                    <div class="box">
+                        <div>Customers</div>
+                    </div>
+                </a>
+            </div>
+            <div class="box-border">
+                <a href="/products">
+                    <div class="box">
+                        <div>Products</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('partials/footer') %>
+</body>
+
+</html>

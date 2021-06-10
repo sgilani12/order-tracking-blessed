@@ -1,8 +1,8 @@
-html{
-    background-color: rgb(250,249,241);
+html {
+  background-color: rgb(250, 249, 241);
 }
-.page-content{
-    margin-left: 150px;
+.page-content {
+  margin-left: 150px;
 }
 /*product catalog dropdown*/
 .dropdown_content {
@@ -18,23 +18,24 @@ html{
   background-color: white;
   border-radius: 10px;
 }
-.fa-trash-alt{
-    color: rgb(155, 12, 35);
+.fa-trash-alt {
+  color: rgb(155, 12, 35);
 }
-.button.is-success{
-    background-color: #00A676 !important;
+.button.is-success {
+  background-color: #00a676 !important;
 }
 
-h1{
-    font-size:60px;
-    color:black;
-    font-weight:550;
+h1 {
+  font-size: 60px;
+  color: black;
+  font-weight: 550;
+  text-align: center;
 }
-.button{
-    margin-bottom: 20px;
+.button {
+  margin-bottom: 20px;
 }
-input{
-    margin-bottom:10px;
+input {
+  margin-bottom: 10px;
 }
 /* table styling */
 .table-container {
@@ -55,4 +56,44 @@ input{
 }
 #orderSearch {
   width: 40%;
+}
+
+/*new order styling */
+#newOrder_productSearch {
+  width: 100%;
+}
+
+#dropDown {
+  height: 300px;
+  overflow-x: scroll;
+}
+
+/* new customer styling */
+#newCustomer_table {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#newCustomer_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+}
+
+#addOrder_button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 40px;
+}
+
+/*new order styling */
+#newOrder_table {
+  background-color: rgb(250, 249, 241);
+}
+
+#order_notes {
+  width: 80px;
 }

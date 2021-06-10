@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <!--make mock product catalog to link to drop down-->
+    <!--make mock product catalog to link to drop down
     <% var product_catalog=[ { "product id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
         , "quantity" : 40, "description" : "this is great" }, { "product id" : 2, "SKU" : "hfgs" , "price" :
         22.00, "product_name" : "bikes" , "quantity" : 3, "description" : "they work" }, { "product id" : 3, "SKU"
@@ -21,212 +21,241 @@
         { "product id" : 4, "SKU" : "hafejkdf" , "price" : 109.99, "product_name" : "hello" , "quantity" :
         30, "description" : "world" }, { "product id" : 5, "SKU" : "jrehjuyvdkl" , "price" : 203.99, "product_name"
         : "foo" , "quantity" : 20, "description" : "bar" } ]; %>
-        <div class="page-content">
+    -->
+    <div class="page-content">
 
-            <%- include('partials/head') %>
+        <%- include('partials/head') %>
 
-                <body>
-                    <%- include('partials/topbar') %>
-                        <%- include('partials/side-nav') %>
-                            <div class="page-content">
-
-
-                                <h1>New Order</h1>
-                                <form name="newOrder" enctype="application/x-www-form-urlencoded">
-                                    <table>
-                                        <tr>
-                                            <td>Customer ID</td>
-                                            <td><input type="text" name="customer_id" id="customer_id" class="input">
-                                            </td>
-                                        </tr>
-                                        <tr>
-
-                                            <td>Product</td>
-                                            <td><input type="text" name="productname" id="productname" class="input">
-                                            </td>
-
-                                            <td><button class="button dropdown-trigger" id="dropdown-btn"
-                                                    type="button">Products
-                                                    Catalog &darr;</button></td>
-
-                                            <td>Quantity</td>
-                                            <td><input type="text" name="quantity" id="quantity" class="input"></td>
-                                        <tr>
-                                            <td colspan="2"><button type="button" id="addProductButton"
-                                                    class="button">Add
-                                                    to
-                                                    Order</button></td>
-
-                                            <td>
-                                                <div id="dropDown" class="dropdown_content">
-                                                    <input type="text" placeholder="Search" id="productSearch">
-                                                    <!--<a href="" class="dropdown-item">About</a>
-                                                            <a href="" class="dropdown-item">Base</a>
-                                                            <a href="" class="dropdown-item">Blog</a>
-                                                            <a href="" class="dropdown-item">Contact</a>
-                                                            <a href="" class="dropdown-item">Custom</a>
-                                                            <a href="" class="dropdown-item">Support</a>
-                                                            <a href="" class="dropdown-item">Tools</a>-->
-                                                    <% for (var i=0 ; i < product_catalog.length ; i++){ %>
+            <body>
+                <%- include('partials/topbar') %>
+                    <%- include('partials/side-nav') %>
+                        <div class="page-content">
 
 
-                                                        <a class="dropdown-item"
-                                                            onclick="selectProduct('<%- product_catalog[i].product_name%>', '<%- product_catalog[i].product_id%>')">
-                                                            <%= product_catalog[i].product_name%>
-                                                        </a>
-                                                        <% } %>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            <h1>New Order</h1>
+                            <form name="newOrder" enctype="application/x-www-form-urlencoded">
+                                <table class="table" id="newOrder_table">
+                                    <tr>
+                                        <td>Customer ID</td>
+                                        <td><input type="text" name="customer_id" id="customer_id" class="input">
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>Product</td>
+                                        <td><input type="text" name="productname" id="productname" class="input">
+                                        </td>
+
+                                        <td><button class="button dropdown-trigger" id="dropdown-btn"
+                                                type="button">Products
+                                                Catalog &darr;</button></td>
+
+                                        <td>Quantity</td>
+                                        <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                                    <tr>
+                                        <td colspan="2"><button type="button" id="addProductButton" class="button">Add
+                                                to
+                                                Order</button></td>
+
+                                        <td>
+                                            <div id="dropDown" class="dropdown_content">
+                                                <input class="input" type="text" placeholder="Search"
+                                                    id="newOrder_productSearch">
+                                                <% for (var i=0 ; i < products.length ; i++){ %>
+
+
+                                                    <a class="dropdown-item"
+                                                        onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>')">
+                                                        <%= products[i].product_name%>
+                                                    </a>
+                                                    <% } %>
+                                            </div>
+                                        </td>
+                                    </tr>
 
 
 
-                                        <table id="orderTable" class="table">
-                                            <caption>Order Details</caption>
-                                            <thead>
-                                                <tr>
-                                                    <th>Product ID</th>
-                                                    <th>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tableBody">
-                                            </tbody>
-                                        </table>
-                                        </tr>
-                                        <tr>
-                                            <td>Order Notes</td>
-                                            <td><textarea type="text" name="order_notes" id="order_notes"
-                                                    class="textarea"></textarea>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="2"><button id="submitButton" class="button">Submit</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><button id="draftButton" class="button">Save as
-                                                    Draft</button>
-                                            </td>
-                                        </tr>
+                                    <table id="orderTable" class="table">
+                                        <caption>Order Details</caption>
+                                        <thead>
+                                            <tr>
+                                                <th>Product ID</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                        </tbody>
                                     </table>
-                                </form>
-                            </div>
-                            <script>
-                                //initialize object to hold products and corresponding quantities
-                                const products_object = new Object();
-                                document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
-                                document.getElementById("submitButton").addEventListener("click", submitForm, false);
-                                document.getElementById("draftButton").addEventListener("click", submitDraft, false);
-                                document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
-                                document.getElementById("productSearch").addEventListener("keyup", filterProducts, false);
-                                document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
-                                /*document.getElementById("newCustomer").onclick = function () {
-                                    location.assign("/newCustomer");
-                                };*/
-                                function orderUpdate() {
-                                    if ($('#productname').val() != null && $('#productname').val() != '') {
-                                        let product_name = $('#productname').val()
-                                        let product_quantity = parseInt($('#quantity').val());
-                                        //add product name as key, and quantity as value to products_object
-                                        if (products_object[product_name] == null) {
-                                            products_object[product_name] = product_quantity;
-                                        } else {
-                                            products_object[product_name] += product_quantity;
+                                    </tr>
+                                    <tr>
+                                        <td>Order Notes</td>
+                                        <td>
+                                            <textarea type="text" name="order_notes" id="order_notes"
+                                                class="textarea"></textarea>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2"><button id="submitButton" class="button">Submit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><button id="draftButton" class="button">Save as
+                                                Draft</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <script>
+                            //initialize object to hold products and corresponding quantities
+                            let products_object = new Array();
+                            let currentSelection_object = new Object();
+                            document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+                            document.getElementById("submitButton").addEventListener("click", submitForm, false);
+                            document.getElementById("draftButton").addEventListener("click", submitDraft, false);
+                            document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
+                            document.getElementById("newOrder_productSearch").addEventListener("keyup", filterProducts, false);
+                            document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
+                            /*document.getElementById("newCustomer").onclick = function () {
+                                location.assign("/newCustomer");
+                            };*/
+                            function orderUpdate() {
+                                if ($('#productname').val() != null && $('#productname').val() != '') {
+                                    let id = currentSelection_object.id;
+                                    let product_name = currentSelection_object.name;
+                                    let product_quantity = parseInt($('#quantity').val());
+                                    let price = currentSelection_object.price;
+
+                                    let new_product_object = {
+                                        id: id,
+                                        name: product_name,
+                                        quantity: product_quantity,
+                                        unit_price: price
+                                    }
+                                    let productFound = false;
+                                    for (let i = 0; i < products_object.length; i++) {
+                                        if (new_product_object.id === products_object[i].id) {
+                                            products_object[i].quantity += new_product_object.quantity;
+                                            productFound = true;
                                         }
-                                        console.log(products_object);
-                                        productAddToTable();
-                                        formClear();
-                                        $('#productname').focus();
                                     }
+                                    if (!productFound) {
+                                        products_object.push(new_product_object);
+                                    }
+                                    productAddToTable();
+                                    formClear();
+                                    $('#productname').focus();
+                                }
+                            }
+
+                            function productAddToTable() {
+                                var tableHTML = "";
+                                for (let i = 0; i < products_object.length; i++) {
+                                    tableHTML += '<tr>';
+                                    tableHTML += '<td>' + products_object[i].name + '</td>';
+                                    tableHTML += '<td>' + products_object[i].quantity + '</td>';
+                                    tableHTML += '</tr>';
+                                }
+                                //tableHTML += '</tbody>';
+                                document.getElementById("tableBody").innerHTML = tableHTML;
+                            }
+                            function formClear() {
+                                document.getElementById('productname').value = "";
+                                document.getElementById('quantity').value = "";
+                            }
+                            async function submitForm() {
+                                //create data object to pass in POST
+                                let total_price = 0.0;
+                                //calculate total order price
+                                for (let i = 0; i < products_object.length; i++) {
+                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
                                 }
 
-                                function productAddToTable() {
-                                    var tableHTML = "";
-                                    let products_length = Object.keys(products_object).length;
-                                    for (let i = 0; i < products_length; i++) {
-                                        tableHTML += '<tr>';
-                                        tableHTML += '<td>' + Object.keys(products_object)[i] + '</td>';
-                                        tableHTML += '<td>' + Object.values(products_object)[i] + '</td>';
-                                        tableHTML += '</tr>';
-                                    }
-                                    //tableHTML += '</tbody>';
-                                    document.getElementById("tableBody").innerHTML = tableHTML;
+                                let data = {
+                                    customer_id: $('#customer_id').val(),
+                                    order_notes: $('#order_notes').val(),
+                                    products: products_object,
+                                    total_price: total_price,
+                                    status: 'Open'
                                 }
-                                function formClear() {
-                                    $('productname').val("");
-                                    $('quantity').val("");
-                                }
-                                async function submitForm() {
-                                    //create data object to pass in POST
-                                    let data = {
-                                        customer_id: $('#customer_id').val(),
-                                        order_notes: $('#order_notes').val(),
-                                        products: products_object,
-                                        status: 'Open'
-                                    }
-                                    console.log(data);
-                                    //api call using axios 
-                                    const res = await axios.post('/orders', data);
-                                    console.log(`response status: ${res.status}`)
-                                    console.log(`data sent in request: ${res.data.json}`);
-                                    console.log("Form submitted successfully!")
+                                console.log(data);
+                                //api call using axios 
+                                const res = await axios.post('/orders', data);
+                                console.log(`response status: ${res.status}`)
+                                console.log(`data sent in request: ${res.data.json}`);
+                                console.log("Form submitted successfully!")
+                            }
+
+                            async function submitDraft() {
+                                //create data object to pass in POST
+                                let total_price = 0.0;
+                                //calculate total order price
+                                for (let i = 0; i < products_object.length; i++) {
+                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
                                 }
 
-                                async function submitDraft() {
-                                    //create data object to pass in POST
-                                    let data = {
-                                        customer_id: $('#customer_id').val(),
-                                        order_notes: $('#order_notes').val(),
-                                        products: products_object,
-                                        status: 'Draft'
-                                    }
-                                    console.log(data);
-                                    //api call using axios 
-                                    const res = await axios.post('/orders', data);
-                                    console.log(`response status: ${res.status}`)
-                                    console.log(`data sent in request: ${res.data.json}`);
-                                    console.log("Form submitted successfully!")
+                                let data = {
+                                    customer_id: $('#customer_id').val(),
+                                    order_notes: $('#order_notes').val(),
+                                    products: products_object,
+                                    total_price: total_price,
+                                    status: 'Draft'
+                                }
+                                console.log(data);
+                                //api call using axios 
+                                const res = await axios.post('/orders', data);
+                                console.log(`response status: ${res.status}`)
+                                console.log(`data sent in request: ${res.data.json}`);
+                                console.log("Form submitted successfully!")
+                            }
+
+
+                            //dropdown product catalog functions
+                            function productsDropdown() {
+                                document.getElementById("dropDown").classList.toggle("show");
+                                var upArrow = "\u2191";
+                                var downArrow = "\u2193";
+                                if (document.getElementById("dropdown-btn").innerText === ("Product Catalog " + downArrow)) {
+                                    document.getElementById("dropdown-btn").innerText = "Product Catalog " + upArrow;
+                                } else {
+                                    document.getElementById("dropdown-btn").innerText = "Product Catalog " + downArrow;
                                 }
 
+                            }
 
-                                //dropdown product catalog functions
-                                function productsDropdown() {
-                                    document.getElementById("dropDown").classList.toggle("show");
-                                    var upArrow = "\u2191";
-                                    var downArrow = "\u2193";
-                                    if (document.getElementById("dropdown-btn").innerText === ("Product Catalog " + downArrow)) {
-                                        document.getElementById("dropdown-btn").innerText = "Product Catalog " + upArrow;
+                            function filterProducts() {
+                                console.log('filtering products');
+                                var input, filter, ul, li, a, i;
+                                input = document.getElementById("newOrder_productSearch");
+                                filter = input.value.toUpperCase();
+                                div = document.getElementById("dropDown");
+                                a = div.getElementsByTagName("a");
+                                for (let i = 0; i < a.length; i++) {
+                                    txtValue = a[i].textContent || a[i].innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        a[i].style.display = "";
                                     } else {
-                                        document.getElementById("dropdown-btn").innerText = "Product Catalog " + downArrow;
-                                    }
-
-                                }
-
-                                function filterProducts() {
-                                    console.log('filtering products');
-                                    var input, filter, ul, li, a, i;
-                                    input = document.getElementById("productSearch");
-                                    filter = input.value.toUpperCase();
-                                    div = document.getElementById("dropDown");
-                                    a = div.getElementsByTagName("a");
-                                    for (let i = 0; i < a.length; i++) {
-                                        txtValue = a[i].textContent || a[i].innerText;
-                                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                            a[i].style.display = "";
-                                        } else {
-                                            a[i].style.display = "none";
-                                        }
+                                        a[i].style.display = "none";
                                     }
                                 }
+                            }
 
-                                function selectProduct(name, id) {
-                                    document.getElementById('productname').value = name;
-                                }
+                            function selectProduct(name, id, price) {
+                                document.getElementById('productname').value = name;
+                                currentSelection_object = {
+                                    name: name,
+                                    id: id,
+                                    price: price
+                                };
+                                console.log(currentSelection_object);
+
+                                productsDropdown();
+                            }
 
 
-                            </script>
+                        </script>
 
-                </body>
+            </body>
 
 </html>

@@ -121,9 +121,13 @@ module.exports.deleteCustomer = (id, cb) => {
 };
 
 module.exports.getCustomerList = (cb) => {
-  const allCustomers = Customer.findAll().then((data) => {
+  const allCustomers = Customer.findAll()
+  .then((data) => {
     var newData = [];
     data.forEach((element) => newData.push(element.dataValues));
     cb(null, newData);
+  })
+  .catch(err => {
+    cb(err, null);
   });
 };

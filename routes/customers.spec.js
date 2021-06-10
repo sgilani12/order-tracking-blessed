@@ -13,14 +13,4 @@ chai.use(chaiHttp);
 
 describe('customers', () => {
 
-    describe('/ customers', () => {
-        it('should return 200 status for sucessful route', (done) => {
-            chai.request(app)
-                .get('/customers')
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    done();
-                });
-        });
-    });
 });

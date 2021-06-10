@@ -42,3 +42,5 @@ module.exports.getProductList = (cb) => {
     cb(null, newData);
   });
 };
+
+module.exports = Product;

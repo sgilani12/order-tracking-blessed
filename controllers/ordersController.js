@@ -1,4 +1,6 @@
 var orderModel = require('../models/order');
+var productModel = require('../models/product');
+var itemModel = require('../models/item');
 
 var ordersController={
   orderHome(req, res) {

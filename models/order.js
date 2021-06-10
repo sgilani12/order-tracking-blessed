@@ -8,6 +8,7 @@ const Order = sequelize.define(
       type: DataTypes.INTEGER,
       unique: true,
       primaryKey: true,
+      autoIncrement:true
     },
     time_of_order: {
       type: DataTypes.DATE,

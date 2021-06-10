@@ -3,10 +3,6 @@
   margin-left: 150px;
   background-color: rgb(250, 249, 241);
 }
-.table {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /*product catalog dropdown*/
 .dropdown_content {
@@ -21,4 +17,16 @@
   position: relative;
   background-color: white;
   border-radius: 10px;
+}
+
+/* table styling */
+#customer_table {
+  max-height: 650px;
+  max-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#customer_table tbody {
+  overflow: scroll;
 }

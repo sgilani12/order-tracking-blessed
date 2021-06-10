@@ -1,89 +1,113 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <%- include('partials/head') %>
-    <body>
-        <%- include('partials/topbar') %>
-        <%- include('partials/side-nav') %>
-        <div class="page-content">
-        <h1>This is the customers page</h1>
-        <ul>
-            <li><a href="customers/add">Add new customer</a></li>
-            <li><a href="newOrder">Add new order</a></li>
-            <li><a href="customers">Go to customers page</a></li>
-            <li><a href="orders">Go to orders page</a></li>
-            <li><a href="products">Go to products page</a></li>
-        </ul>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Notes</th>
-                    <th>Shipping Address</th>
-                    <th>Billing Address</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if(customers.length > 0){ %>
+<%- include('partials/head') %>
 
-                    <% for ( var i = 0 ; i < customers.length ; i++){ %>
-                    <tr>
-                       <td>
-                          <%= customers[i].customer_id%>
-                       </td>
-                       <td>
-                          <%= customers[i].first_name%>
-                       </td>
-                       <td>
-                        <%= customers[i].middle_name%>
-                     </td>
-                     <td>
-                        <%= customers[i].last_name%>
-                     </td>
-                     <td>
-                        <%= customers[i].phone%>
-                     </td>
-                     <td>
-                        <%= customers[i].email%>
-                     </td>
-                     <td>
-                        <%= customers[i].customer_notes%>
-                     </td>
-                     <td>
-                        <%= customers[i].shipping_address%>
-                     </td>
-                     <td>
-                        <%= customers[i].billing_address%>
-                     </td>
-                     <td>
-                        <!--delete button, DELTE api call to /customers/:id-->
-                      
-                        <script>
-                            async function deleteCustomer(id){
-                                let url = `/customers/${id}`;
-                                confirm(`Deleting Customer ${id}`);
-                                console.log(`endpoint to hit: ${url}`);
-                                const res = await axios.delete(url);
-                                console.log(`request status: ${res.status}`);                                  
-                            }
+   <body>
+      <%- include('partials/topbar') %>
+         <%- include('partials/side-nav') %>
+            <div class="page-content">
+               <h1>This is the customers page</h1>
+               <ul>
+                  <li><a href="customers/add">Add new customer</a></li>
+                  <li><a href="newOrder">Add new order</a></li>
+                  <li><a href="customers">Go to customers page</a></li>
+                  <li><a href="orders">Go to orders page</a></li>
+                  <li><a href="products">Go to products page</a></li>
+               </ul>
+               <input type="text" id="customerSearch" onkeyup="searchCustomer()" placeholder="Search by email" title="">
+               <table class="table" id="customer_table">
+                  <thead>
+                     <tr>
+                        <th>Customer ID</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Notes</th>
+                        <th>Shipping Address</th>
+                        <th>Billing Address</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% if(customers.length> 0){ %>
 
-                        </script>
-                        
-                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href="">Delete</a>
-                    </td>
-                    </tr>
-                    <% } %>
-          
-                 <% } %>
-            </tbody>
-            <tfoot></tfoot>
-        </table>
-        </div>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </body>
+                        <% for ( var i=0 ; i < customers.length ; i++){ %>
+                           <tr>
+                              <td id="customer_id">
+                                 <%= customers[i].customer_id%>
+                              </td>
+                              <td>
+                                 <%= customers[i].first_name%>
+                              </td>
+                              <td>
+                                 <%= customers[i].middle_name%>
+                              </td>
+                              <td id="last_name">
+                                 <%= customers[i].last_name%>
+                              </td>
+                              <td>
+                                 <%= customers[i].phone%>
+                              </td>
+                              <td>
+                                 <%= customers[i].email%>
+                              </td>
+                              <td>
+                                 <%= customers[i].customer_notes%>
+                              </td>
+                              <td>
+                                 <%= customers[i].shipping_address%>
+                              </td>
+                              <td>
+                                 <%= customers[i].billing_address%>
+                              </td>
+                              <td>
+                                 <!--delete button, DELTE api call to /customers/:id-->
+
+                                 <script>
+                                    async function deleteCustomer(id) {
+                                       let url = `/customers/${id}`;
+                                       confirm(`Deleting Customer ${id}`);
+                                       console.log(`endpoint to hit: ${url}`);
+                                       const res = await axios.delete(url);
+                                       console.log(`request status: ${res.status}`);
+                                    }
+
+                                 </script>
+
+                                 <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href="">Delete</a>
+                              </td>
+                           </tr>
+                           <% } %>
+
+                              <% } %>
+                  </tbody>
+                  <tfoot></tfoot>
+               </table>
+            </div>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+            <script>
+               function searchCustomer() {
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("customerSearch");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("customer_table");
+                  tr = table.getElementsByTagName("tr");
+                  for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[5];
+                     console.log(td);
+                     if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                           tr[i].style.display = "";
+                        } else {
+                           tr[i].style.display = "none";
+                        }
+                     }
+                  }
+               }
+            </script>
+   </body>
+
 </html>

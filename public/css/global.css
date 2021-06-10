@@ -88,3 +88,12 @@ input {
   margin-right: auto;
   height: 40px;
 }
+
+/*new order styling */
+#newOrder_table {
+  background-color: rgb(250, 249, 241);
+}
+
+#order_notes {
+  width: 80px;
+}

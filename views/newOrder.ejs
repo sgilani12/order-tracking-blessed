@@ -34,7 +34,7 @@
 
                             <h1>New Order</h1>
                             <form name="newOrder" enctype="application/x-www-form-urlencoded">
-                                <table>
+                                <table class="table" id="newOrder_table">
                                     <tr>
                                         <td>Customer ID</td>
                                         <td><input type="text" name="customer_id" id="customer_id" class="input">
@@ -89,7 +89,8 @@
                                     </tr>
                                     <tr>
                                         <td>Order Notes</td>
-                                        <td><textarea type="text" name="order_notes" id="order_notes"
+                                        <td>
+                                            <textarea type="text" name="order_notes" id="order_notes"
                                                 class="textarea"></textarea>
                                         </td>
                                     </tr>

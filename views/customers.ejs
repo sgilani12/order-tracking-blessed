@@ -15,7 +15,7 @@
            </header>
            <section class="modal-card-body">
              <!-- Content ... -->
-                 <form name="editCustomer" enctype="application/x-www-form-urlencoded">
+                 <form id="editCustomer" name="editCustomer" enctype="application/x-www-form-urlencoded" method="PUT">
                      <table>
                          <tr>
                            <td>Customer ID</td>
@@ -53,12 +53,21 @@
                            <td>Billing Address</td>
                            <td><input type="text" name="billing_address" id="billing_address" class="input"></td>
                          </tr>
+                         <tr>
+                            <td>
+                              <button onclick="hidePopup()" class="button">Cancel</button>
+                            </td>
+                            <td>
+                              <input class="button is-primary" id="submit" type="submit" value="Save Changes" >
+                            </td>
+                         </tr>
                      </table>
                  </form>
            </section>
            <footer class="modal-card-foot">
-             <button onclick="hidePopup()" class="button">Cancel</button>
-             <button  id="submitButton" class="button is-success">Save changes</button>
+             
+             
+             <!--<button  id="submitButton" class="button is-success">Save changes</button>-->
            </footer>
          </div>
        </div>
@@ -145,10 +154,11 @@
         }
       }
      const modal = document.getElementsByClassName("modal")[0];
-     const submitButton = document.getElementById("submitButton");
+     //const submitButton = document.getElementById("submitButton");
+     const submitButton = document.getElementById("submit");
      function showPopup(customer_id, first_name, middle_name, last_name, phone, email, customer_notes, shipping_address, billing_address){
-        submitButton.setAttribute("onclick", `submitForm(${customer_id})`)
-        console.log(`notes to add ${customer_notes}`);
+        //submitButton.setAttribute("onclick", `submitForm(${customer_id})`)
+        submitButton.setAttribute("action", `/customers/${customer_id}`);
         //add is-active to .modal to display it
         modal.classList.add("is-active");
         //DOM elements inside modal

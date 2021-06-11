@@ -107,7 +107,7 @@ var ordersController = {
   updateOrder(req, res) {
     try {
       const order = {
-        order_status_code: req.body.status,
+        order_status_code: req.body.order_status,
         order_notes: req.body.order_notes,
       };
       const id = req.params["id"];

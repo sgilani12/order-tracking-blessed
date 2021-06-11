@@ -3,311 +3,293 @@
 <html lang="en">
 
 
-<head>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/global.css">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<%- include('partials/head') %>
 
-</head>
-
-<body>
-    <!--make mock product catalog to link to drop down
-    <% var product_catalog=[ { "product id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
-        , "quantity" : 40, "description" : "this is great" }, { "product id" : 2, "SKU" : "hfgs" , "price" :
-        22.00, "product_name" : "bikes" , "quantity" : 3, "description" : "they work" }, { "product id" : 3, "SKU"
-        : "gfhghhe" , "price" : 7.99, "product_name" : "new item" , "quantity" : 140, "description" : "this is great" },
-        { "product id" : 4, "SKU" : "hafejkdf" , "price" : 109.99, "product_name" : "hello" , "quantity" :
-        30, "description" : "world" }, { "product id" : 5, "SKU" : "jrehjuyvdkl" , "price" : 203.99, "product_name"
-        : "foo" , "quantity" : 20, "description" : "bar" } ]; %>
-    -->
-    <div class="page-content">
-
-        <%- include('partials/head') %>
-
-            <body>
-                <%- include('partials/topbar') %>
-                    <%- include('partials/side-nav') %>
-                        <div class="page-content">
+    <body>
+        <%- include('partials/topbar') %>
+            <%- include('partials/side-nav') %>
+                <div class="page-content">
 
 
-                            <h1>New Order</h1>
-                            <form name="newOrder" enctype="application/x-www-form-urlencoded">
-                                <table class="table" id="newOrder_table">
-                                    <tr>
-                                        <td>Customer ID</td>
-                                        <td><input type="text" name="customer_id" id="customer_id" class="input">
-                                        </td>
-                                        <td><button class="button dropdown-trigger" id="customer_dropdown-btn"
-                                                type="button">Customer List &darr;</button></td>
-                                    </tr>
-                                    <td></td>
-                                    <td></td>
+                    <h1>New Order</h1>
+                    <form name="newOrder" enctype="application/x-www-form-urlencoded">
+                        <div class="table-container">
+                            <table class="table" id="newOrder_table">
+                                <tr>
+                                    <td>Customer ID</td>
+                                    <td><input type="text" name="customer_id" id="customer_id" class="input">
+                                    </td>
+                                    <td><button class="button dropdown-trigger" id="customer_dropdown-btn"
+                                            type="button">Customer List &darr;</button></td>
+                                </tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div id="customers_dropDown" class="dropdown_content">
+                                        <input class="input" type="text" placeholder="Search by email"
+                                            id="newOrder_customerSearch">
+                                        <% for (var i=0 ; i < customers.length ; i++){ %>
+
+
+                                            <a class="dropdown-item"
+                                                onclick="selectCustomer('<%= customers[i].customer_id%>', '<%= customers[i].email%>')">
+                                                <%= customers[i].customer_id%>
+                                                    <%= customers[i].email%>
+                                            </a>
+                                            <% } %>
+                                    </div>
+                                </td>
+                                <tr>
+
+                                    <td>Product</td>
+                                    <td><input type="text" name="productname" id="productname" class="input">
+                                    </td>
+
+                                    <td><button class="button dropdown-trigger" id="dropdown-btn" type="button">Products
+                                            Catalog &darr;</button></td>
+
+                                    <td>Quantity</td>
+                                    <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                                <tr>
+                                    <td colspan="2"><button type="button" id="addProductButton" class="button">Add
+                                            to
+                                            Order</button></td>
+
                                     <td>
-                                        <div id="customers_dropDown" class="dropdown_content">
-                                            <input class="input" type="text" placeholder="Search by email"
-                                                id="newOrder_customerSearch">
-                                            <% for (var i=0 ; i < customers.length ; i++){ %>
+                                        <div id="dropDown" class="dropdown_content">
+                                            <input class="input" type="text" placeholder="Search"
+                                                id="newOrder_productSearch">
+                                            <% for (var i=0 ; i < products.length ; i++){ %>
 
 
                                                 <a class="dropdown-item"
-                                                    onclick="selectCustomer('<%= customers[i].customer_id%>', '<%= customers[i].email%>')">
-                                                    <%= customers[i].customer_id%>
-                                                        <%= customers[i].email%>
+                                                    onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>')">
+                                                    <%= products[i].product_name%>
                                                 </a>
                                                 <% } %>
                                         </div>
                                     </td>
-                                    <tr>
-
-                                        <td>Product</td>
-                                        <td><input type="text" name="productname" id="productname" class="input">
-                                        </td>
-
-                                        <td><button class="button dropdown-trigger" id="dropdown-btn"
-                                                type="button">Products
-                                                Catalog &darr;</button></td>
-
-                                        <td>Quantity</td>
-                                        <td><input type="text" name="quantity" id="quantity" class="input"></td>
-                                    <tr>
-                                        <td colspan="2"><button type="button" id="addProductButton" class="button">Add
-                                                to
-                                                Order</button></td>
-
-                                        <td>
-                                            <div id="dropDown" class="dropdown_content">
-                                                <input class="input" type="text" placeholder="Search"
-                                                    id="newOrder_productSearch">
-                                                <% for (var i=0 ; i < products.length ; i++){ %>
-
-
-                                                    <a class="dropdown-item"
-                                                        onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>')">
-                                                        <%= products[i].product_name%>
-                                                    </a>
-                                                    <% } %>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                </tr>
 
 
 
-                                    <table id="orderTable" class="table">
-                                        <caption>Order Details</caption>
-                                        <thead>
-                                            <tr>
-                                                <th>Product ID</th>
-                                                <th>Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tableBody">
-                                        </tbody>
-                                    </table>
-                                    </tr>
-                                    <tr>
-                                        <td>Order Notes</td>
-                                        <td>
+                                <table id="orderTable" class="table">
+                                    <caption>Order Details</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Product ID</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                    </tbody>
+                                </table>
+                                </tr>
+                                <tr>
+                                    <td>Order Notes</td>
+                                    <td>
+                                        <div id="order_notes_container">
                                             <textarea type="text" name="order_notes" id="order_notes"
                                                 class="textarea"></textarea>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                    <tr>
-                                        <td colspan="2"><button id="submitButton" class="button">Submit</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"><button id="draftButton" class="button">Save as
-                                                Draft</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
+                                <tr>
+                                    <td colspan="2"><button id="submitButton" class="button">Submit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><button id="draftButton" class="button">Save as
+                                            Draft</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                        <script>
-                            //initialize object to hold products and corresponding quantities
-                            let products_object = new Array();
-                            let currentSelection_object = new Object();
-                            document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
-                            document.getElementById("submitButton").addEventListener("click", submitForm, false);
-                            document.getElementById("draftButton").addEventListener("click", submitDraft, false);
-                            document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
-                            document.getElementById("newOrder_productSearch").addEventListener("keyup", filterProducts, false);
-                            document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
-                            document.getElementById("customer_dropdown-btn").addEventListener("click", customersDropdown);
-                            document.getElementById("newOrder_customerSearch").addEventListener("keyup", filterCustomers, false);
-                            document.getElementById("customer_dropdown-btn").innerText = "Customer List \u2193";
-                            /*document.getElementById("newCustomer").onclick = function () {
-                                location.assign("/newCustomer");
-                            };*/
-                            function orderUpdate() {
-                                if ($('#productname').val() != null && $('#productname').val() != '') {
-                                    let id = currentSelection_object.id;
-                                    let product_name = currentSelection_object.name;
-                                    let product_quantity = parseInt($('#quantity').val());
-                                    let price = currentSelection_object.price;
+                    </form>
+                </div>
+                <script>
+                    //initialize object to hold products and corresponding quantities
+                    let products_object = new Array();
+                    let currentSelection_object = new Object();
+                    document.getElementById("addProductButton").addEventListener("click", orderUpdate, false);
+                    document.getElementById("submitButton").addEventListener("click", submitForm, false);
+                    document.getElementById("draftButton").addEventListener("click", submitDraft, false);
+                    document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
+                    document.getElementById("newOrder_productSearch").addEventListener("keyup", filterProducts, false);
+                    document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
+                    document.getElementById("customer_dropdown-btn").addEventListener("click", customersDropdown);
+                    document.getElementById("newOrder_customerSearch").addEventListener("keyup", filterCustomers, false);
+                    document.getElementById("customer_dropdown-btn").innerText = "Customer List \u2193";
+                    /*document.getElementById("newCustomer").onclick = function () {
+                        location.assign("/newCustomer");
+                    };*/
+                    function orderUpdate() {
+                        if ($('#productname').val() != null && $('#productname').val() != '') {
+                            let id = currentSelection_object.id;
+                            let product_name = currentSelection_object.name;
+                            let product_quantity = parseInt($('#quantity').val());
+                            let price = currentSelection_object.price;
 
-                                    let new_product_object = {
-                                        id: id,
-                                        name: product_name,
-                                        quantity: product_quantity,
-                                        unit_price: price
-                                    }
-                                    let productFound = false;
-                                    for (let i = 0; i < products_object.length; i++) {
-                                        if (new_product_object.id === products_object[i].id) {
-                                            products_object[i].quantity += new_product_object.quantity;
-                                            productFound = true;
-                                        }
-                                    }
-                                    if (!productFound) {
-                                        products_object.push(new_product_object);
-                                    }
-                                    productAddToTable();
-                                    formClear();
-                                    $('#productname').focus();
+                            let new_product_object = {
+                                id: id,
+                                name: product_name,
+                                quantity: product_quantity,
+                                unit_price: price
+                            }
+                            let productFound = false;
+                            for (let i = 0; i < products_object.length; i++) {
+                                if (new_product_object.id === products_object[i].id) {
+                                    products_object[i].quantity += new_product_object.quantity;
+                                    productFound = true;
                                 }
                             }
-
-                            function productAddToTable() {
-                                var tableHTML = "";
-                                for (let i = 0; i < products_object.length; i++) {
-                                    tableHTML += '<tr>';
-                                    tableHTML += '<td>' + products_object[i].name + '</td>';
-                                    tableHTML += '<td>' + products_object[i].quantity + '</td>';
-                                    tableHTML += '</tr>';
-                                }
-                                //tableHTML += '</tbody>';
-                                document.getElementById("tableBody").innerHTML = tableHTML;
+                            if (!productFound) {
+                                products_object.push(new_product_object);
                             }
-                            function formClear() {
-                                document.getElementById('productname').value = "";
-                                document.getElementById('quantity').value = "";
+                            productAddToTable();
+                            formClear();
+                            $('#productname').focus();
+                        }
+                    }
+
+                    function productAddToTable() {
+                        var tableHTML = "";
+                        for (let i = 0; i < products_object.length; i++) {
+                            tableHTML += '<tr>';
+                            tableHTML += '<td>' + products_object[i].name + '</td>';
+                            tableHTML += '<td>' + products_object[i].quantity + '</td>';
+                            tableHTML += '</tr>';
+                        }
+                        //tableHTML += '</tbody>';
+                        document.getElementById("tableBody").innerHTML = tableHTML;
+                    }
+                    function formClear() {
+                        document.getElementById('productname').value = "";
+                        document.getElementById('quantity').value = "";
+                    }
+                    async function submitForm() {
+                        //create data object to pass in POST
+                        let total_price = 0.0;
+                        //calculate total order price
+                        for (let i = 0; i < products_object.length; i++) {
+                            total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
+                        }
+
+                        let data = {
+                            customer_id: $('#customer_id').val(),
+                            order_notes: $('#order_notes').val(),
+                            products: products_object,
+                            total_price: total_price,
+                            status: 'Open'
+                        }
+                        console.log(data);
+                        //api call using axios 
+                        const res = await axios.post('/orders', data);
+                        console.log(`response status: ${res.status}`)
+                        console.log(`data sent in request: ${res.data.json}`);
+                        console.log("Form submitted successfully!")
+                    }
+
+                    async function submitDraft() {
+                        //create data object to pass in POST
+                        let total_price = 0.0;
+                        //calculate total order price
+                        for (let i = 0; i < products_object.length; i++) {
+                            total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
+                        }
+
+                        let data = {
+                            customer_id: $('#customer_id').val(),
+                            order_notes: $('#order_notes').val(),
+                            products: products_object,
+                            total_price: total_price,
+                            status: 'Draft'
+                        }
+                        console.log(data);
+                        //api call using axios 
+                        const res = await axios.post('/orders', data);
+                        console.log(`response status: ${res.status}`)
+                        console.log(`data sent in request: ${res.data.json}`);
+                        console.log("Form submitted successfully!")
+                    }
+
+
+                    //dropdown product catalog functions
+                    function productsDropdown() {
+                        document.getElementById("dropDown").classList.toggle("show");
+                        var upArrow = "\u2191";
+                        var downArrow = "\u2193";
+                        if (document.getElementById("dropdown-btn").innerText === ("Product Catalog " + downArrow)) {
+                            document.getElementById("dropdown-btn").innerText = "Product Catalog " + upArrow;
+                        } else {
+                            document.getElementById("dropdown-btn").innerText = "Product Catalog " + downArrow;
+                        }
+
+                    }
+
+                    function customersDropdown() {
+                        document.getElementById("customers_dropDown").classList.toggle("show");
+                        var upArrow = "\u2191";
+                        var downArrow = "\u2193";
+                        if (document.getElementById("customer_dropdown-btn").innerText === ("Customer List " + downArrow)) {
+                            document.getElementById("customer_dropdown-btn").innerText = "Customer List " + upArrow;
+                        } else {
+                            document.getElementById("customer_dropdown-btn").innerText = "Customer List " + downArrow;
+                        }
+
+                    }
+
+                    function filterProducts() {
+                        var input, filter, ul, li, a, i;
+                        input = document.getElementById("newOrder_productSearch");
+                        filter = input.value.toUpperCase();
+                        div = document.getElementById("dropDown");
+                        a = div.getElementsByTagName("a");
+                        for (let i = 0; i < a.length; i++) {
+                            txtValue = a[i].textContent || a[i].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                a[i].style.display = "";
+                            } else {
+                                a[i].style.display = "none";
                             }
-                            async function submitForm() {
-                                //create data object to pass in POST
-                                let total_price = 0.0;
-                                //calculate total order price
-                                for (let i = 0; i < products_object.length; i++) {
-                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
-                                }
+                        }
+                    }
 
-                                let data = {
-                                    customer_id: $('#customer_id').val(),
-                                    order_notes: $('#order_notes').val(),
-                                    products: products_object,
-                                    total_price: total_price,
-                                    status: 'Open'
-                                }
-                                console.log(data);
-                                //api call using axios 
-                                const res = await axios.post('/orders', data);
-                                console.log(`response status: ${res.status}`)
-                                console.log(`data sent in request: ${res.data.json}`);
-                                console.log("Form submitted successfully!")
+                    function filterCustomers() {
+                        var input, filter, ul, li, a, i;
+                        input = document.getElementById("newOrder_customerSearch");
+                        filter = input.value.toUpperCase();
+                        div = document.getElementById("customers_dropDown");
+                        a = div.getElementsByTagName("a");
+                        for (let i = 0; i < a.length; i++) {
+                            txtValue = a[i].textContent || a[i].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                a[i].style.display = "";
+                            } else {
+                                a[i].style.display = "none";
                             }
+                        }
+                    }
 
-                            async function submitDraft() {
-                                //create data object to pass in POST
-                                let total_price = 0.0;
-                                //calculate total order price
-                                for (let i = 0; i < products_object.length; i++) {
-                                    total_price += parseFloat(products_object[i].unit_price) * parseInt(products_object[i].quantity);
-                                }
+                    function selectProduct(name, id, price) {
+                        document.getElementById('productname').value = name;
+                        currentSelection_object = {
+                            name: name,
+                            id: id,
+                            price: price
+                        };
+                        productsDropdown();
+                    }
 
-                                let data = {
-                                    customer_id: $('#customer_id').val(),
-                                    order_notes: $('#order_notes').val(),
-                                    products: products_object,
-                                    total_price: total_price,
-                                    status: 'Draft'
-                                }
-                                console.log(data);
-                                //api call using axios 
-                                const res = await axios.post('/orders', data);
-                                console.log(`response status: ${res.status}`)
-                                console.log(`data sent in request: ${res.data.json}`);
-                                console.log("Form submitted successfully!")
-                            }
+                    function selectCustomer(id, email) {
+                        document.getElementById('customer_id').value = id;
+                        customersDropdown();
+                    }
 
 
-                            //dropdown product catalog functions
-                            function productsDropdown() {
-                                document.getElementById("dropDown").classList.toggle("show");
-                                var upArrow = "\u2191";
-                                var downArrow = "\u2193";
-                                if (document.getElementById("dropdown-btn").innerText === ("Product Catalog " + downArrow)) {
-                                    document.getElementById("dropdown-btn").innerText = "Product Catalog " + upArrow;
-                                } else {
-                                    document.getElementById("dropdown-btn").innerText = "Product Catalog " + downArrow;
-                                }
+                </script>
 
-                            }
-
-                            function customersDropdown() {
-                                document.getElementById("customers_dropDown").classList.toggle("show");
-                                var upArrow = "\u2191";
-                                var downArrow = "\u2193";
-                                if (document.getElementById("customer_dropdown-btn").innerText === ("Customer List " + downArrow)) {
-                                    document.getElementById("customer_dropdown-btn").innerText = "Customer List " + upArrow;
-                                } else {
-                                    document.getElementById("customer_dropdown-btn").innerText = "Customer List " + downArrow;
-                                }
-
-                            }
-
-                            function filterProducts() {
-                                var input, filter, ul, li, a, i;
-                                input = document.getElementById("newOrder_productSearch");
-                                filter = input.value.toUpperCase();
-                                div = document.getElementById("dropDown");
-                                a = div.getElementsByTagName("a");
-                                for (let i = 0; i < a.length; i++) {
-                                    txtValue = a[i].textContent || a[i].innerText;
-                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                        a[i].style.display = "";
-                                    } else {
-                                        a[i].style.display = "none";
-                                    }
-                                }
-                            }
-
-                            function filterCustomers() {
-                                var input, filter, ul, li, a, i;
-                                input = document.getElementById("newOrder_customerSearch");
-                                filter = input.value.toUpperCase();
-                                div = document.getElementById("customers_dropDown");
-                                a = div.getElementsByTagName("a");
-                                for (let i = 0; i < a.length; i++) {
-                                    txtValue = a[i].textContent || a[i].innerText;
-                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                        a[i].style.display = "";
-                                    } else {
-                                        a[i].style.display = "none";
-                                    }
-                                }
-                            }
-
-                            function selectProduct(name, id, price) {
-                                document.getElementById('productname').value = name;
-                                currentSelection_object = {
-                                    name: name,
-                                    id: id,
-                                    price: price
-                                };
-                                productsDropdown();
-                            }
-
-                            function selectCustomer(id, email) {
-                                document.getElementById('customer_id').value = id;
-                                customersDropdown();
-                            }
-
-
-                        </script>
-
-            </body>
+    </body>
 
 </html>

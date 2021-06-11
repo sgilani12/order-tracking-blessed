@@ -105,6 +105,6 @@ input {
   background-color: rgb(250, 249, 241);
 }
 
-#order_notes {
-  width: 80px;
+#order_notes_container {
+  width: 50%;
 }

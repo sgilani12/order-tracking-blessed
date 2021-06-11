@@ -7,13 +7,14 @@ const customerModel = require("../models/customer");
 describe('customer model', () => {
 
     let fname;
+    
     before((done) => {
         const mockCustomer = {
             first_name:"barry",
             middle_name:"tjx",
             last_name:"smith",
-            phone:"7774441131",
-            email:"22@tjx.com",
+            phone:"7774441133",
+            email:"24@tjx.com",
             customer_notes:"please work",
             shipping_address:"100 tjx rd",
             billing_address:"100 tjx rd"
@@ -29,4 +30,8 @@ describe('customer model', () => {
             expect(fname).to.eq("henry");
         });
     });
+
+    // describe('Entire list', () => {
+    //     console.log(cList);
+    // });
 });

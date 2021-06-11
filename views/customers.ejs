@@ -69,7 +69,7 @@
         <div class="page-content">
 
          <!--INVISIBLE DELETE FORM-->
-         <form style="display:none;" id="deleteForm" method="POST" action="customers/delete" name="deleteForm" enctype="application/x-www-form-urlencoded">
+         <form style="display:none;" id="deleteForm" method="POST" name="deleteForm" enctype="application/x-www-form-urlencoded">
             <input type="text" id="customerToDelete">
          </form>
 
@@ -148,8 +148,9 @@
       function deleteCustomer(id){
          let confirmation = confirm(`Deleting Customer ${id}`);
          if(confirmation){
-           document.getElementById("customerToDelete").value = id;
-           document.getElementById("deleteForm").submit();
+            document.getElementById("deleteForm").setAttribute("action",`customers/delete/${id}`);
+            document.getElementById("customerToDelete").value = id;
+            document.getElementById("deleteForm").submit();
         }
       }
      const modal = document.getElementsByClassName("modal")[0];

@@ -1,127 +1,127 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
+
     <body>
         <%- include('partials/topbar') %>
-        <%- include('partials/side-nav') %>
-        <div class="page-content">
-        <h1>This is the orders page</h1>
-        
+            <%- include('partials/side-nav') %>
+                <div class="page-content">
+                    <h1>Orders</h1>
+                    <a href="/orders/add"><button class="button logout-button" id="addOrder_button">Add
+                            Order</button></a>
 
         <!--bulma modal as popup form to edit order-->
         <div class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title">Edit order</p>
+                <p class="modal-card-title">Edit Order</p>
                 <button onClick="hidePopup()" id="delete" class="delete" aria-label="close"></button>
               </header>
               <section class="modal-card-body">
                 <!-- Content ... -->
-                <form>
-                    <form name="editOrder" enctype="application/x-www-form-urlencoded">
+                    <form id="editOrder" name="editOrder" enctype="application/x-www-form-urlencoded" method="POST">
+                        <!--This below is probably not needed, but leaving for backend just in case-->
+                        <!--<input type="hidden" name="_method" value="put" />-->
                         <table>
                             <tr>
+                                <td>Order ID</td>
+                                <td><input readonly type="text" name="order_id" id="order_id" class="input"></td>
+                            </tr>
+                            <tr>
                                 <td>Customer ID</td>
-                                <td><input type="text" name="customer_id" id="customer_id" class="input"></td>
+                                <td><input readonly type="text" name="customer_id" id="customer_id" class="input"></td>
                             </tr>
                             <tr>
-            
-                                <td>Product</td>
-                                <td><input type="text" name="productname" id="productname" class="input"></td>
-                                <td>Quantity</td>
-                                <td><input type="text" name="quantity" id="quantity" class="input"></td>
-                            <tr>
-                                <td colspan="2"><button type="button" id="addProductButton" class="button">Add to
-                                        Order</button></td>
+                                <td>Order Status Code</td>
+                                <td>
+                                <div  class="select">
+                                    <select id="status_field">
+                                        <option id="Draft" value="Draft">Draft</option>
+                                        <option id="Open"value="Open">Open</option>
+                                        <option id="Finalized" value="Finalized">Finalized</option>
+                                        <option id="Preparing to ship" value="Preparing to ship">Preparing to ship</option>
+                                        <option id="Ready for shipping" value="Ready for shipping">Ready for shipping</option>
+                                        <option id="Shipped"value="Shipped">Shipped</option>
+                                        <option id="Delivered"value="Delivered">Delivered</option>
+                                        <option id="Closed" value="Closed">Closed</option>
+                                    </select>
+                                </div>
+                            </td>
                             </tr>
-                            <table id="orderTable" class="table">
-                                <caption>Order Details</caption>
-                                <thead>
-                                    <tr>
-                                        <th>Product ID</th>
-                                        <th>Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableBody">
-                                </tbody>
-                            </table>
+                            <tr>
+                                <td>Date/Time Order Placed</td>
+                                <td><input readonly type="text" name="datetime" id="datetime" class="input"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Order Price</td>
+                                <td><input readonly type="text" name="price" id="price" class="input"></td>
                             </tr>
                             <tr>
                                 <td>Order Notes</td>
                                 <td><textarea type="text" name="order_notes" id="order_notes" class="textarea"></textarea></td>
                             </tr>
+                            <tr>
+                                <td>
+                                  <input class="button is-success" id="submit" type="submit" value="Save Changes" >
+                                </td>
+                             </tr>
                         </table>
                     </form>
-                </form>
               </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button">Cancel</button>
-              </footer>
+              <footer class="modal-card-foot"></footer>
             </div>
           </div>
 
+                    <div class="table-container">
+                        <input class="input" type="text" id="orderSearch" onkeyup="searchOrder()"
+                            placeholder="Search by order id" title="">
+                        <table class="table" id="order_table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer ID</th>
+                                    <th>Order Status Code</th>
+                                    <th>Date/Time Orders Placed</th>
+                                    <th>Total Order Price</th>
+                                    <th>Order Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--object called orders loaded on page render -->
+                                <% if(orders.length> 0){ %>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer ID</th>
-                    <th>Order Status Code</th>
-                    <th>Date/Time Orders Placed</th>
-                    <th>Total Order Price</th>
-                    <th>Order Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <script>
-                    const modal = document.getElementsByClassName("modal")[0];
-                    const deleteButton = document.getElementById("delete");
-                    function showPopup(i){
-                    //add is-active to .modal
-                        //console.log(modal.classList);
-                        console.log(`you are at element ${i}`);
-                        modal.classList.add("is-active");
-                        const customer_id_field  = document.getElementById('customer_id');
-                        //console.log(customer_id_field);
-                        customer_id_field.value = orders[i].customer_id;
-                    }
-                    function hidePopup(){
-                        //remove is-active 
-                        //clear form 
-                        modal.classList.remove("is-active");
-                    }
-                   
-                    //populate the form areas with 
-                </script>
-                <!--object called orders loaded on page render -->
-                <% if(orders.length > 0){ %>
+                                    <% for ( var i=0 ; i < orders.length ; i++){ %>
 
-                    <% for ( var i = 0 ; i < orders.length ; i++){ %>
-                        
-                    <tr>
-                       <td>
-                           <a onClick="showPopup('<%- i%>')"><%= orders[i].order_id%></a>
-                          
-                       </td>
-                       <td>
-                          <%= orders[i].customer_id%>
-                       </td>
-                       <td>
-                        <%= orders[i].order_status_code%>
-                     </td>
-                     <td>
-                        <%= orders[i].datetime_order_placed%>
-                     </td>
-                     <td>
-                        <%= orders[i].total_order_price%>
-                     </td>
-                     <td>
-                        <%= orders[i].order_notes%>
-                     </td>
+                                        <tr>
+                                            <td>
+                                                <%= orders[i].order_id%>
+
+                                            </td>
+                                            <td>
+                                                <%= orders[i].customer_id%>
+                                            </td>
+                                            <td>
+                                                <%= orders[i].order_status_code%>
+                                            </td>
+                                            <td>
+                                                <%= orders[i].datetime_order_placed%>
+                                            </td>
+                                            <td>
+                                                <%= orders[i].total_order_price%>
+                                            </td>
+                                            <td>
+                                                <%= orders[i].order_notes%>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    onClick="showPopup('<%- orders[i].order_id%>', '<%- orders[i].customer_id%>', '<%- orders[i].order_status_code%>', '<%- orders[i].datetime_order_placed%>', '<%- orders[i].total_order_price%>', '<%- orders[i].order_notes%>')"><i
+                                                        class="fas fa-edit"></i></a>
+                                            </td>
+                                            <!--<td>
+                         <i class="fas fa-trash-alt"></i>
+                     </td>-->
                     </tr>
                     <% } %>
           
@@ -130,5 +130,59 @@
             <tfoot></tfoot>
         </table>
         </div>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            
+            const modal = document.getElementsByClassName("modal")[0];
+            const form = document.getElementById("editOrder");
+
+            function showPopup(order_id, customer_id, status, datetime, price, notes){
+                form.setAttribute("action", `/orders/${order_id}`)
+                //add is-active to .modal to display it
+                modal.classList.add("is-active");
+                //DOM elements inside modal
+                const order_id_field  = document.getElementById('order_id');
+                const customer_id_field  = document.getElementById('customer_id');
+                const status_field  = document.getElementById('status');
+                const datetime_field  = document.getElementById('datetime');
+                const price_field  = document.getElementById('price');
+                const order_notes_field  = document.getElementById('order_notes');
+                //populate form fields based on parameters
+                order_id_field.value = order_id;
+                customer_id_field.value = customer_id;
+                //status needs to auto select an option 
+                //status_field.value = status;
+                document.getElementById(status).setAttribute("selected", true);
+                datetime_field.value = datetime;
+                price_field.value = price;
+                order_notes_field.value = notes;
+            }
+            function hidePopup(){
+                //remove is-active 
+                modal.classList.remove("is-active");
+            }
+            function searchOrder() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("orderSearch");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("order_table");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[0];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                </script>
+
     </body>
+
 </html>

@@ -57,6 +57,10 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>Time Order Placed</td>
+                                            <td><input readonly type="text" name="datetime" id="datetime" class="input"></td>
+                                        </tr>
+                                        <tr>
                                             <td>Total Order Price</td>
                                             <td><input readonly type="text" name="price" id="price" class="input"></td>
                                         </tr>
@@ -120,7 +124,7 @@
                                             </td>
                                             <td>
                                                 <a
-                                                    onClick="showPopup('<%- orders[i].order_id%>', '<%- orders[i].customer_id%>', '<%- orders[i].order_status_code%>', '<%- orders[i].datetime_order_placed%>', '<%- orders[i].total_order_price%>', '<%- orders[i].order_notes%>')">
+                                                    onClick="showPopup('<%- orders[i].order_id%>', '<%- orders[i].customer_id%>', '<%- orders[i].order_status_code%>', '<%- orders[i].time_of_order%>', '<%- orders[i].total_order_price%>', '<%- orders[i].order_notes%>')">
                                                     Edit</a>
                                             </td>
                                             <!--<td>
@@ -160,7 +164,9 @@
                         customer_id_field.value = customer_id;
                         //status needs to auto select an option 
                         //status_field.value = status;
-                        document.getElementById(status).setAttribute("selected", true);
+                        let selectedOption = document.getElementById(status);
+                        console.log(selectedOption);
+                        selectedOption.setAttribute("selected", true);
 
                         datetime_field.value = datetime;
                         price_field.value = price;

@@ -1,13 +1,20 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const should = chai.should();
-const app = require('../app');
+//During the test the env variable is set to test
+// process.env.NODE_ENV = 'test';
+
+//Require the dev-dependencies
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let app = require('../app');
 
 chai.use(chaiHttp);
 
-describe('/customers', () => {
-
-    describe('retrieve list of all customers, i.e., /customers', (done) => {
-        // leave empty for now
+describe('customers', () => {
+    it('should grab the customer page', (done) => {
+        chai.request(app)
+        .get('/customers')
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        });
     });
 });

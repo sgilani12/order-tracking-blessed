@@ -1,9 +1,16 @@
-let customers = require('./orders');
-let expect = require('chai').expect;
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let app = require('../app');
 
-describe('orders', () => {
-    it("should pass this test in orders", () => {
-        //nothing means pass        
-    })
+chai.use(chaiHttp);
 
-})
+describe('orders page', () => {
+    it('should grab the orders page', (done) => {
+        chai.request(app)
+        .get('/orders')
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        });
+    });
+});

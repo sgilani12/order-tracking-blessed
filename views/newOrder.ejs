@@ -96,13 +96,12 @@
                                 </tr>
 
                                 <tr>
-                                    <td colspan="2"><button id="submitButton" class="button">Submit</button>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td colspan="2"><button id="draftButton" class="button">Save as
-                                            Draft</button>
+                                        Draft</button>
+                                </td>
+                                    <td colspan="2"><button id="submitButton" class="button is-success">Submit</button>
                                     </td>
+                                    
                                 </tr>
                             </table>
                         </div>
@@ -186,9 +185,6 @@
                         console.log(data);
                         //api call using axios 
                         const res = await axios.post('/orders', data);
-                        console.log(`response status: ${res.status}`)
-                        console.log(`data sent in request: ${res.data.json}`);
-                        console.log("Form submitted successfully!")
                     }
 
                     async function submitDraft() {
@@ -289,6 +285,8 @@
 
 
                 </script>
+                <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     </body>
 

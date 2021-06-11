@@ -8,11 +8,6 @@ ordersRouter.route('/')
     .post(ordersController.addOrder)
 
 ordersRouter.route('/add')
-    .get((req, res) => {
-    res.render('newOrder');
-    });
-
-ordersRouter.route('/add')
     .get(ordersController.newOrder)
 
 ordersRouter.route('/:id')

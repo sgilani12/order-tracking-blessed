@@ -57,10 +57,7 @@
                          </tr>
                          <tr>
                             <td>
-                              <button onclick="hidePopup()" class="button">Cancel</button>
-                            </td>
-                            <td>
-                              <input class="button is-primary" id="submit" type="submit" value="Save Changes" >
+                              <input class="button is-success" id="submit" type="submit" value="Save Changes" >
                             </td>
                          </tr>
                      </table>
@@ -70,13 +67,19 @@
          </div>
        </div>
         <div class="page-content">
+
+         <!--INVISIBLE DELETE FORM-->
+         <form style="display:none;" id="deleteForm" method="POST" action="customers/delete" name="deleteForm" enctype="application/x-www-form-urlencoded">
+            <input type="text" id="customerToDelete">
+         </form>
+
         <h1>Customers</h1>
-        <a href="/customers/add"><button class="button logout-button">Add Customer</button></a>
+        <a href="/customers/add"><button id="newCustomer_button" class="button logout-button">Add Customer</button></a>
         <div class='table-container'>
          <input class="input" type="text" id="customerSearch" onkeyup="searchCustomer()"
             placeholder="Search by email" title="">
 
-         <table class="table" id="customer_table">
+<table class="table" id="customer_table">
             <thead>
                 <tr>
                     <th>Customer ID</th>
@@ -126,7 +129,7 @@
                      <td>
                         
  
-                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href=""><i class="fas fa-trash-alt"></i></a>
+                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                     </tr>
                     <% } %>
@@ -140,15 +143,13 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <!--delete button, DELTE api call to /customers/:id-->
- 
+        <!--form , post to customers/delete/:id-->
     <script>
-      async function deleteCustomer(id){
+      function deleteCustomer(id){
          let confirmation = confirm(`Deleting Customer ${id}`);
          if(confirmation){
-           let url = `/customers/${id}`;
-           console.log(`endpoint to hit: ${url}`);
-           const res = await axios.delete(url);
-           console.log(`request status: ${res.status}`);   
+           document.getElementById("customerToDelete").value = id;
+           document.getElementById("deleteForm").submit();
         }
       }
      const modal = document.getElementsByClassName("modal")[0];
@@ -183,6 +184,7 @@
         modal.classList.remove("is-active");
      }
      function searchCustomer() {
+
                   var input, filter, table, tr, td, i, txtValue;
                   input = document.getElementById("customerSearch");
                   filter = input.value.toUpperCase();

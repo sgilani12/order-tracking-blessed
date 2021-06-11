@@ -13,11 +13,6 @@ html {
   display: block;
 }
 
-#dropDown {
-  position: relative;
-  background-color: white;
-  border-radius: 10px;
-}
 .fa-trash-alt {
   color: rgb(155, 12, 35);
 }
@@ -63,7 +58,22 @@ input {
   width: 100%;
 }
 
+#newOrder_customerSearch {
+  width: 100%;
+}
+
 #dropDown {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  height: 300px;
+  overflow-x: scroll;
+}
+
+#customers_dropDown {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
   height: 300px;
   overflow-x: scroll;
 }
@@ -73,6 +83,7 @@ input {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
+  background-color: rgb(250, 249, 241);
 }
 
 #newCustomer_button {
@@ -94,6 +105,6 @@ input {
   background-color: rgb(250, 249, 241);
 }
 
-#order_notes {
-  width: 80px;
+#order_notes_container {
+  width: 50%;
 }

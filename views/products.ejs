@@ -7,6 +7,56 @@
 <body>
     <%- include('partials/topbar') %>
     <%- include('partials/side-nav') %>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Edit Product</p>
+            <button onClick="hidePopup()" id="delete" class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <!-- Content ... -->
+                <form id="editProduct" name="editProduct" enctype="application/x-www-form-urlencoded" method="POST">
+                 <!--This below is probably not needed, but leaving for backend just in case-->
+                 <!--<input type="hidden" name="_method" value="put" />-->
+                 <table>
+                        <tr>
+                          <td>Product ID</td>
+                          <td><input readonly type="text" name="product_id" id="product_id" class="input"></td>
+                        </tr>
+                        <tr>
+                            <td>Product Name</td>
+                            <td><input readonly type="text" name="product_name" id="product_name" class="input"></td>
+                          </tr>
+                        <tr>
+                          <td>SKU</td>
+                          <td><input readonly type="text" name="sku" id="sku" class="input"></td>
+                        </tr>
+                        <tr>
+                          <td>Price</td>
+                          <td><input type="text" name="price" id="price" class="input"></td>
+                        </tr>
+                        <tr>
+                          <td>Quantity</td>
+                          <td><input type="text" name="quantity" id="quantity" class="input"></td>
+                        </tr>
+                        <tr>
+                          <td>Description</td>
+                          <td><textarea readonly class="textarea" type="text" name="description" id="description" class="input"></textarea></td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <input class="button is-success" id="submit" type="submit" value="Save Changes" >
+                           </td>
+                        </tr>
+                    </table>
+                </form>
+          </section>
+          <footer class="modal-card-foot"></footer>
+        </div>
+      </div>
+
     <div class="page-content">
     <h1>Products</h1>
             <div class="table-container">
@@ -46,6 +96,11 @@
                             <td>
                                 <%= products[i].description%>
                             </td>
+                            <td>
+                                <a onClick="showPopup('<%- products[i].product_id%>', '<%- products[i].SKU%>', '<%- products[i].price%>', '<%- products[i].product_name%>', '<%- products[i].quantity%>', '<%- products[i].description%>')">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
                         </tr>
                         
                     
@@ -60,6 +115,31 @@
                 </div>
                 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
                 <script>
+                    const modal = document.getElementsByClassName("modal")[0];
+                    const form = document.getElementById("editProduct");
+                    function showPopup(product_id, sku, price, product_name, quantity, description){
+                        form.setAttribute("action", `/products/${product_id}`);
+                        //add is-active to .modal to display it
+                        modal.classList.add("is-active");
+                        //DOM elements inside modal
+                        const product_id_field  = document.getElementById('product_id');
+                        const sku_field  = document.getElementById('sku');
+                        const price_field  = document.getElementById('price');
+                        const product_name_field  = document.getElementById('product_name');
+                        const quantity_field  = document.getElementById('quantity');
+                        const description_field  = document.getElementById('description');
+                        //populate form fields based on parameters
+                        product_id_field.value = product_id;
+                        sku_field.value = sku;
+                        price_field.value = price;
+                        product_name_field.value = product_name;
+                        quantity_field.value = quantity;
+                        description_field.value = description;
+                    }
+                    function hidePopup(){
+                        //remove is-active 
+                        modal.classList.remove("is-active");
+                    }
                     function searchProduct() {
                         var input, filter, table, tr, td, i, txtValue;
                         input = document.getElementById("productSearch");

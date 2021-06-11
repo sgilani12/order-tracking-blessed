@@ -111,8 +111,8 @@ var customersController={
       console.log("WHats cust: ", customer);
       customerModel.updateCustomer(id, customer, (err, success)=> {
         if(err){
-          //messages = getErrors(err);
-          console.log("Error: occurred");
+          messages = getErrors(err);
+          console.log("Error: occurred", messages);
           console.log("What is CUSTOMER: ", customer);
           res.redirect('/customers'); // whichever page the update form is on
         }

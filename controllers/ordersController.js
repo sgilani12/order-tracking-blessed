@@ -112,9 +112,6 @@ var ordersController = {
       };
       const id = req.params["id"];
 
-      console.log("BODY-------------");
-      console.log(req.body);
-
       orderModel.updateOrder(id, order, (err, success) => {
         if (err) {
           messages = getErrors(err);

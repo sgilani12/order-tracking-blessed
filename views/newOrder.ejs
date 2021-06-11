@@ -63,7 +63,7 @@
 
 
                                                 <a class="dropdown-item"
-                                                    onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>')">
+                                                    onclick="selectProduct('<%= products[i].product_name%>', '<%= products[i].product_id%>', '<%= products[i].price%>', '<%= products[i].quantity%>')">
                                                     <%= products[i].product_name%>
                                                 </a>
                                                 <% } %>
@@ -97,11 +97,11 @@
 
                                 <tr>
                                     <td colspan="2"><button id="draftButton" class="button">Save as
-                                        Draft</button>
-                                </td>
+                                            Draft</button>
+                                    </td>
                                     <td colspan="2"><button id="submitButton" class="button is-success">Submit</button>
                                     </td>
-                                    
+
                                 </tr>
                             </table>
                         </div>
@@ -129,6 +129,19 @@
                             let product_name = currentSelection_object.name;
                             let product_quantity = parseInt($('#quantity').val());
                             let price = currentSelection_object.price;
+                            let inventory = parseInt(currentSelection_object.inventory);
+
+                            //validate that enough products are in stock -> throw error messages if not
+                            if (inventory === 0) {
+                                confirm('product is out of stock');
+                                formClear();
+                                return;
+                            } else if (product_quantity > inventory) {
+                                console.log(`not enough inventory, inventory is ${inventory}`);
+                                confirm(`not enough inventory, inventory is ${inventory}`);
+                                document.getElementById('quantity').value = inventory;
+                                return;
+                            }
 
                             let new_product_object = {
                                 id: id,
@@ -268,12 +281,13 @@
                         }
                     }
 
-                    function selectProduct(name, id, price) {
+                    function selectProduct(name, id, price, inventory) {
                         document.getElementById('productname').value = name;
                         currentSelection_object = {
                             name: name,
                             id: id,
-                            price: price
+                            price: price,
+                            inventory: inventory
                         };
                         productsDropdown();
                     }

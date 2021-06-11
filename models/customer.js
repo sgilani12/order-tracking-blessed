@@ -121,8 +121,6 @@ module.exports.deleteCustomer = (id, cb) => {
 };
 
 module.exports.updateCustomer = (customerId, customer, cb)=>{
-  console.log("CUSTOMER", customer);
-  console.log("INSIDE updateCustomerCont",customerId);
   Customer.update({ 
     first_name: customer.first_name,
     middle_name: customer.middle_name,
@@ -134,11 +132,9 @@ module.exports.updateCustomer = (customerId, customer, cb)=>{
     billing_address: customer.billing_address
    }, { where: { customer_id: customerId }})
     .then((rowsUpdated) => {
-      console.log("DID Thing?");
       cb(null, rowsUpdated);
     })
     .catch(error => {
-      console.log("Bad Thing: ", error);
       cb(error, null);
     })
 }

@@ -35,24 +35,43 @@ const Product = sequelize.define(
   }
 );
 
-module.exports.getProductList = (cb) => {
-  const allProducts = Product.findAll()
-  .then((data) => {
-    var newData = [];
-    data.forEach((element) => newData.push(element.dataValues));
-    cb(null, newData);
-  })
-  .catch(err => {
-    cb(err, null);
-  });
+module.exports.updateProduct = (productId, product, cb) => {
+  Product.update(
+    {
+      sku: product.sku,
+      price: product.price,
+      product_name: product.product_name,
+      quantity: product.quantity,
+      description: product.description,
+    },
+    { where: { product_id: productId } }
+  )
+    .then((rowsUpdated) => {
+      cb(null, rowsUpdated);
+    })
+    .catch((error) => {
+      cb(error, null);
+    });
 };
 
-module.exports.findProduct = (id, cb)=>{
-  Product.findOne({ where: {product_id: id}})
-    .then(found => {
+module.exports.getProductList = (cb) => {
+  const allProducts = Product.findAll()
+    .then((data) => {
+      var newData = [];
+      data.forEach((element) => newData.push(element.dataValues));
+      cb(null, newData);
+    })
+    .catch((err) => {
+      cb(err, null);
+    });
+};
+
+module.exports.findProduct = (id, cb) => {
+  Product.findOne({ where: { product_id: id } })
+    .then((found) => {
       cb(null, found);
     })
-    .catch(error => {
+    .catch((error) => {
       cb(error, null);
-    })
+    });
 };

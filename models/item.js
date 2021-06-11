@@ -22,7 +22,7 @@ const Item = sequelize.define(
 );
 
 module.exports.addItem = (item, cb)=>{
-    Items.create({ 
+    Item.create({ 
       order_id: item.order_id,
       product_id: item.product_id,
       quantity: item.quantity,

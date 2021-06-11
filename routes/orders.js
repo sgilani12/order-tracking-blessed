@@ -5,9 +5,7 @@ var ordersController = require('../controllers/ordersController')
 
 ordersRouter.route('/')
     .get(ordersController.orderHome)
-    .post((req,res) => {
-        res.send('Request: PUT /orders')
-    })
+    .post(ordersController.addOrder)
 
 ordersRouter.route('/add')
     .get(ordersController.newOrder)

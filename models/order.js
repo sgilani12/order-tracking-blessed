@@ -53,7 +53,7 @@ module.exports.createOrder = (order, cb) => {
     time_of_order: sequelize.fn('NOW'),
     customer_id: order.customer_id,
     order_status_code: order.order_status_code,
-    total_order_price: 0,
+    total_order_price: order.total_order_price,
     order_notes: order.order_notes
   })
   .then(created => {

@@ -2,52 +2,58 @@
 
 <html lang="en">
 
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
+
     <body>
         <%- include('partials/topbar') %>
-        <%- include('partials/side-nav') %>
-        <div class="page-content">
+            <%- include('partials/side-nav') %>
+                <div class="page-content">
 
-        <h1>New Customer</h1>
-        <form name="newCustomer" enctype="application/x-www-form-urlencoded" method="POST" action="/customers">
-            <table>
-                <tr>
-                    <td>First name</td>
-                    <td><input type="text" name="fname" ></td>
-                </tr>
-                <tr>
-                    <td>Middle name</td>
-                    <td><input type="text" name="mname" ></td>
-                </tr>
-                <tr>
-                    <td>Last name</td>
-                    <td><input type="text" name="lname" ></td>
-                </tr>
-                <tr>
-                    <td>Phone</td>
-                    <td><input type="text" name="phone" ></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><input type="text" name="email" ></td>
-                </tr>
-                <tr>
-                    <td>Shipping Addresss</td>
-                    <td><input type="text" name="shipaddress" ></td>
-                </tr>
-                <tr>
-                    <td>Billing Addresss</td>
-                    <td><input type="text" name="billaddress" ></td>
-                </tr>
-                <tr>
-                    <td>Notes</td>
-                    <td><input type="text" name="notes" ></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Submit" ></td>
-                </tr>
-            </table>
-            </form>   
-        </div>
+                    <h1>New Customer</h1>
+                    <form name="newCustomer" enctype="application/x-www-form-urlencoded" method="POST"
+                        action="/customers">
+
+                        <table class="table" id="newCustomer_table">
+                            <tr>
+                                <td>First name</td>
+                                <td><input class="input" type="text" name="fname"></td>
+                            </tr>
+                            <tr>
+                                <td>Middle name</td>
+                                <td><input class="input" type="text" name="mname"></td>
+                            </tr>
+                            <tr>
+                                <td>Last name</td>
+                                <td><input class="input" type="text" name="lname"></td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td><input class="input" type="text" name="phone"></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><input class="input" type="email" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td>Shipping Addresss</td>
+                                <td><input class="input" type="text" name="shipaddress"></td>
+                            </tr>
+                            <tr>
+                                <td>Billing Addresss</td>
+                                <td><input class="input" type="text" name="billaddress"></td>
+                            </tr>
+                            <tr>
+                                <td>Notes</td>
+                                <td><textarea class="textarea" type="textarea" name="notes"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input class="button" type="submit" value="Submit"></td>
+                            </tr>
+                        </table>
+
+                    </form>
+                </div>
+                </div>
     </body>
+
 </html>

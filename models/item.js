@@ -22,7 +22,7 @@ const Item = sequelize.define(
 );
 
 module.exports.addItem = (item, cb)=>{
-    Items.create({ 
+    Item.create({ 
       order_id: item.order_id,
       product_id: item.product_id,
       quantity: item.quantity,
@@ -43,6 +43,20 @@ module.exports.deleteItem = (o_id, p_id, cb) => {
         } })
     .then((created) => {
       cb(null, created);
+    })
+};
+
+module.exports.findItem = (item, cb)=>{
+  Item.findOne({ 
+    where: { 
+        order_id: o_id,
+        p_id:  p_id,
+    } })
+    .then(found => {
+      cb(null, found);
+    })
+    .catch(error => {
+      cb(error, null);
     })
 };
 

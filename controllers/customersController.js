@@ -75,7 +75,7 @@ var customersController={
 
   deleteCustomer(req, res) {
     try {
-      const id = req.params['id'];
+      const id = req.body.customerToDelete;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           messages = getErrors(err);

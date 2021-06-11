@@ -40,7 +40,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 const options = {session: false, failureRedirect: '/'}
-
+/*
 app.use((req, res, next) => {
     console.log(req.cookies);
     switch(req.path.split('/')[1]){
@@ -54,10 +54,10 @@ app.use((req, res, next) => {
             api_product.log_product(req.cookies.user_email);
             break;
     }
-    
+    console.log("logger middlware")
     next();
 })
-
+*/
 app.use('/', LoginRouter);
 app.use('/logout', logoutRouter);
 app.use('/dashboard', passport.authenticate('jwt-cookiecombo', options), indexRouter);

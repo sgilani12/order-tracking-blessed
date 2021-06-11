@@ -72,7 +72,6 @@ var customersController={
         res.redirect('/customers/add');
     }
   },
-
   deleteCustomer(req, res) {
     try {
       const id = req.params['id'];
@@ -92,6 +91,45 @@ var customersController={
       });
     } catch (err) {
       messages = error;
+      res.redirect('/customers');
+    }
+  },
+  updateCustomer(req, res) {
+    console.log("INSIDE updateCustomerCont", req.params['id']);
+    console.log("Request shape: ", req.body);
+    console.log("Content Head: ",  req.header('Content-Type'));
+    try{
+      const customer = {
+        first_name: req.body.first_name,
+        middle_name:req.body.middle_name,
+        last_name:req.body.last_name,
+        phone:req.body.phone,
+        email:req.body.email,
+        customer_notes:req.body.notes,
+        shipping_address:req.body.shipping_address,
+        billing_address:req.body.billing_address
+      }
+      const id = req.params['id'];
+      console.log("WHats cust: ", customer);
+      customerModel.updateCustomer(id, customer, (err, success)=> {
+        if(err){
+          messages = getErrors(err);
+          console.log("Error: occurred", messages);
+          console.log("What is CUSTOMER: ", customer);
+          res.redirect('/customers'); // whichever page the update form is on
+        }
+        else if(success == 1){
+          console.log("Success?? ");
+          res.redirect('/customers');
+        }
+        else{
+          console.log("Wut");
+          res.redirect('/customers');
+        }
+      })
+    }
+    catch(error){
+      console.log("We hit an error - try again");
       res.redirect('/customers');
     }
   }

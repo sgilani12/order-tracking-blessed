@@ -12,12 +12,12 @@ const Customer = sequelize.define(
     first_name: {
       type: DataTypes.STRING,
       allowNull: false,
-      get() {
+/*       get() {
         return this.getDataValue(first_name);
-      },
-      set(value) {
+      }, */
+/*       set(value) {
         this.setDataValue("first_name", value);
-      },
+      }, */
       validate: {
         is: {
           args: /^[ a-zA-Z\-\’]+$/,
@@ -119,6 +119,25 @@ module.exports.deleteCustomer = (id, cb) => {
     cb(error, null);
   });
 };
+
+module.exports.updateCustomer = (customerId, customer, cb)=>{
+  Customer.update({ 
+    first_name: customer.first_name,
+    middle_name: customer.middle_name,
+    last_name: customer.last_name,
+    phone: customer.phone,
+    email: customer.email,
+    customer_notes: customer.customer_notes,
+    shipping_address: customer.shipping_address,
+    billing_address: customer.billing_address
+   }, { where: { customer_id: customerId }})
+    .then((rowsUpdated) => {
+      cb(null, rowsUpdated);
+    })
+    .catch(error => {
+      cb(error, null);
+    })
+}
 
 module.exports.getCustomerList = (cb) => {
   const allCustomers = Customer.findAll()

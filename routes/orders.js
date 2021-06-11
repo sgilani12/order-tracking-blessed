@@ -5,9 +5,7 @@ var ordersController = require('../controllers/ordersController')
 
 ordersRouter.route('/')
     .get(ordersController.orderHome)
-    .post((req,res) => {
-        res.send('Request: PUT /orders')
-    })
+    .post(ordersController.addOrder)
 
 ordersRouter.route('/add')
     .get(ordersController.newOrder)
@@ -23,9 +21,8 @@ ordersRouter.route('/:id')
         }
         res.send('Request: GET /orders parameters:\n'+keyValues)
     })
-    .put((req,res) => {
-        res.send('Request: POST /orders'+req.params['id'])
-    })
+    .post(ordersController.updateOrder)
+
     .delete((req,res) => {
         res.send('Request: DELETE /orders'+req.params['id'])
     })

@@ -43,6 +43,7 @@ a {
   border: 0.5px solid black;
   border-top: 0.5px black;
   border-left: 0.5px black;
+  align-items: left;
 }
 .nav .nav-item .sub-items {
   position: absolute;
@@ -95,8 +96,10 @@ a {
 }
 
 .topnav{
-  margin: 10px;
+  background-color: rgb(250,249,241);
+
 }
+
 .topnav ul {
   list-style-type: none;
   margin: 0;
@@ -105,17 +108,25 @@ a {
   flex-wrap: wrap-reverse;
 }
 .topnav li{
+  padding-top: 10px;
   float: right;
 }
 .topnav-details {
+
   padding-right: 15px;
 }
 
 .logout-button {
   height: 25px;
+  background-color: rgb(155, 12, 35);
+  color: white;
 }
 .logout-button:hover {
   filter: brightness(0.8);
+  color:white !important;
+}
+.logout-button:active {
+  filter: brightness(0.5);
 }
 
 .hero {

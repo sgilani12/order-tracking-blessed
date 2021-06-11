@@ -5,18 +5,20 @@ var messages = new Array();
 var customersController={
   customerHome(req, res) {
       // get customers from db as list of objects
-      customerModel.getCustomerList((err,data)=>{
-          try {
-              if(err) {
-                console.log(err);
-                } else {
-                  res.render('customers', {customers:data, messages: messages});
-                  messages = [];
+    customerModel.getCustomerList((err,data)=>{
+        try {
+            if(err) {
+              messages = getErrors(err);
               }
-          }
-          catch (error) {
-          }
-      });
+            res.render('customers', {customers:data, messages: messages});
+            messages = [];
+        }
+        catch (error) {
+          messages = error;
+          res.render('customers', {customers:data, messages: messages});
+          messages = [];
+        }
+    });
   },
 
   customerNew(req,res){
@@ -66,12 +68,13 @@ var customersController={
           })
       }
       catch (error) {
+        messages = error;
+        res.redirect('/customers/add');
     }
   },
-
   deleteCustomer(req, res) {
     try {
-      const id = req.params['id'];
+      const id = req.params.id;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           messages = getErrors(err);
@@ -87,6 +90,42 @@ var customersController={
         }
       });
     } catch (err) {
+      messages = error;
+
+      res.redirect('/customers');
+    }
+  },
+  updateCustomer(req, res) {
+    try{
+      const customer = {
+        first_name: req.body.first_name,
+        middle_name:req.body.middle_name,
+        last_name:req.body.last_name,
+        phone:req.body.phone,
+        email:req.body.email,
+        customer_notes:req.body.notes,
+        shipping_address:req.body.shipping_address,
+        billing_address:req.body.billing_address
+      }
+      const id = req.params['id'];
+      customerModel.updateCustomer(id, customer, (err, success)=> {
+        if(err){
+          messages = getErrors(err);
+          res.redirect('/customers'); // whichever page the update form is on
+        }
+        else if(success == 1){
+          messages = ["Customer successfully updated"];
+          res.redirect('/customers');
+        }
+        else{
+          messages = ["An Error Has Occured"];
+          res.redirect('/customers');
+        }
+      })
+    }
+    catch(error){
+      messages = error;
+      res.redirect('/customers');
     }
   }
 };

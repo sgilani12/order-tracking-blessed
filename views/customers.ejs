@@ -2,19 +2,84 @@
 
 <html lang="en">
     <%- include('partials/head') %>
-  <head>
-    <!--GET request to the api to retreive customer data
-        Create HTML table from resultant JSON object-->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-        <link rel="stylesheet" href="/css/global.css">
-    </head>
+  
     <body>
         <%- include('partials/topbar') %>
         <%- include('partials/side-nav') %>
+        <div class="modal">
+         <div class="modal-background"></div>
+         <div class="modal-card">
+           <header class="modal-card-head">
+             <p class="modal-card-title">Edit Customer</p>
+             <button onClick="hidePopup()" id="delete" class="delete" aria-label="close"></button>
+           </header>
+           <section class="modal-card-body">
+             <!-- Content ... -->
+                 <form id="editCustomer" name="editCustomer" enctype="application/x-www-form-urlencoded" method="POST">
+                  <!--This below is probably not needed, but leaving for backend just in case-->
+                  <!--<input type="hidden" name="_method" value="put" />-->
+                  <table>
+                         <tr>
+                           <td>Customer ID</td>
+                           <td><input readonly type="text" name="customer_id" id="customer_id" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>First Name</td>
+                           <td><input type="text" name="first_name" id="first_name" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Middle Name</td>
+                           <td><input type="text" name="middle_name" id="middle_name" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Last Name</td>
+                           <td><input type="text" name="last_name" id="last_name" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Phone</td>
+                           <td><input type="text" name="phone" id="phone" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Email</td>
+                           <td><input type="text" name="email" id="email" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Notes</td>
+                           <td><input type="text" name="notes" id="customer_notes" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Shipping Address</td>
+                           <td><input type="text" name="shipping_address" id="shipping_address" class="input"></td>
+                         </tr>
+                         <tr>
+                           <td>Billing Address</td>
+                           <td><input type="text" name="billing_address" id="billing_address" class="input"></td>
+                         </tr>
+                         <tr>
+                            <td>
+                              <input class="button is-success" id="submit" type="submit" value="Save Changes" >
+                            </td>
+                         </tr>
+                     </table>
+                 </form>
+           </section>
+           <footer class="modal-card-foot"></footer>
+         </div>
+       </div>
         <div class="page-content">
-        <h1>This is the customers page</h1>
-        <table class="table">
+
+         <!--INVISIBLE DELETE FORM-->
+         <form style="display:none;" id="deleteForm" method="POST" name="deleteForm" enctype="application/x-www-form-urlencoded">
+            <input type="text" id="customerToDelete">
+         </form>
+
+        <h1>Customers</h1>
+        <a href="/customers/add"><button id="newCustomer_button" class="button logout-button">Add Customer</button></a>
+        <div class='table-container'>
+         <input class="input" type="text" id="customerSearch" onkeyup="searchCustomer()"
+            placeholder="Search by email" title="">
+
+<table class="table" id="customer_table">
             <thead>
                 <tr>
                     <th>Customer ID</th>
@@ -30,7 +95,7 @@
             </thead>
             <tbody>
                 <% if(customers.length > 0){ %>
-
+ 
                     <% for ( var i = 0 ; i < customers.length ; i++){ %>
                     <tr>
                        <td>
@@ -60,32 +125,86 @@
                      <td>
                         <%= customers[i].billing_address%>
                      </td>
+                     <td><a onClick="showPopup('<%- customers[i].customer_id%>', '<%- customers[i].first_name%>', '<%- customers[i].middle_name%>', '<%- customers[i].last_name%>', '<%- customers[i].phone%>', '<%- customers[i].email%>', '<%- customers[i].customer_notes%>', '<%- customers[i].shipping_address%>', '<%- customers[i].billing_address%>')"><i class="fas fa-edit"></a></td>
                      <td>
-                        <!--delete button, DELTE api call to /customers/:id-->
-                      
-                        <script>
-                            async function deleteCustomer(id){
-                               let confirmation = confirm(`Deleting Customer ${id}`);
-                               if(confirmation){
-                                 let url = `/customers/${id}`;
-                                 console.log(`endpoint to hit: ${url}`);
-                                 const res = await axios.delete(url);
-                                 console.log(`request status: ${res.status}`);   
-                               }
-                            }
-
-                        </script>
                         
-                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')" href="">Delete</a>
+ 
+                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                     </tr>
                     <% } %>
-          
+ 
                  <% } %>
             </tbody>
             <tfoot></tfoot>
         </table>
         </div>
+        </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    </body>
+    
+    <!--delete button, DELTE api call to /customers/:id-->
+        <!--form , post to customers/delete/:id-->
+    <script>
+      function deleteCustomer(id){
+         let confirmation = confirm(`Deleting Customer ${id}`);
+         if(confirmation){
+            document.getElementById("deleteForm").setAttribute("action",`customers/delete/${id}`);
+            document.getElementById("customerToDelete").value = id;
+            document.getElementById("deleteForm").submit();
+        }
+      }
+     const modal = document.getElementsByClassName("modal")[0];
+     const form = document.getElementById("editCustomer");
+     function showPopup(customer_id, first_name, middle_name, last_name, phone, email, customer_notes, shipping_address, billing_address){
+        form.setAttribute("action", `/customers/${customer_id}`);
+        //add is-active to .modal to display it
+        modal.classList.add("is-active");
+        //DOM elements inside modal
+        const customer_id_field  = document.getElementById('customer_id');
+        const first_name_field  = document.getElementById('first_name');
+        const middle_name_field  = document.getElementById('middle_name');
+        const last_name_field  = document.getElementById('last_name');
+        const phone_field  = document.getElementById('phone');
+        const email_field  = document.getElementById('email');
+        const customer_notes_field = document.getElementById('customer_notes');
+        const shipping_address_field = document.getElementById('shipping_address');
+        const billing_address_field = document.getElementById('billing_address');
+        //populate form fields based on parameters
+        customer_id_field.value = customer_id;
+        first_name_field.value = first_name;
+        middle_name_field.value = middle_name;
+        last_name_field.value = last_name;
+        phone_field.value = phone;
+        email_field.value = email;
+        customer_notes_field.value = customer_notes;
+        shipping_address_field.value = shipping_address;
+        billing_address_field.value = billing_address;
+     }
+     function hidePopup(){
+        //remove is-active 
+        modal.classList.remove("is-active");
+     }
+     function searchCustomer() {
+
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("customerSearch");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("customer_table");
+                  tr = table.getElementsByTagName("tr");
+                  for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[5];
+                     if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                           tr[i].style.display = "";
+                        } else {
+                           tr[i].style.display = "none";
+                        }
+                     }
+                  }
+               }
+
+            </script>
+   </body>
+
 </html>

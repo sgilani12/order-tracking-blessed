@@ -36,7 +36,7 @@
                             <tr>
                                 <td>Order Status Code</td>
                                 <td>
-                                <div  class="select">
+                                <div class="select">
                                     <select id="status_field">
                                         <option id="Draft" value="Draft">Draft</option>
                                         <option id="Open"value="Open">Open</option>
@@ -48,6 +48,7 @@
                                         <option id="Closed" value="Closed">Closed</option>
                                     </select>
                                 </div>
+                                <input style="display:none;" name="order_status" id="order_status">
                             </td>
                             </tr>
                             <tr>
@@ -64,7 +65,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                  <input class="button is-success" id="submit" type="submit" value="Save Changes" >
+                                  <button onclick="submitForm" class="button is-success" id="submit">Save Changes</button>
                                 </td>
                              </tr>
                         </table>
@@ -155,14 +156,26 @@
                 //status needs to auto select an option 
                 //status_field.value = status;
                 document.getElementById(status).setAttribute("selected", true);
+                
                 datetime_field.value = datetime;
                 price_field.value = price;
                 order_notes_field.value = notes;
+                
             }
             function hidePopup(){
                 //remove is-active 
                 modal.classList.remove("is-active");
             }
+            function submitForm(){
+                //set the invisible form to the value of the select
+                document.getElementById("order_status").value = document.getElementById("status_field").value;
+                console.log(document.getElementById("order_status").value);
+                //form.submit()
+                const form = console.log(document.getElementById("editOrder"))
+                form.submit();
+
+            }
+            
             function searchOrder() {
                         var input, filter, table, tr, td, i, txtValue;
                         input = document.getElementById("orderSearch");

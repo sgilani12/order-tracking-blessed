@@ -39,7 +39,26 @@
                                         <td>Customer ID</td>
                                         <td><input type="text" name="customer_id" id="customer_id" class="input">
                                         </td>
+                                        <td><button class="button dropdown-trigger" id="customer_dropdown-btn"
+                                                type="button">Customer List &darr;</button></td>
                                     </tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <div id="customers_dropDown" class="dropdown_content">
+                                            <input class="input" type="text" placeholder="Search by email"
+                                                id="newOrder_customerSearch">
+                                            <% for (var i=0 ; i < customers.length ; i++){ %>
+
+
+                                                <a class="dropdown-item"
+                                                    onclick="selectCustomer('<%= customers[i].customer_id%>', '<%= customers[i].email%>')">
+                                                    <%= customers[i].customer_id%>
+                                                        <%= customers[i].email%>
+                                                </a>
+                                                <% } %>
+                                        </div>
+                                    </td>
                                     <tr>
 
                                         <td>Product</td>
@@ -117,6 +136,9 @@
                             document.getElementById("dropdown-btn").addEventListener("click", productsDropdown);
                             document.getElementById("newOrder_productSearch").addEventListener("keyup", filterProducts, false);
                             document.getElementById("dropdown-btn").innerText = "Product Catalog \u2193";
+                            document.getElementById("customer_dropdown-btn").addEventListener("click", customersDropdown);
+                            document.getElementById("newOrder_customerSearch").addEventListener("keyup", filterCustomers, false);
+                            document.getElementById("customer_dropdown-btn").innerText = "Customer List \u2193";
                             /*document.getElementById("newCustomer").onclick = function () {
                                 location.assign("/newCustomer");
                             };*/
@@ -224,12 +246,39 @@
 
                             }
 
+                            function customersDropdown() {
+                                document.getElementById("customers_dropDown").classList.toggle("show");
+                                var upArrow = "\u2191";
+                                var downArrow = "\u2193";
+                                if (document.getElementById("customer_dropdown-btn").innerText === ("Customer List " + downArrow)) {
+                                    document.getElementById("customer_dropdown-btn").innerText = "Customer List " + upArrow;
+                                } else {
+                                    document.getElementById("customer_dropdown-btn").innerText = "Customer List " + downArrow;
+                                }
+
+                            }
+
                             function filterProducts() {
-                                console.log('filtering products');
                                 var input, filter, ul, li, a, i;
                                 input = document.getElementById("newOrder_productSearch");
                                 filter = input.value.toUpperCase();
                                 div = document.getElementById("dropDown");
+                                a = div.getElementsByTagName("a");
+                                for (let i = 0; i < a.length; i++) {
+                                    txtValue = a[i].textContent || a[i].innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        a[i].style.display = "";
+                                    } else {
+                                        a[i].style.display = "none";
+                                    }
+                                }
+                            }
+
+                            function filterCustomers() {
+                                var input, filter, ul, li, a, i;
+                                input = document.getElementById("newOrder_customerSearch");
+                                filter = input.value.toUpperCase();
+                                div = document.getElementById("customers_dropDown");
                                 a = div.getElementsByTagName("a");
                                 for (let i = 0; i < a.length; i++) {
                                     txtValue = a[i].textContent || a[i].innerText;
@@ -248,9 +297,12 @@
                                     id: id,
                                     price: price
                                 };
-                                console.log(currentSelection_object);
-
                                 productsDropdown();
+                            }
+
+                            function selectCustomer(id, email) {
+                                document.getElementById('customer_id').value = id;
+                                customersDropdown();
                             }
 
 

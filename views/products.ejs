@@ -2,16 +2,17 @@
 
 <html lang="en">
 
-    <%- include('partials/head') %>
+<%- include('partials/head') %>
 
 <body>
     <%- include('partials/topbar') %>
     <%- include('partials/side-nav') %>
     <div class="page-content">
-    <h1>This is the products page</h1>
-    
-
-    <table class="table">
+    <h1>Products</h1>
+            <div class="table-container">
+            <input class="input" type="text" id="productSearch" onkeyup="searchProduct()"
+                placeholder="Search by name" title="">
+            <table class="table" id="product_table">
         <thead>
             <tr>
                 <th>Product ID</th>
@@ -23,12 +24,8 @@
             </tr>
         </thead>
         <tbody>
-            <% var products=[ { "product_id" : 1, "SKU" : "hjlksadf456481" , "price" : 4.99, "product_name" : "Kanye"
-                , "quantity" : 40, "description" : "this is great" }, { "product_id" : 2, "SKU" : "kuhw54afds5"
-                , "price" : 22.99, "product_name" : "West" , "quantity" : 20, "description" : "this is cool" } ] %>
                 <!--object called customers loaded on page render -->
                 <% if(products.length> 0){ %>
-
                     <% for ( var i=0 ; i < products.length ; i++){ %>
                         <tr>
                             <td>
@@ -49,31 +46,39 @@
                             <td>
                                 <%= products[i].description%>
                             </td>
-                            <td>
-                                <!--delete button, DELTE api call to /customers/:id-->
-                                <!--let id = '<%- products[i].product_id%>';-->
-                                <script>
-                                    async function deleteProduct(id){
-                                        let url = `/products/${id}`;
-                                        confirm(`Deleting Product ${id}`);
-                                        console.log(`endpoint to hit: ${url}`);
-                                        const res = await axios.delete(url);
-                                        console.log(`request status: ${res.status}`);                                  
-                                    }
-
-                                </script>
-                                
-                                <a onClick="deleteProduct('<%- products[i].product_id%>')" href="">Delete</a>
-                            </td>
                         </tr>
-                        <% } %>
+                        
+                    
+                    
+                    <% } %>
 
-                            <% } %>
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-</div>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</body>
+                <% } %>
+                            </tbody>
+                            <tfoot></tfoot>
+                        </table>
+                    </div>
+                </div>
+                <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                <script>
+                    function searchProduct() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("productSearch");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("product_table");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[3];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                </script>
+    </body>
 
 </html>

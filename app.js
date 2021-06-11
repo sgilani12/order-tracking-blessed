@@ -16,6 +16,7 @@ const port = 8080;
 const urlParser = bodyparser.urlencoded({extended:true});
 
 app.use(urlParser);
+app.use(express.json());
 app.use(session({
     secret: 'backend is backbone',
     resave: false,

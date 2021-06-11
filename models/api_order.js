@@ -20,5 +20,4 @@ const api_order = sequelize.define(
 
 module.exports.log_order = async (email) => {
   const new_row = await api_order.create({user_email:email,access_time : Date.now()});
-  console.log(new_row)
 }

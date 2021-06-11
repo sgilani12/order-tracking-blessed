@@ -131,8 +131,6 @@ var customersController={
 };
 
 function getErrors(err) {
-  console.log("error-------------")
-  console.log(err);
   var errorArray = err.errors;
   var messageArray = new Array();
   errorArray.forEach(e => {

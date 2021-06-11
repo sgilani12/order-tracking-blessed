@@ -13,12 +13,5 @@ LoginRouter.route('/authenticate')
         loginController.authenticate(req,res);
 }))
 
-/*  A route for testing login configuration
-LoginRouter.get('/test', (req,res) => {
-    console.log(req.user);
-    console.log(req.cookies);
-    console.log(req.signedCookies);
-    res.redirect('/')
-})
-*/
+
 module.exports = LoginRouter;

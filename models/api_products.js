@@ -20,5 +20,4 @@ const api_product = sequelize.define(
 
 module.exports.log_product = async (email) => {
   const new_row = await api_product.create({user_email:email,access_time : Date.now()});
-  console.log(new_row)
 }

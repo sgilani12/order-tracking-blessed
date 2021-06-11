@@ -36,22 +36,20 @@ var ordersController={
           customer_id: parseInt(req.body.customer_id),
           order_status_code: "Open",
           order_notes: req.body.order_notes,
-          total_order_price: req.body.price //might change dep on front-end 
+          total_order_price: req.body.total_price
       };
       orderModel.createOrder(newOrder, (err, created) => {
           if (err) {
-              //some error message
-              console.log("____ERROR Creating Order___");
-              console.log(err);
-              res.redirect('/orders/add') 
+            messages = getErrors(err);
+            res.redirect('/orders/add');
           } else {
               if (created){
                   const o_id = created.order_id;
                   for (const id in products) {
                     const item = {
                         order_id: o_id,
-                        product_id: parseInt(id),
-                        quantity: products[id]
+                        product_id: parseInt(products[id].id),
+                        quantity: products[id].quantity
                     };
                     itemModel.addItem(item, (err, created) => {
                         if (created) {
@@ -62,15 +60,15 @@ var ordersController={
                     res.redirect('/orders');
               }
               else {
-                  console.log("____Order not created____");//some other error messages
-                  res.redirect('/orders/add') 
+                messages = ["An Error Has Occured"];
+                res.redirect('/orders/add');
               }
           }
       })
     }
     catch (error) {
-        console.log("_____CAUGHT ERROR____");
-        console.log(error);
+        messages = error;
+        res.redirect('/orders/add');
     }
   },
             

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
- 
+
 <html lang="en">
     <%- include('partials/head') %>
+  
     <body>
         <%- include('partials/topbar') %>
         <%- include('partials/side-nav') %>
@@ -14,8 +15,10 @@
            </header>
            <section class="modal-card-body">
              <!-- Content ... -->
-                 <form name="editCustomer" enctype="application/x-www-form-urlencoded">
-                     <table>
+                 <form id="editCustomer" name="editCustomer" enctype="application/x-www-form-urlencoded" method="POST">
+                  <!--This below is probably not needed, but leaving for backend just in case-->
+                  <!--<input type="hidden" name="_method" value="put" />-->
+                  <table>
                          <tr>
                            <td>Customer ID</td>
                            <td><input readonly type="text" name="customer_id" id="customer_id" class="input"></td>
@@ -52,19 +55,28 @@
                            <td>Billing Address</td>
                            <td><input type="text" name="billing_address" id="billing_address" class="input"></td>
                          </tr>
+                         <tr>
+                            <td>
+                              <button onclick="hidePopup()" class="button">Cancel</button>
+                            </td>
+                            <td>
+                              <input class="button is-primary" id="submit" type="submit" value="Save Changes" >
+                            </td>
+                         </tr>
                      </table>
                  </form>
            </section>
-           <footer class="modal-card-foot">
-             <button onclick="hidePopup()" class="button">Cancel</button>
-             <button  id="submitButton" class="button is-success">Save changes</button>
-           </footer>
+           <footer class="modal-card-foot"></footer>
          </div>
        </div>
         <div class="page-content">
         <h1>Customers</h1>
         <a href="/customers/add"><button class="button logout-button">Add Customer</button></a>
-        <table class="table">
+        <div class='table-container'>
+         <input class="input" type="text" id="customerSearch" onkeyup="searchCustomer()"
+            placeholder="Search by email" title="">
+
+         <table class="table" id="customer_table">
             <thead>
                 <tr>
                     <th>Customer ID</th>
@@ -124,6 +136,7 @@
             <tfoot></tfoot>
         </table>
         </div>
+        </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <!--delete button, DELTE api call to /customers/:id-->
@@ -139,10 +152,9 @@
         }
       }
      const modal = document.getElementsByClassName("modal")[0];
-     const submitButton = document.getElementById("submitButton");
+     const form = document.getElementById("editCustomer");
      function showPopup(customer_id, first_name, middle_name, last_name, phone, email, customer_notes, shipping_address, billing_address){
-        submitButton.setAttribute("onclick", `submitForm(${customer_id})`)
-        console.log(`notes to add ${customer_notes}`);
+        form.setAttribute("action", `/customers/${customer_id}`);
         //add is-active to .modal to display it
         modal.classList.add("is-active");
         //DOM elements inside modal
@@ -163,7 +175,6 @@
         phone_field.value = phone;
         email_field.value = email;
         customer_notes_field.value = customer_notes;
-        console.log(customer_notes_field.value);
         shipping_address_field.value = shipping_address;
         billing_address_field.value = billing_address;
      }
@@ -171,37 +182,25 @@
         //remove is-active 
         modal.classList.remove("is-active");
      }
-     async function submitForm(customer_id){
-        let confirmation = confirm(`Editing customer ${customer_id}`);
-        if (confirmation){
-           console.log("send put request to api now");
-           //make url
-           let url = `/customers/${customer_id}`;
-           //make data object
-           let updates = {
-            customer_id: document.getElementById("customer_id").value,
-            first_name: document.getElementById("first_name").value,
-            middle_name: document.getElementById("middle_name").value,
-            last_name: document.getElementById("last_name").value,
-            phone: document.getElementById("phone").value,
-            email: document.getElementById("email").value,
-            customer_notes: document.getElementById("customer_notes").value,
-            shipping_address: document.getElementById("shipping_address").value,
-            billing_address: document.getElementById("billing_address").value
-           }
-           //axios PUT with data to url
-           console.log(url);
-           console.log(updates);
-           const res = await axios.request({
-               url: url,
-               data: JSON.parse(updates),
-               method: 'PUT'});
-           console.log(`request status: ${res.status}`);   
-        }else{
-           console.log("cancel edit")
-        }
-        modal.classList.remove("is-active");
-     }
-  </script>
-      </body>
+     function searchCustomer() {
+                  var input, filter, table, tr, td, i, txtValue;
+                  input = document.getElementById("customerSearch");
+                  filter = input.value.toUpperCase();
+                  table = document.getElementById("customer_table");
+                  tr = table.getElementsByTagName("tr");
+                  for (i = 0; i < tr.length; i++) {
+                     td = tr[i].getElementsByTagName("td")[5];
+                     if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                           tr[i].style.display = "";
+                        } else {
+                           tr[i].style.display = "none";
+                        }
+                     }
+                  }
+               }
+            </script>
+   </body>
+
 </html>

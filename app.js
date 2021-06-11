@@ -46,10 +46,13 @@ app.use((req, res, next) => {
     switch(req.path.split('/')[1]){
         case 'customers':
             api_customer.log_customer(req.cookies.user_email);
+            break;
         case 'orders':
             api_order.log_order(req.cookies.user_email);
+            break;
         case 'products':
             api_product.log_product(req.cookies.user_email);
+            break;
     }
     
     next();

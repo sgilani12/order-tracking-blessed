@@ -43,6 +43,7 @@ a {
   border: 0.5px solid black;
   border-top: 0.5px black;
   border-left: 0.5px black;
+  align-items: left;
 }
 .nav .nav-item .sub-items {
   position: absolute;
@@ -96,6 +97,7 @@ a {
 
 .topnav{
   background-color: rgb(250,249,241);
+
 }
 
 .topnav ul {

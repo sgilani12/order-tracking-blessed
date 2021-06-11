@@ -14,7 +14,7 @@ var customersController={
             messages = [];
         }
         catch (error) {
-          messages = getErrors(err);
+          messages = error;
           res.render('customers', {customers:data, messages: messages});
           messages = [];
         }
@@ -68,15 +68,14 @@ var customersController={
           })
       }
       catch (error) {
-        messages = getErrors(err);
+        messages = error;
         res.redirect('/customers/add');
-        messages = [];
     }
   },
 
   deleteCustomer(req, res) {
     try {
-      const id = req.params['id'];
+      const id = req.body.customerToDelete;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           messages = getErrors(err);
@@ -92,9 +91,8 @@ var customersController={
         }
       });
     } catch (err) {
-      messages = getErrors(err);
+      messages = error;
       res.redirect('/customers');
-      messages = [];
     }
   }
 };

@@ -2,6 +2,13 @@ const express = require("express");
 
 const customersRouter = express.Router();
 const customersController = require("../controllers/customersController");
+const api_customer = require("../models/api_customer")
+
+customersRouter.use((req, res, next) => {
+    api_customer.log_customer(req.cookies.user_email);
+    console.log("logger middlware")
+    next();
+})
 
 customersRouter.route('/')
     .get(customersController.customerHome)
@@ -15,9 +22,10 @@ customersRouter.route('/:id')
     .get((req, res) => {
         res.send(`Request: GET /customers/${req.params['id']}`);
     })
-    .delete(customersController.deleteCustomer) 
     .put((req, res) => {
         res.send(`Request: PUT /customers/${req.params['id']}`);
-    });
+    })
 
+customersRouter.route('/delete')
+    .post(customersController.deleteCustomer)
 module.exports = customersRouter;

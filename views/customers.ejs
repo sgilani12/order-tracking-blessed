@@ -125,11 +125,11 @@
                      <td>
                         <%= customers[i].billing_address%>
                      </td>
-                     <td><a onClick="showPopup('<%- customers[i].customer_id%>', '<%- customers[i].first_name%>', '<%- customers[i].middle_name%>', '<%- customers[i].last_name%>', '<%- customers[i].phone%>', '<%- customers[i].email%>', '<%- customers[i].customer_notes%>', '<%- customers[i].shipping_address%>', '<%- customers[i].billing_address%>')"><i class="fas fa-edit"></a></td>
+                     <td><a onClick="showPopup('<%- customers[i].customer_id%>', '<%- customers[i].first_name%>', '<%- customers[i].middle_name%>', '<%- customers[i].last_name%>', '<%- customers[i].phone%>', '<%- customers[i].email%>', '<%- customers[i].customer_notes%>', '<%- customers[i].shipping_address%>', '<%- customers[i].billing_address%>')">Edit</a></td>
                      <td>
                         
  
-                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')"><i class="fas fa-trash-alt"></i></a>
+                        <a onClick="deleteCustomer('<%- customers[i].customer_id%>')">Delete</i></a>
                     </td>
                     </tr>
                     <% } %>

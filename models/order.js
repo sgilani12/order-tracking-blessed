@@ -62,4 +62,22 @@ module.exports.createOrder = (order, cb) => {
   .catch(error => {
     cb(error, null);
   })
-};
+}
+
+
+  module.exports.updateOrder = (orderId, order, cb) => {
+    Order.update(
+      {
+        order_status_code: order.order_status_code,
+        order_notes: order.order_notes
+      },
+      { where: { order_id: orderId } }
+    )
+      .then((rowsUpdated) => {
+        cb(null, rowsUpdated);
+      })
+      .catch((error) => {
+        cb(error, null);
+      });
+}
+

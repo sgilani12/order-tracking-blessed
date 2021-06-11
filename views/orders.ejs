@@ -139,7 +139,7 @@
             const modal = document.getElementsByClassName("modal")[0];
             const form = document.getElementById("editOrder");
             const submitButton = document.getElementById("submitButton");
-            submitButton.addEventListener("click", submitForm());
+            submitButton.addEventListener("click", submitForm);
 
             function showPopup(order_id, customer_id, status, datetime, price, notes){
                 form.setAttribute("action", `/orders/${order_id}`)

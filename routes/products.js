@@ -12,9 +12,7 @@ productsRouter
   .get((req, res) => {
     res.send(`Request: GET /products/${req.params["id"]}`);
   })
-  .put((req, res) => {
-    res.send(`Request: PUT /products/${req.params["id"]}`);
-  })
+  .post(productsController.updateProduct)
   .delete((req, res) => {
     res.send(`Request: DELETE /products/${req.params["id"]}`);
   });

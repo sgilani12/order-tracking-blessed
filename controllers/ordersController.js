@@ -19,7 +19,7 @@ var ordersController={
                 res.render('orders', {orders:data, messages: messages});
                 messages = [];
             }
-        
+      
         catch (error) {
             messages = getErrors(error);
             res.render('orders', {messages: messages});
@@ -73,6 +73,7 @@ var ordersController={
   },
             
     
+
     newOrder(req, res) {
         customerModel.getCustomerList((err,data)=>{
             try {

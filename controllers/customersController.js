@@ -74,7 +74,7 @@ var customersController={
   },
   deleteCustomer(req, res) {
     try {
-      const id = req.params['id'];
+      const id = req.params.id;
       customerModel.deleteCustomer(id, (err, deleted) => {
         if (err) {
           messages = getErrors(err);
@@ -91,6 +91,7 @@ var customersController={
       });
     } catch (err) {
       messages = error;
+
       res.redirect('/customers');
     }
   },
@@ -130,6 +131,8 @@ var customersController={
 };
 
 function getErrors(err) {
+  console.log("error-------------")
+  console.log(err);
   var errorArray = err.errors;
   var messageArray = new Array();
   errorArray.forEach(e => {

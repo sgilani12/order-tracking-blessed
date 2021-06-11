@@ -65,7 +65,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                  <button onclick="submitForm" class="button is-success" id="submit">Save Changes</button>
+                                  <button class="button is-success" id="submitButton">Save Changes</button>
                                 </td>
                              </tr>
                         </table>
@@ -138,6 +138,8 @@
             
             const modal = document.getElementsByClassName("modal")[0];
             const form = document.getElementById("editOrder");
+            const submitButton = document.getElementById("submitButton");
+            submitButton.addEventListener("click", submitForm);
 
             function showPopup(order_id, customer_id, status, datetime, price, notes){
                 form.setAttribute("action", `/orders/${order_id}`)
@@ -171,7 +173,7 @@
                 document.getElementById("order_status").value = document.getElementById("status_field").value;
                 console.log(document.getElementById("order_status").value);
                 //form.submit()
-                const form = console.log(document.getElementById("editOrder"))
+                const form = document.getElementById("editOrder");
                 form.submit();
 
             }

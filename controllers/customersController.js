@@ -95,9 +95,6 @@ var customersController={
     }
   },
   updateCustomer(req, res) {
-    console.log("INSIDE updateCustomerCont", req.params['id']);
-    console.log("Request shape: ", req.body);
-    console.log("Content Head: ",  req.header('Content-Type'));
     try{
       const customer = {
         first_name: req.body.first_name,
@@ -110,26 +107,23 @@ var customersController={
         billing_address:req.body.billing_address
       }
       const id = req.params['id'];
-      console.log("WHats cust: ", customer);
       customerModel.updateCustomer(id, customer, (err, success)=> {
         if(err){
           messages = getErrors(err);
-          console.log("Error: occurred", messages);
-          console.log("What is CUSTOMER: ", customer);
           res.redirect('/customers'); // whichever page the update form is on
         }
         else if(success == 1){
-          console.log("Success?? ");
+          messages = ["Customer successfully updated"];
           res.redirect('/customers');
         }
         else{
-          console.log("Wut");
+          messages = ["An Error Has Occured"];
           res.redirect('/customers');
         }
       })
     }
     catch(error){
-      console.log("We hit an error - try again");
+      messages = error;
       res.redirect('/customers');
     }
   }

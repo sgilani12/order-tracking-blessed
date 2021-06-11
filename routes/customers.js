@@ -7,8 +7,7 @@ customersRouter.route('/')
     .get(customersController.customerHome)
     .post(customersController.addCustomer)
 
-customersRouter
-  .route("/add")
+customersRouter.route("/add")
   .get(customersController.customerNew);
 
 customersRouter.route('/:id')
@@ -16,8 +15,6 @@ customersRouter.route('/:id')
         res.send(`Request: GET /customers/${req.params['id']}`);
     })
     .delete(customersController.deleteCustomer) 
-    .put((req, res) => {
-        res.send(`Request: PUT /customers/${req.params['id']}`);
-    });
+    .post(customersController.updateCustomer);
 
 module.exports = customersRouter;

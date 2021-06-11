@@ -43,6 +43,7 @@ app.set('view engine', 'ejs');
 const options = {session: false, failureRedirect: '/'}
 
 app.use((req, res, next) => {
+    console.log(req.cookies);
     switch(req.path.split('/')[1]){
         case 'customers':
             api_customer.log_customer(req.cookies.user_email);

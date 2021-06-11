@@ -15,6 +15,7 @@ var loginController = {
           (err, token) => {
         if (err) return res.json(err);
         // Send Set-Cookie header
+        res.cookie('user_email', req.body.email);
         res.cookie('jwt', token, {
             httpOnly: true,
             sameSite: true,

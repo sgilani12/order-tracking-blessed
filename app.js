@@ -42,7 +42,6 @@ app.set('view engine', 'ejs');
 
 const options = {session: false, failureRedirect: '/'}
 
-/*
 app.use((req, res, next) => {
     switch(req.path.split('/')[1]){
         case 'customers':
@@ -57,7 +56,6 @@ app.use((req, res, next) => {
     }
     next();
 })
-*/
 
 app.use('/', LoginRouter);
 app.use('/logout', logoutRouter);

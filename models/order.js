@@ -62,12 +62,12 @@ module.exports.createOrder = (order, cb) => {
   .catch(error => {
     cb(error, null);
   })
+}
 
 
   module.exports.updateOrder = (orderId, order, cb) => {
     Order.update(
       {
-        order: order.order_id,
         order_status_code: order.order_status_code,
         order_notes: order.order_notes
       },
@@ -79,6 +79,5 @@ module.exports.createOrder = (order, cb) => {
       .catch((error) => {
         cb(error, null);
       });
-    }
+}
 
-};

@@ -107,15 +107,14 @@ var ordersController = {
   updateOrder(req, res) {
     try {
       const order = {
-        customer_id: parseInt(req.body.customer_id),
         order_status_code: req.body.status,
         order_notes: req.body.order_notes,
-        total_order_price: req.body.total_price,
       };
       const id = req.params["id"];
-      console.log("ID-------------");
-      console.log(id);
-      console.log("ID-------------");
+
+      console.log("BODY-------------");
+      console.log(req.body);
+
       orderModel.updateOrder(id, order, (err, success) => {
         if (err) {
           messages = getErrors(err);
@@ -129,9 +128,7 @@ var ordersController = {
         }
       });
     } catch (error) {
-      console.log("CATCH")
       messages = error;
-      console.log(error);
       res.redirect("/orders");
     }
   },

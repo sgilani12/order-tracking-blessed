@@ -1,9 +1,16 @@
-let customers = require('./products');
-let expect = require('chai').expect;
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let app = require('../app');
 
-describe('products', () => {
-    it("should pass this test in products", () => {
-        //nothing means pass        
-    })
+chai.use(chaiHttp);
 
-})
+describe('products page', () => {
+    it('should grab the products page', (done) => {
+        chai.request(app)
+        .get('/products')
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        });
+    });
+});

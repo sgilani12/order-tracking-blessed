@@ -6,7 +6,7 @@ const orderModel = require("../models/order");
 const customerModel = require('../models/customer');
 const productModel = require('../models/product');
 
-describe('orderController', () => {
+describe('productConrtoller', () => {
 
     let fdata;
     before((done) => {
@@ -20,16 +20,16 @@ describe('orderController', () => {
         //     shipping_address:"100 tjx rd",
         //     billing_address:"100 tjx rd"
         // }
-        orderModel.getOrderList((err,data)=>{
-            console.log(data)
+        productModel.getProductList((err,data)=>{
+            // console.log(data)
             fdata = data;
             done();
         });
     });
 
     describe('GET add', () => {
-        it("should get the ARRAY of orders", () => {
+        it("should get the ARRAY of products", () => {
             expect(fdata).to.be.an('array');
         });
     });
-}); 
+});

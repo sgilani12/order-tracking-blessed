@@ -79,7 +79,7 @@
          <input class="input" type="text" id="customerSearch" onkeyup="searchCustomer()"
             placeholder="Search by email" title="">
 
-         <table class="table" id="customer_table">
+<table class="table" id="customer_table">
             <thead>
                 <tr>
                     <th>Customer ID</th>
@@ -149,7 +149,6 @@
          let confirmation = confirm(`Deleting Customer ${id}`);
          if(confirmation){
            document.getElementById("customerToDelete").value = id;
-           console.log(`field value: ${document.getElementById("customerToDelete").value}`)
            document.getElementById("deleteForm").submit();
         }
       }
@@ -185,6 +184,7 @@
         modal.classList.remove("is-active");
      }
      function searchCustomer() {
+
                   var input, filter, table, tr, td, i, txtValue;
                   input = document.getElementById("customerSearch");
                   filter = input.value.toUpperCase();
